@@ -23,12 +23,12 @@ export default withMermaid({
     sidebar,
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/codeapples/treasure-box' },
+      { icon: 'github', link: 'https://github.com/peterkmg/treasure-box' },
       { icon: 'discord', link: 'https://discord.gg/Bjtv7GnZDM' },
     ],
 
     editLink: {
-      pattern: 'https://github.com/codeapples/treasure-box/edit/main/src/:path',
+      pattern: 'https://github.com/peterkmg/treasure-box/edit/main/src/:path',
     },
 
     lastUpdated: {
