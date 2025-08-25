@@ -37,6 +37,7 @@ const nav: DefaultTheme.NavItem[] = [
       {
         text: 'Electives', items: [
           { text: 'Introduction to ML', link: '/materials/intro-ml/' },
+          { text: 'Computer Graphics', link: '/materials/computer-graphics/' },
         ],
       },
     ],
@@ -228,6 +229,14 @@ const sidebar: DefaultTheme.Sidebar = {
             { text: '[IML] Topics 7 - 12', link: '/materials/intro-ml/07-12.md' },
             { text: '[IML] Topics 13 - 18', link: '/materials/intro-ml/13-18.md' },
             { text: '[IML] Topics 19 - 24', link: '/materials/intro-ml/19-24.md' },
+          ]
+        },
+        {
+          text: 'Computer Graphics [CG]',
+          collapsed: true,
+          items: [
+            { text: '[CG] General', link: '/materials/computer-graphics' },
+            { text: '[CG] First set', link: '/materials/computer-graphics/first-set.md' }
           ]
         }
       ],
