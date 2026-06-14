@@ -53,7 +53,22 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
         run: |
           set -euo pipefail
-          nc -vz -w 15 "${SSH_HOST}" "${SSH_PORT}"
+
+          for attempt in 1 2 3 4 5; do
+            echo "Checking SSH reachability, attempt ${attempt}/5..."
+            if nc -z -w 20 "${SSH_HOST}" "${SSH_PORT}" >/dev/null 2>&1; then
+              echo "SSH is reachable."
+              exit 0
+            fi
+
+            if [ "${attempt}" -lt 5 ]; then
+              echo "::warning::SSH reachability check failed. Retrying..."
+              sleep $((attempt * 30))
+            fi
+          done
+
+          echo "::error::Could not reach SSH after 5 attempts. The university server or network path may be temporarily unavailable."
+          exit 1
 
       - name: Prepare SSH known hosts
         env:
@@ -70,7 +85,15 @@ jobs:
             printf '%s\n' "${SSH_KNOWN_HOSTS}" > ~/.ssh/known_hosts
           else
             echo "::warning::SSH_KNOWN_HOSTS is not set. Falling back to ssh-keyscan, which is less secure than pinning the host key in a secret."
-            ssh-keyscan -p "${SSH_PORT}" -H "${SSH_HOST}" >> ~/.ssh/known_hosts
+            if ! ssh-keyscan -p "${SSH_PORT}" -H "${SSH_HOST}" >> ~/.ssh/known_hosts 2>/dev/null; then
+              echo "::error::Could not collect SSH host key."
+              exit 1
+            fi
+
+            if [ ! -s ~/.ssh/known_hosts ]; then
+              echo "::error::SSH host key scan returned no data."
+              exit 1
+            fi
           fi
 
           chmod 600 ~/.ssh/known_hosts
@@ -88,13 +111,16 @@ jobs:
           remote="${SSH_USERNAME}@${SSH_HOST}:../web"
 
           for attempt in 1 2 3; do
-            if sshpass -e rsync -az --delay-updates -e "${rsync_ssh}" dist/ "${remote}"; then
+            echo "Deploy attempt ${attempt}/3..."
+            if sshpass -e rsync -az --delay-updates -e "${rsync_ssh}" dist/ "${remote}" >/tmp/rsync-deploy.log 2>&1; then
               exit 0
             fi
 
             if [ "${attempt}" -lt 3 ]; then
+              echo "::warning::Deploy attempt failed. Retrying..."
               sleep $((attempt * 20))
             fi
           done
 
+          echo "::error::Deployment failed after 3 attempts. Check SSH credentials, host reachability, and university server availability."
           exit 1
