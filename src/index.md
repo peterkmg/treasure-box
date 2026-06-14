@@ -45,6 +45,12 @@ features:
   - title: Intro to Machine Learning [IML]
     details: Materials for Introduction to ML course (Electives)
     link: /materials/intro-ml/
+  - title: Final Exam [Final]
+    details: Study materials for the final exam
+    link: /materials/final-exam/
+  # - title: '[ADA] ADA Language'
+  #   details: Materials for ADA language course (Electives)
+  #   link: /materials/ada/
   #- title: Feature C
   #  details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---

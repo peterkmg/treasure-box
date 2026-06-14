@@ -13,9 +13,15 @@ import 'dotenv/config'
 import fnGraph from './plugins/fn-graph'
 
 const gID = process.env.GA_ID || 'XXXXXXXXXX'
+const rawBase = process.env.VITEPRESS_BASE || '/'
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`
+const rawSiteUrl = process.env.VITEPRESS_SITE_URL || 'https://pdkom.web.elte.hu'
+const siteUrl = rawSiteUrl.endsWith('/') ? rawSiteUrl : `${rawSiteUrl}/`
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
+  base,
+
   themeConfig: {
     logo: '/android-chrome-192x192.png',
     // https://vitepress.dev/reference/default-theme-config
@@ -101,7 +107,7 @@ export default withMermaid({
   ignoreDeadLinks: true,
 
   sitemap: {
-    hostname: 'https://pdkom.web.elte.hu',
+    hostname: siteUrl,
   },
 
   head: [
@@ -114,10 +120,10 @@ export default withMermaid({
       gtag('js', new Date());
       gtag('config', 'G-${gID}');`,
     ],
-    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }],
-    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
-    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }],
-    ['link', { rel: 'manifest', href: '/site.webmanifest' }],
-    ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: `${base}apple-touch-icon.png` }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: `${base}favicon-32x32.png` }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: `${base}favicon-16x16.png` }],
+    ['link', { rel: 'manifest', href: `${base}site.webmanifest` }],
+    ['link', { rel: 'shortcut icon', href: `${base}favicon.ico` }],
   ],
 })
