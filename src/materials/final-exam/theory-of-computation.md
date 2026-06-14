@@ -16,25 +16,25 @@ Its force comes from the fact that many independent formal models of computation
 
 A decision problem has:
 
-| Concept | Meaning |
-| --- | --- |
-| Problem | A set of instances together with a yes/no question. |
-| Instance | One encoded input word. |
-| Language view | The set of encodings whose answer is yes. |
-| Algorithm/decider | A procedure that halts on every input and answers correctly. |
-| Recognizer | A procedure that halts and accepts yes-instances, but may loop on no-instances. |
+| Concept           | Meaning                                                                         |
+| ----------------- | ------------------------------------------------------------------------------- |
+| Problem           | A set of instances together with a yes/no question.                             |
+| Instance          | One encoded input word.                                                         |
+| Language view     | The set of encodings whose answer is yes.                                       |
+| Algorithm/decider | A procedure that halts on every input and answers correctly.                    |
+| Recognizer        | A procedure that halts and accepts yes-instances, but may loop on no-instances. |
 
 A standard one-tape Turing machine has:
 
-| Component | Meaning |
-| --- | --- |
-| Tape | Unbounded memory divided into cells. |
-| Tape alphabet | Symbols that can appear on the tape, including blank. |
-| Input alphabet | Symbols allowed in the input. |
-| Finite control | A finite set of states. |
-| Head | Reads and writes one tape cell and moves left or right. |
-| Transition function | Determines the next state, symbol written, and head movement. |
-| Accept/reject or halting states | States where computation stops with an answer. |
+| Component                       | Meaning                                                       |
+| ------------------------------- | ------------------------------------------------------------- |
+| Tape                            | Unbounded memory divided into cells.                          |
+| Tape alphabet                   | Symbols that can appear on the tape, including blank.         |
+| Input alphabet                  | Symbols allowed in the input.                                 |
+| Finite control                  | A finite set of states.                                       |
+| Head                            | Reads and writes one tape cell and moves left or right.       |
+| Transition function             | Determines the next state, symbol written, and head movement. |
+| Accept/reject or halting states | States where computation stops with an answer.                |
 
 One common formal shape is:
 
@@ -102,22 +102,22 @@ A counting Turing machine can be understood as a Turing-machine model equipped w
 
 Discuss offline machines in the space-complexity section. An offline Turing machine separates:
 
-| Tape | Role |
-| --- | --- |
+| Tape                 | Role                                                                 |
+| -------------------- | -------------------------------------------------------------------- |
 | Read-only input tape | Contains the input and is not counted as work space in the same way. |
-| Work tape(s) | Used for computation and counted for space complexity. |
-| Optional output tape | Used to write output, often one-way or write-only in some models. |
+| Work tape(s)         | Used for computation and counted for space complexity.               |
+| Optional output tape | Used to write output, often one-way or write-only in some models.    |
 
 Offline machines are useful in space complexity because we want to measure the additional memory used by the algorithm, not the input size itself.
 
 ### Variant Summary
 
-| Variant | Main point | Effect |
-| --- | --- | --- |
-| Multitape | Several tapes and heads. | Same computability, often lower time complexity. |
-| Nondeterministic | Many possible branches; accepts if one branch accepts. | Same decidability power, central for NP. |
-| Counting | Counters as work storage. | Equivalent computability after encoding. |
-| Offline | Read-only input separated from work space. | Standard for defining space complexity. |
+| Variant          | Main point                                             | Effect                                           |
+| ---------------- | ------------------------------------------------------ | ------------------------------------------------ |
+| Multitape        | Several tapes and heads.                               | Same computability, often lower time complexity. |
+| Nondeterministic | Many possible branches; accepts if one branch accepts. | Same decidability power, central for NP.         |
+| Counting         | Counters as work storage.                              | Equivalent computability after encoding.         |
+| Offline          | Read-only input separated from work space.             | Standard for defining space complexity.          |
 
 ### What to Emphasize in an Oral Answer
 
@@ -145,28 +145,28 @@ Offline Turing machines separate the read-only input tape from the work tapes. T
 
 The language view of decision problems lets us classify problems by how Turing machines behave on their encodings.
 
-| Class | Machine behavior |
-| --- | --- |
-| Recursive / decidable language | There is a Turing machine that halts on every input and accepts exactly the words in the language. |
+| Class                                          | Machine behavior                                                                                                                     |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Recursive / decidable language                 | There is a Turing machine that halts on every input and accepts exactly the words in the language.                                   |
 | Recursively enumerable / recognizable language | There is a Turing machine that halts and accepts words in the language; on words outside the language it may reject or loop forever. |
 
 Every recursive language is recursively enumerable, because a decider is also a recognizer. The converse is false.
 
 Useful equivalent viewpoint:
 
-| Language status | Yes input | No input |
-| --- | --- | --- |
-| Recursive | Halt accept | Halt reject |
-| Recursively enumerable only | Halt accept | May loop |
-| Not recursively enumerable | No recognizer can halt exactly on all yes inputs |
+| Language status             | Yes input                                        | No input    |
+| --------------------------- | ------------------------------------------------ | ----------- |
+| Recursive                   | Halt accept                                      | Halt reject |
+| Recursively enumerable only | Halt accept                                      | May loop    |
+| Not recursively enumerable  | No recognizer can halt exactly on all yes inputs |
 
 A language $L$ is recursive iff both $L$ and its complement $\overline L$ are recursively enumerable. One direction is easy: if $L$ is decidable, decide both $L$ and its complement. For the other direction, run the recognizers for $L$ and $\overline L$ in parallel; exactly one must eventually accept, giving a decider.
 
 Two important existence results:
 
-| Result | Meaning |
-| --- | --- |
-| A language that is not recursively enumerable | There are more languages than Turing machines, so not every language can even be recognized. |
+| Result                                            | Meaning                                                                                                        |
+| ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| A language that is not recursively enumerable     | There are more languages than Turing machines, so not every language can even be recognized.                   |
 | A recursively enumerable but undecidable language | Some languages can be recognized but not decided. The universal/halting-style language is the central example. |
 
 ### What to Emphasize in an Oral Answer
@@ -199,13 +199,13 @@ Include encodings of Turing machines. Since Turing machines are finite descripti
 
 Key undecidable or non-enumerable examples:
 
-| Problem/language | Status | Idea |
-| --- | --- | --- |
-| Diagonal language | Not recursively enumerable | Constructed to differ from every recognizer on its own encoding. |
-| Universal language | Recursively enumerable but undecidable | Pairs $\langle M,w\rangle$ where machine $M$ accepts input $w$. |
-| Halting problem | Undecidable | No decider can determine for every $\langle M,w\rangle$ whether $M$ halts on $w$. |
-| Empty-language problem for TMs | Undecidable | Asking whether $L(M)=\emptyset$ is nontrivial semantic information. |
-| Post correspondence problem | Undecidable | Asks whether two lists of strings have matching concatenations by the same index sequence. |
+| Problem/language               | Status                                 | Idea                                                                                       |
+| ------------------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Diagonal language              | Not recursively enumerable             | Constructed to differ from every recognizer on its own encoding.                           |
+| Universal language             | Recursively enumerable but undecidable | Pairs $\langle M,w\rangle$ where machine $M$ accepts input $w$.                            |
+| Halting problem                | Undecidable                            | No decider can determine for every $\langle M,w\rangle$ whether $M$ halts on $w$.          |
+| Empty-language problem for TMs | Undecidable                            | Asking whether $L(M)=\emptyset$ is nontrivial semantic information.                        |
+| Post correspondence problem    | Undecidable                            | Asks whether two lists of strings have matching concatenations by the same index sequence. |
 
 Reduction is the main transfer tool. To prove problem $B$ undecidable, reduce known undecidable problem $A$ to $B$:
 
@@ -281,12 +281,12 @@ The second inclusion holds because a polynomial-time nondeterministic computatio
 
 Also note:
 
-| Class/result | Meaning |
-| --- | --- |
-| NPSPACE | Nondeterministic polynomial space. |
+| Class/result      | Meaning                                                                                  |
+| ----------------- | ---------------------------------------------------------------------------------------- |
+| NPSPACE           | Nondeterministic polynomial space.                                                       |
 | Savitch's theorem | $NPSPACE=PSPACE$ more generally, $NSPACE(f(n))\subseteq SPACE(f(n)^2)$ for suitable $f$. |
-| L | Deterministic logarithmic space. |
-| NL | Nondeterministic logarithmic space. |
+| L                 | Deterministic logarithmic space.                                                         |
+| NL                | Nondeterministic logarithmic space.                                                      |
 
 These are useful context, but the topic only names P, NP, and PSPACE.
 
@@ -345,21 +345,21 @@ SAT asks whether a propositional formula has a truth assignment making it true. 
 
 Several standard examples:
 
-| Problem | Instance | Question |
-| --- | --- | --- |
-| Clique | Graph $G$, integer $k$ | Does $G$ contain $k$ vertices pairwise connected by edges? |
-| Independent Set | Graph $G$, integer $k$ | Does $G$ contain $k$ vertices with no edges among them? |
-| Vertex Cover | Graph $G$, integer $k$ | Is there a set of at most $k$ vertices touching every edge? |
-| Hamiltonian Cycle | Graph $G$ | Is there a cycle visiting every vertex exactly once? |
-| Traveling Salesman decision problem | Weighted complete graph, bound $B$ | Is there a tour with total cost at most $B$? |
+| Problem                             | Instance                           | Question                                                    |
+| ----------------------------------- | ---------------------------------- | ----------------------------------------------------------- |
+| Clique                              | Graph $G$, integer $k$             | Does $G$ contain $k$ vertices pairwise connected by edges?  |
+| Independent Set                     | Graph $G$, integer $k$             | Does $G$ contain $k$ vertices with no edges among them?     |
+| Vertex Cover                        | Graph $G$, integer $k$             | Is there a set of at most $k$ vertices touching every edge? |
+| Hamiltonian Cycle                   | Graph $G$                          | Is there a cycle visiting every vertex exactly once?        |
+| Traveling Salesman decision problem | Weighted complete graph, bound $B$ | Is there a tour with total cost at most $B$?                |
 
 Many of these are related:
 
-| Relationship | Explanation |
-| --- | --- |
-| Clique vs independent set | A clique in $G$ is an independent set in the complement graph. |
-| Independent set vs vertex cover | $S$ is an independent set iff $V-S$ is a vertex cover. |
-| SAT/3SAT as starting points | Many graph NP-completeness proofs reduce from 3SAT. |
+| Relationship                    | Explanation                                                    |
+| ------------------------------- | -------------------------------------------------------------- |
+| Clique vs independent set       | A clique in $G$ is an independent set in the complement graph. |
+| Independent set vs vertex cover | $S$ is an independent set iff $V-S$ is a vertex cover.         |
+| SAT/3SAT as starting points     | Many graph NP-completeness proofs reduce from 3SAT.            |
 
 Proof pattern for NP-completeness:
 
@@ -396,15 +396,15 @@ To prove a new problem NP-complete, first show it is in NP by giving a polynomia
 
 The logic background needed for NP-completeness is propositional satisfiability, especially SAT and CNF notation.
 
-| Logic concept | Meaning |
-| --- | --- |
-| Propositional variable | A symbol assigned true or false. |
-| Literal | A variable $x$ or its negation $\neg x$. |
-| Clause | A disjunction of literals, for example $(x\vee\neg y\vee z)$. |
-| CNF | A conjunction of clauses. |
-| Model / satisfying assignment | A truth assignment that makes the formula true. |
-| SAT | Decide whether a formula has a satisfying assignment. |
-| 3SAT | SAT restricted to CNF clauses of size at most three, or exactly three under a common normalized convention. |
+| Logic concept                 | Meaning                                                                                                     |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Propositional variable        | A symbol assigned true or false.                                                                            |
+| Literal                       | A variable $x$ or its negation $\neg x$.                                                                    |
+| Clause                        | A disjunction of literals, for example $(x\vee\neg y\vee z)$.                                               |
+| CNF                           | A conjunction of clauses.                                                                                   |
+| Model / satisfying assignment | A truth assignment that makes the formula true.                                                             |
+| SAT                           | Decide whether a formula has a satisfying assignment.                                                       |
+| 3SAT                          | SAT restricted to CNF clauses of size at most three, or exactly three under a common normalized convention. |
 
 Example:
 

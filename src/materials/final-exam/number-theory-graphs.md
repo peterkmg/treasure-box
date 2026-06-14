@@ -10,19 +10,19 @@ A **set** is determined by its elements. The empty set is $\emptyset$. A set $A$
 
 Basic set operations:
 
-| Operation | Definition |
-| --- | --- |
-| Union | $A \cup B$ contains elements in $A$ or in $B$. |
-| Intersection | $A \cap B = \{x \in A : x \in B\}$. |
-| Difference | $A \setminus B = \{x \in A : x \notin B\}$. |
-| Complement | If $A \subseteq X$, then $\overline A = X \setminus A$. |
+| Operation            | Definition                                              |
+| -------------------- | ------------------------------------------------------- |
+| Union                | $A \cup B$ contains elements in $A$ or in $B$.          |
+| Intersection         | $A \cap B = \{x \in A : x \in B\}$.                     |
+| Difference           | $A \setminus B = \{x \in A : x \notin B\}$.             |
+| Complement           | If $A \subseteq X$, then $\overline A = X \setminus A$. |
 | Symmetric difference | $A \triangle B = (A \setminus B) \cup (B \setminus A)$. |
 
 Useful identities include associativity and commutativity of $\cup$ and $\cap$, distributivity of each over the other, $A \setminus B = A \cap \overline B$, and De Morgan's laws:
 
 $$
 \overline{A \cap B} = \overline A \cup \overline B,
-\qquad
+\quad
 \overline{A \cup B} = \overline A \cap \overline B.
 $$
 
@@ -30,13 +30,13 @@ An ordered pair $(x,y)$ records order, and the Cartesian product is $X \times Y 
 
 Important relation properties:
 
-| Property | Meaning |
-| --- | --- |
-| Reflexive | $xRx$ for every $x$. |
-| Irreflexive | No $xRx$. |
-| Symmetric | $xRy$ implies $yRx$. |
-| Antisymmetric | $xRy$ and $yRx$ imply $x=y$. |
-| Transitive | $xRy$ and $yRz$ imply $xRz$. |
+| Property                          | Meaning                                              |
+| --------------------------------- | ---------------------------------------------------- |
+| Reflexive                         | $xRx$ for every $x$.                                 |
+| Irreflexive                       | No $xRx$.                                            |
+| Symmetric                         | $xRy$ implies $yRx$.                                 |
+| Antisymmetric                     | $xRy$ and $yRx$ imply $x=y$.                         |
+| Transitive                        | $xRy$ and $yRz$ imply $xRz$.                         |
 | Dichotomous / total comparability | For any $x,y$, at least one of $xRy$ or $yRx$ holds. |
 
 An **equivalence relation** is reflexive, symmetric, and transitive. It partitions a set into disjoint equivalence classes, and every partition defines an equivalence relation by putting elements in relation exactly when they belong to the same block.
@@ -47,11 +47,11 @@ A **function** is a relation that assigns at most one value to each input. For $
 
 Operations are functions with algebraic meaning:
 
-| Operation type | Form |
-| --- | --- |
+| Operation type    | Form                       |
+| ----------------- | -------------------------- |
 | Nullary operation | Chooses an element of $X$. |
-| Unary operation | $f:X \to X$. |
-| Binary operation | $f:X \times X \to X$. |
+| Unary operation   | $f:X \to X$.               |
+| Binary operation  | $f:X \times X \to X$.      |
 
 A binary operation may be associative, commutative, have identity elements, have inverses, and distribute over another operation. A structure-preserving map between two sets with operations is a homomorphism: if $\star$ is an operation on $X$ and $\circ$ is an operation on $Y$, then $f(x_1 \star x_2)=f(x_1)\circ f(x_2)$.
 
@@ -97,19 +97,19 @@ The element $(0,1)$ is denoted by $i$, and $i^2=-1$. Real numbers embed as $(x,0
 
 Core forms and operations:
 
-| Concept | Formula |
-| --- | --- |
+| Concept                  | Formula                                                                  |
+| ------------------------ | ------------------------------------------------------------------------ |
 | Real and imaginary parts | If $z=x+yi$, then $\operatorname{Re}(z)=x$ and $\operatorname{Im}(z)=y$. |
-| Conjugate | $\overline z=x-yi$. |
-| Modulus | $\lvert z\rvert=\sqrt{x^2+y^2}$. |
-| Inverse | If $z\ne0$, then $z^{-1}=\overline z/\lvert z\rvert^2$. |
-| Product with conjugate | $z\overline z=\lvert z\rvert^2$. |
+| Conjugate                | $\overline z=x-yi$.                                                      |
+| Modulus                  | $\lvert z\rvert=\sqrt{x^2+y^2}$.                                         |
+| Inverse                  | If $z\ne0$, then $z^{-1}=\overline z/\lvert z\rvert^2$.                  |
+| Product with conjugate   | $z\overline z=\lvert z\rvert^2$.                                         |
 
 Conjugation preserves addition and multiplication:
 
 $$
 \overline{z+w}=\overline z+\overline w,
-\qquad
+\quad
 \overline{zw}=\overline z\,\overline w.
 $$
 
@@ -117,7 +117,7 @@ The modulus is multiplicative and satisfies the triangle inequality:
 
 $$
 |zw|=|z||w|,
-\qquad
+\quad
 |z+w|\le |z|+|w|.
 $$
 
@@ -132,7 +132,7 @@ Arguments are not unique: adding $2k\pi$ gives the same complex number.
 Multiplication and powers are simple in trigonometric form. If
 
 $$
-z=r(\cos t+i\sin t), \qquad w=s(\cos u+i\sin u),
+z=r(\cos t+i\sin t), \quad w=s(\cos u+i\sin u),
 $$
 
 then
@@ -151,7 +151,7 @@ The $n$th roots of $w=R(\cos t+i\sin t)$ are
 
 $$
 z_k=\sqrt[n]{R}\left(\cos\frac{t+2k\pi}{n}+i\sin\frac{t+2k\pi}{n}\right),
-\qquad k=0,\dots,n-1.
+\quad k=0,\dots,n-1.
 $$
 
 Complex numbers form a field but not an ordered field compatible with multiplication, because $i^2=-1$ contradicts the ordered-field rule that every nonzero square is positive.
@@ -185,14 +185,14 @@ Enumeration studies finite sets by counting possible choices, arrangements, and 
 
 Basic formulas:
 
-| Problem | Meaning | Count |
-| --- | --- | --- |
-| Permutation | Order all $n$ distinct elements. | $P_n=n!$ |
-| Variation without repetition | Ordered choice of $k$ distinct elements from $n$. | $V_n^k=\dfrac{n!}{(n-k)!}$ |
-| Combination without repetition | Unordered choice of $k$ distinct elements from $n$. | $C_n^k=\binom nk=\dfrac{n!}{k!(n-k)!}$ |
-| Permutation with repetitions | Arrange multiset counts $i_1,\dots,i_r$ with total $n$. | $\dfrac{n!}{i_1!i_2!\cdots i_r!}$ |
-| Variation with repetition | Ordered length-$k$ sequence from $n$ options. | $n^k$ |
-| Combination with repetition | Unordered choice of $k$ elements from $n$ types, repetition allowed. | $\binom{n+k-1}{k}$ |
+| Problem                        | Meaning                                                              | Count                                  |
+| ------------------------------ | -------------------------------------------------------------------- | -------------------------------------- |
+| Permutation                    | Order all $n$ distinct elements.                                     | $P_n=n!$                               |
+| Variation without repetition   | Ordered choice of $k$ distinct elements from $n$.                    | $V_n^k=\dfrac{n!}{(n-k)!}$             |
+| Combination without repetition | Unordered choice of $k$ distinct elements from $n$.                  | $C_n^k=\binom nk=\dfrac{n!}{k!(n-k)!}$ |
+| Permutation with repetitions   | Arrange multiset counts $i_1,\dots,i_r$ with total $n$.              | $\dfrac{n!}{i_1!i_2!\cdots i_r!}$      |
+| Variation with repetition      | Ordered length-$k$ sequence from $n$ options.                        | $n^k$                                  |
+| Combination with repetition    | Unordered choice of $k$ elements from $n$ types, repetition allowed. | $\binom{n+k-1}{k}$                     |
 
 The binomial theorem is
 
@@ -252,18 +252,18 @@ An **undirected graph** consists of a vertex set $V$, an edge set $E$, and an in
 
 Basic graph notions:
 
-| Concept | Meaning |
-| --- | --- |
-| Isolated vertex | A vertex incident with no edge. |
-| Loop | An edge whose two endpoints coincide. |
-| Parallel edges | Distinct edges with the same endpoints. |
-| Adjacent vertices | Vertices joined by an edge. |
-| Degree $d(v)$ | Number of incident edge ends at $v$; in a simple graph, number of neighbors. |
-| $r$-regular graph | Every vertex has degree $r$. |
-| Complete graph $K_n$ | Simple graph where every pair of distinct vertices is adjacent. |
-| Bipartite graph | Vertices split into two disjoint parts and edges run only between the parts. |
-| Complete bipartite graph $K_{m,n}$ | Every vertex in one part is joined to every vertex in the other. |
-| Subgraph | Uses subsets of the original vertices and edges with inherited incidence. |
+| Concept                            | Meaning                                                                      |
+| ---------------------------------- | ---------------------------------------------------------------------------- |
+| Isolated vertex                    | A vertex incident with no edge.                                              |
+| Loop                               | An edge whose two endpoints coincide.                                        |
+| Parallel edges                     | Distinct edges with the same endpoints.                                      |
+| Adjacent vertices                  | Vertices joined by an edge.                                                  |
+| Degree $d(v)$                      | Number of incident edge ends at $v$; in a simple graph, number of neighbors. |
+| $r$-regular graph                  | Every vertex has degree $r$.                                                 |
+| Complete graph $K_n$               | Simple graph where every pair of distinct vertices is adjacent.              |
+| Bipartite graph                    | Vertices split into two disjoint parts and edges run only between the parts. |
+| Complete bipartite graph $K_{m,n}$ | Every vertex in one part is joined to every vertex in the other.             |
+| Subgraph                           | Uses subsets of the original vertices and edges with inherited incidence.    |
 
 A **walk** is an alternating sequence of vertices and edges where each edge joins its neighboring vertices in the sequence. A **trail** has no repeated edge. A **path** has no repeated vertex. A graph is **connected** if every two vertices are joined by a path; the connected components are the equivalence classes of the reachability relation.
 
@@ -358,7 +358,7 @@ For two congruences
 
 $$
 x\equiv a\pmod m,
-\qquad
+\quad
 x\equiv b\pmod n,
 $$
 
@@ -394,27 +394,25 @@ Let $R$ be a ring. A polynomial over $R$ is a finite expression
 
 $$
 f(x)=\sum_{i=0}^{n} f_i x^i,
-\qquad f_i\in R.
+\quad f_i\in R.
 $$
 
 If $f_n\ne0$, then $f_n$ is the leading coefficient and $n$ is the degree. The polynomial ring $R[x]$ can also be viewed as sequences of coefficients with only finitely many nonzero terms.
 
 Polynomial operations:
 
-| Operation | Rule |
-| --- | --- |
-| Addition | Add coefficients componentwise: $(f+g)_i=f_i+g_i$. |
-| Negation/subtraction | Use additional inverses coefficientwise. |
-| Multiplication | Convolution of coefficients: $(fg)_k=\sum_{i+j=k} f_i g_j$. |
+| Operation            | Rule                                                        |
+| -------------------- | ----------------------------------------------------------- |
+| Addition             | Add coefficients componentwise: $(f+g)_i=f_i+g_i$.          |
+| Negation/subtraction | Use additional inverses coefficientwise.                    |
+| Multiplication       | Convolution of coefficients: $(fg)_k=\sum_{i+j=k} f_i g_j$. |
 
 If $R$ is commutative, then $R[x]$ is commutative. If $R$ has multiplicative identity $1$, then $R[x]$ has identity polynomial $1+0x+0x^2+\cdots$.
 
 Division with remainder: if $R$ is a ring where the leading coefficient of $g$ is invertible, and in particular if $g$ is monic, then for $f,g\in R[x]$ with $g\ne0$, there exist unique polynomials $q,r\in R[x]$ such that
 
 $$
-f=gq+r,
-\qquad
-\deg r<\deg g.
+f=gq+r, \quad \deg r<\deg g.
 $$
 
 Over a field this works for every nonzero divisor polynomial $g$.
@@ -476,16 +474,16 @@ For decoding to be unambiguous, the extended mapping $\psi:A^*\to B^*$ must be i
 
 Word terminology:
 
-| Term | Meaning |
-| --- | --- |
-| $A^+$ | Nonempty words over alphabet $A$. |
-| $A^*$ | All words over $A$, including the empty word. |
-| Prefix | A beginning part of a word. |
-| Infix | A contiguous middle part of a word. |
-| Suffix | An ending part of a word. |
-| Prefix code | No code word is a prefix of another code word. |
-| Uniform code | All code words have the same length. |
-| Comma code | A special comma word terminates code words and appears neither as prefix nor infix of code words. |
+| Term         | Meaning                                                                                           |
+| ------------ | ------------------------------------------------------------------------------------------------- |
+| $A^+$        | Nonempty words over alphabet $A$.                                                                 |
+| $A^*$        | All words over $A$, including the empty word.                                                     |
+| Prefix       | A beginning part of a word.                                                                       |
+| Infix        | A contiguous middle part of a word.                                                               |
+| Suffix       | An ending part of a word.                                                                         |
+| Prefix code  | No code word is a prefix of another code word.                                                    |
+| Uniform code | All code words have the same length.                                                              |
+| Comma code   | A special comma word terminates code words and appears neither as prefix nor infix of code words. |
 
 A code tree represents code words as root-to-vertex paths labelled by alphabet symbols. Prefix-free codes correspond to choosing code words at vertices none of which is an ancestor of another chosen code-word vertex.
 
@@ -537,17 +535,17 @@ $$
 For the example with code alphabet $\{0,1,2\}$:
 
 | Letter | Frequency | Shannon length | Shannon code |
-| --- | ---: | ---: | --- |
-| f | 0.31 | 2 | 00 |
-| a | 0.17 | 2 | 01 |
-| h | 0.17 | 2 | 02 |
-| c | 0.13 | 2 | 10 |
-| j | 0.09 | 3 | 110 |
-| i | 0.06 | 3 | 111 |
-| b | 0.02 | 4 | 1120 |
-| d | 0.02 | 4 | 1121 |
-| g | 0.02 | 4 | 1122 |
-| e | 0.01 | 5 | 12000 |
+| ------ | --------: | -------------: | ------------ |
+| f      |      0.31 |              2 | 00           |
+| a      |      0.17 |              2 | 01           |
+| h      |      0.17 |              2 | 02           |
+| c      |      0.13 |              2 | 10           |
+| j      |      0.09 |              3 | 110          |
+| i      |      0.06 |              3 | 111          |
+| b      |      0.02 |              4 | 1120         |
+| d      |      0.02 |              4 | 1121         |
+| g      |      0.02 |              4 | 1122         |
+| e      |      0.01 |              5 | 12000        |
 
 The original tree image is represented by the table: each code is the path label from the root to the leaf for that symbol.
 
@@ -566,17 +564,17 @@ symbols. After that, each reduction merges the $r$ least frequent current symbol
 The ternary Huffman example has final code table:
 
 | Letter | Frequency | Huffman code |
-| --- | ---: | --- |
-| f | 0.31 | 1 |
-| a | 0.17 | 00 |
-| h | 0.17 | 01 |
-| c | 0.13 | 02 |
-| j | 0.09 | 20 |
-| i | 0.06 | 22 |
-| b | 0.02 | 211 |
-| d | 0.02 | 212 |
-| g | 0.02 | 2100 |
-| e | 0.01 | 2101 |
+| ------ | --------: | ------------ |
+| f      |      0.31 | 1            |
+| a      |      0.17 | 00           |
+| h      |      0.17 | 01           |
+| c      |      0.13 | 02           |
+| j      |      0.09 | 20           |
+| i      |      0.06 | 22           |
+| b      |      0.02 | 211          |
+| d      |      0.02 | 212          |
+| g      |      0.02 | 2100         |
+| e      |      0.01 | 2101         |
 
 The original Huffman tree image is replaced by the reduction description plus this code table. The important mechanism is that frequent symbols get short paths and rare symbols get longer paths.
 
@@ -640,9 +638,7 @@ The resulting code length is $n=k+m$.
 A cyclic code is a polynomial code where $g(x)$ divides $x^n-1$. Cyclic redundancy check (CRC) is the most familiar practical example over $\mathbb F_2$. To encode, multiply the message polynomial by $x^m$, divide by $g(x)$, and subtract the remainder:
 
 $$
-p(x)x^m=q(x)g(x)+r(x),
-\qquad
-\text{code word}=p(x)x^m-r(x).
+p(x)x^m=q(x)g(x)+r(x), \quad \text{code word}=p(x)x^m-r(x).
 $$
 
 The transmitted polynomial is divisible by $g(x)$. To check a received word, divide by $g(x)$; a nonzero remainder indicates an error. CRC is mainly an error-detecting code, not a full error-correcting code.

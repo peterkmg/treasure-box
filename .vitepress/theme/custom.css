@@ -18,3 +18,60 @@
 .vp-doc th, .vp-doc td {
   padding: 6px 10px;
 }
+
+.vp-doc .mermaid {
+  overflow-x: auto;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.vp-doc .mermaid svg {
+  display: inline-block;
+  max-width: none;
+  height: auto;
+}
+
+.vp-doc .exam-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 18px auto;
+}
+
+.vp-doc .exam-flow-node {
+  box-sizing: border-box;
+  width: 260px;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  line-height: 1.35;
+  text-align: center;
+}
+
+.vp-doc .exam-flow-node-wide {
+  width: 320px;
+}
+
+.vp-doc .exam-flow-node-tall {
+  min-height: 112px;
+}
+
+.vp-doc .exam-flow-arrow {
+  color: var(--vp-c-text-2);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.vp-doc .exam-flow-note {
+  max-width: 360px;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+}

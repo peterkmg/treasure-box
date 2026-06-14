@@ -225,11 +225,11 @@ $$
 
 with the conventions $1/0=\infty$ and $1/\infty=0$. The simpler form where the ordinary limit of $\sqrt[n]{|a_n|}$ exists:
 
-| Limit of $\sqrt[n]{       | a_n        | }$ | Radius |
-| ------------------------- | ---------- |
-| $0$                       | $R=\infty$ |
-| positive finite value $L$ | $R=1/L$    |
-| $\infty$                  | $R=0$      |
+| Limit of $\sqrt[n]{\| a_n\| }$ | Radius     |
+| ------------------------------ | ---------- |
+| $0$                            | $R=\infty$ |
+| positive finite value $L$      | $R=1/L$    |
+| $\infty$                       | $R=0$      |
 
 A useful shortcut, when it exists, is the ratio-test form:
 
@@ -259,7 +259,7 @@ The same list includes the hyperbolic functions:
 
 $$
 \sinh x=\sum_{n=0}^{\infty}\frac{x^{2n+1}}{(2n+1)!},
-\qquad
+\quad
 \cosh x=\sum_{n=0}^{\infty}\frac{x^{2n}}{(2n)!}.
 $$
 

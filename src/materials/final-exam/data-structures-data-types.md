@@ -8,36 +8,36 @@ title: '[Final] 15. Data Structures and Data Types'
 
 **Data structures and data types.** A data structure is an organized way to store data. A data type is a data structure together with the operations defined on it. The distinction matters because two implementations may support the same abstract data type: for example, a stack can be implemented with an array or with linked nodes, but the abstract stack operations remain `push`, `pop`, and `top`.
 
-**Arrays.** An array is a fixed-size sequence of elements of the same type. It stores elements in contiguous indexed positions, so if the base address and element size are known, element `A[i]` can be reached by address arithmetic in constant time. This gives arrays their main advantage: random access by index is $O(1)$.
+**Arrays.** An array is a fixed-size sequence of elements of the same type. It stores elements in contiguous indexed positions, so if the base address and element size are known, element $A[i]$ can be reached by address arithmetic in constant time. This gives arrays their main advantage: random access by index is $O(1)$.
 
 Important array properties:
 
-| Property | Consequence |
-| --- | --- |
-| Fixed logical size in the simple model | Space is reserved for a given number of elements. |
-| Same element type | Every cell has the same size and interpretation. |
-| Indexed positions | Direct access to `A[i]` is constant time. |
-| Contiguous storage | Good cache locality; insertion/deletion in the middle may require shifting elements. |
+| Property                               | Consequence                                                                          |
+| -------------------------------------- | ------------------------------------------------------------------------------------ |
+| Fixed logical size in the simple model | Space is reserved for a given number of elements.                                    |
+| Same element type                      | Every cell has the same size and interpretation.                                     |
+| Indexed positions                      | Direct access to $A[i]$ is constant time.                                            |
+| Contiguous storage                     | Good cache locality; insertion/deletion in the middle may require shifting elements. |
 
 Array operation costs in the usual contiguous representation:
 
-| Operation | Cost | Reason |
-| --- | --- | --- |
-| Access by index | $O(1)$ | Address is computed directly. |
-| Search by value in unsorted array | $O(n)$ | Elements may need to be scanned. |
-| Insert/delete at end when capacity exists | $O(1)$ | Only the last position changes. |
-| Insert/delete at arbitrary position | $O(n)$ | Later elements may need to be shifted. |
+| Operation                                 | Cost   | Reason                                 |
+| ----------------------------------------- | ------ | -------------------------------------- |
+| Access by index                           | $O(1)$ | Address is computed directly.          |
+| Search by value in unsorted array         | $O(n)$ | Elements may need to be scanned.       |
+| Insert/delete at end when capacity exists | $O(1)$ | Only the last position changes.        |
+| Insert/delete at arbitrary position       | $O(n)$ | Later elements may need to be shifted. |
 
 Dynamic arrays extend the fixed array model by allocating a larger block when capacity is exhausted and copying existing elements. This makes append amortized $O(1)$, but a resize step itself is $O(n)$.
 
 **Stack.** A stack is a last-in, first-out structure. The next element is always placed on the top, and only the top element can be queried or removed. Its essential operations are:
 
-| Operation | Meaning | Typical cost |
-| --- | --- | --- |
-| `push(x)` | Put `x` on the top. | $O(1)$ |
-| `pop()` | Remove the top element. | $O(1)$ |
-| `top()` / `peek()` | Read the top without removing it. | $O(1)$ |
-| `isEmpty()` | Test whether the stack has no elements. | $O(1)$ |
+| Operation          | Meaning                                 | Typical cost |
+| ------------------ | --------------------------------------- | ------------ |
+| `push(x)`          | Put `x` on the top.                     | $O(1)$       |
+| `pop()`            | Remove the top element.                 | $O(1)$       |
+| `top()` / `peek()` | Read the top without removing it.       | $O(1)$       |
+| `isEmpty()`        | Test whether the stack has no elements. | $O(1)$       |
 
 Stack operations in prose form:
 
@@ -57,10 +57,10 @@ The stack is useful whenever the most recent unfinished item should be handled f
 
 **Queues.** A queue is normally a first-in, first-out structure: elements are inserted at the rear and removed from the front. Queues may be simple, priority-based, or double-ended.
 
-| Queue form | Main rule | Typical operations |
-| --- | --- | --- |
-| Simple queue | First inserted is removed first. | `enqueue`, `dequeue`, `front` |
-| Deque | Both ends can be used. | `pushFront`, `pushBack`, `popFront`, `popBack` |
+| Queue form     | Main rule                                       | Typical operations                                     |
+| -------------- | ----------------------------------------------- | ------------------------------------------------------ |
+| Simple queue   | First inserted is removed first.                | `enqueue`, `dequeue`, `front`                          |
+| Deque          | Both ends can be used.                          | `pushFront`, `pushBack`, `popFront`, `popBack`         |
 | Priority queue | Element with highest priority is removed first. | `insert`, `maximum`/`minimum`, `removeMax`/`removeMin` |
 
 For a simple queue:
@@ -81,11 +81,11 @@ In a circular array implementation, the queue stores front and rear indexes modu
 
 Lists can be classified by three criteria:
 
-| Criterion | Variants | Effect |
-| --- | --- | --- |
-| Head element | With head/sentinel or without one | A head/sentinel can simplify empty-list and boundary cases. |
-| Direction of links | One-way or two-way | Doubly linked lists support backward movement and easier deletion when the node is known. |
-| Cyclicity | Linear or cyclic | A cyclic list links the last node back to the first or head. |
+| Criterion          | Variants                          | Effect                                                                                    |
+| ------------------ | --------------------------------- | ----------------------------------------------------------------------------------------- |
+| Head element       | With head/sentinel or without one | A head/sentinel can simplify empty-list and boundary cases.                               |
+| Direction of links | One-way or two-way                | Doubly linked lists support backward movement and easier deletion when the node is known. |
+| Cyclicity          | Linear or cyclic                  | A cyclic list links the last node back to the first or head.                              |
 
 Basic node layout:
 
@@ -97,16 +97,16 @@ flowchart LR
   C --> Nil["NIL"]
 ```
 
-A list can insert or delete at a known position by changing pointers, often $O(1)$ once the position is known. Searching for a value or reaching the `i`-th element is usually $O(n)$, because the list must be followed node by node. This is the main contrast with arrays: arrays give fast indexing and compact storage, while lists give flexible pointer-based insertion and deletion but poorer random access and more pointer overhead.
+A list can insert or delete at a known position by changing pointers, often $O(1)$ once the position is known. Searching for a value or reaching the $i$-th element is usually $O(n)$, because the list must be followed node by node. This is the main contrast with arrays: arrays give fast indexing and compact storage, while lists give flexible pointer-based insertion and deletion but poorer random access and more pointer overhead.
 
 ### Summary Table
 
-| Structure | Access | Insert/delete | Main advantage | Main limitation |
-| --- | --- | --- | --- | --- |
-| Array | $O(1)$ by index | Middle changes $O(n)$ | Fast indexing, compact storage | Fixed/simple capacity; shifting |
-| Stack | Top only | $O(1)$ top changes | LIFO discipline | No arbitrary access |
-| Queue | Front/rear | $O(1)$ with suitable representation | FIFO discipline | No arbitrary access |
-| Linked list | Sequential | $O(1)$ at known node, $O(n)$ to find | Flexible node insertion/deletion | No constant-time indexing |
+| Structure   | Access          | Insert/delete                        | Main advantage                   | Main limitation                 |
+| ----------- | --------------- | ------------------------------------ | -------------------------------- | ------------------------------- |
+| Array       | $O(1)$ by index | Middle changes $O(n)$                | Fast indexing, compact storage   | Fixed/simple capacity; shifting |
+| Stack       | Top only        | $O(1)$ top changes                   | LIFO discipline                  | No arbitrary access             |
+| Queue       | Front/rear      | $O(1)$ with suitable representation  | FIFO discipline                  | No arbitrary access             |
+| Linked list | Sequential      | $O(1)$ at known node, $O(n)$ to find | Flexible node insertion/deletion | No constant-time indexing       |
 
 ### What to Emphasize in an Oral Answer
 
@@ -134,29 +134,29 @@ A linked list stores elements in nodes connected by pointers. A singly linked li
 
 Tree terminology:
 
-| Term | Meaning |
-| --- | --- |
-| Root | The unique node with no parent. |
-| Parent | The predecessor of a node. |
-| Child | A successor of a node. In binary trees, left or right child. |
-| Siblings | Children of the same parent. |
-| Leaf | A node without children. |
-| Internal node | A non-leaf node. |
-| Descendants | A node's children and all nodes below them. |
-| Ancestors | A node's parent and all nodes above it. |
-| Level | Root is at level 0; children of level $i$ are at level $i + 1$. |
-| Height | Level of the deepest leaf. The empty tree height is often defined as $h(empty) = -1$. |
+| Term          | Meaning                                                                               |
+| ------------- | ------------------------------------------------------------------------------------- |
+| Root          | The unique node with no parent.                                                       |
+| Parent        | The predecessor of a node.                                                            |
+| Child         | A successor of a node. In binary trees, left or right child.                          |
+| Siblings      | Children of the same parent.                                                          |
+| Leaf          | A node without children.                                                              |
+| Internal node | A non-leaf node.                                                                      |
+| Descendants   | A node's children and all nodes below them.                                           |
+| Ancestors     | A node's parent and all nodes above it.                                               |
+| Level         | Root is at level 0; children of level $i$ are at level $i + 1$.                       |
+| Height        | Level of the deepest leaf. The empty tree height is often defined as $h(empty) = -1$. |
 
 **General tree.** A binary tree is a special case of an $r$-ary tree, where each node has at most $r$ children. The children are usually numbered from $0$ to $r - 1$. If a node has no $i$-th child, that subtree is empty. Binary trees correspond to $r = 2$, with left child as selector 0 and right child as selector 1. The trees discussed here are rooted trees: edges can be viewed as directed from root toward leaves, and every node is reachable from the root by exactly one path.
 
-**Traversals.** Tree traversals visit every node in a defined order and apply the same constant-time operation at each node, such as printing a key. For an empty tree, traversal does nothing. For non-empty `r`-ary trees:
+**Traversals.** Tree traversals visit every node in a defined order and apply the same constant-time operation at each node, such as printing a key. For an empty tree, traversal does nothing. For non-empty $r$-ary trees:
 
-| Traversal | Order | Binary-tree intuition |
-| --- | --- | --- |
-| Preorder | Process root, then subtrees from `0` to $r - 1$. | Root, left, right. |
-| Inorder | Traverse subtree 0, process root, then traverse subtrees 1 to $r - 1$. | Left, root, right. Most important for binary search trees. |
-| Postorder | Traverse all subtrees, then process root. | Left, right, root. |
-| Level order | Process nodes level by level from the root, left to right. | Breadth-first traversal using a queue. |
+| Traversal   | Order                                                                  | Binary-tree intuition                                      |
+| ----------- | ---------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Preorder    | Process root, then subtrees from $0$ to $r - 1$.                       | Root, left, right.                                         |
+| Inorder     | Traverse subtree 0, process root, then traverse subtrees 1 to $r - 1$. | Left, root, right. Most important for binary search trees. |
+| Postorder   | Traverse all subtrees, then process root.                              | Left, right, root.                                         |
+| Level order | Process nodes level by level from the root, left to right.             | Breadth-first traversal using a queue.                     |
 
 Example tree:
 
@@ -172,11 +172,11 @@ flowchart TD
 
 For this tree:
 
-| Traversal | Visit order |
-| --- | --- |
-| Preorder | `A, B, D, E, C, F, G` |
-| Inorder | `D, B, E, A, F, C, G` |
-| Postorder | `D, E, B, F, G, C, A` |
+| Traversal   | Visit order           |
+| ----------- | --------------------- |
+| Preorder    | `A, B, D, E, C, F, G` |
+| Inorder     | `D, B, E, A, F, C, G` |
+| Postorder   | `D, E, B, F, G, C, A` |
 | Level order | `A, B, C, D, E, F, G` |
 
 **Representations.** There are three important representation views.
@@ -222,12 +222,12 @@ The parentheses encode subtree boundaries, while labels encode node values. Diff
 
 ### Representation Tradeoffs
 
-| Representation | Good for | Weakness |
-| --- | --- | --- |
-| Linked nodes | General sparse trees, dynamic insertion/deletion | Pointer overhead and less locality |
-| Linked nodes with parent pointer | Upward navigation and rotations | Extra memory and maintenance |
-| Parenthesized text | Serialization and compact human-readable examples | Not efficient for direct updates |
-| Array complete-tree layout | Heaps and complete binary trees | Wastes space for non-complete trees |
+| Representation                   | Good for                                          | Weakness                            |
+| -------------------------------- | ------------------------------------------------- | ----------------------------------- |
+| Linked nodes                     | General sparse trees, dynamic insertion/deletion  | Pointer overhead and less locality  |
+| Linked nodes with parent pointer | Upward navigation and rotations                   | Extra memory and maintenance        |
+| Parenthesized text               | Serialization and compact human-readable examples | Not efficient for direct updates    |
+| Array complete-tree layout       | Heaps and complete binary trees                   | Wastes space for non-complete trees |
 
 ### What to Emphasize in an Oral Answer
 
@@ -255,21 +255,21 @@ Trees can be represented graphically as linked nodes, where each node stores ref
 
 Essential priority queue operations:
 
-| Operation | Meaning |
-| --- | --- |
-| `insert(x, priority)` | Add a new element with priority. |
-| `maximum()` / `minimum()` | Inspect the best-priority element. |
-| `removeMax()` / `removeMin()` | Remove and return the best-priority element. |
-| `changePriority()` | Change an element's priority, if the implementation supports locating it. |
+| Operation                     | Meaning                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------- |
+| `insert(x, priority)`         | Add a new element with priority.                                          |
+| `maximum()` / `minimum()`     | Inspect the best-priority element.                                        |
+| `removeMax()` / `removeMin()` | Remove and return the best-priority element.                              |
+| `changePriority()`            | Change an element's priority, if the implementation supports locating it. |
 
 **Binary heap.** A binary heap is a concrete data structure commonly used to implement a priority queue. It is a complete binary tree with the heap-order property. In a max-heap, each parent has key at least as large as its children. In a min-heap, each parent has key at most as large as its children.
 
 The two defining heap properties:
 
-| Property | Meaning | Why it matters |
-| --- | --- | --- |
-| Shape property | The tree is complete: all levels are full except possibly the last, filled left to right. | Enables compact array representation. |
-| Heap-order property | Parent priority dominates child priority. | The best element is always at the root. |
+| Property            | Meaning                                                                                   | Why it matters                          |
+| ------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------- |
+| Shape property      | The tree is complete: all levels are full except possibly the last, filled left to right. | Enables compact array representation.   |
+| Heap-order property | Parent priority dominates child priority.                                                 | The best element is always at the root. |
 
 Example max-heap:
 
@@ -292,11 +292,11 @@ value: 90  70  80  20  50  60  30
 
 With zero-based indexing:
 
-| Relation | Formula |
-| --- | --- |
-| Left child of `i` | $2i + 1$ |
-| Right child of `i` | $2i + 2$ |
-| Parent of `i` | $floor((i - 1) / 2)$ |
+| Relation           | Formula                     |
+| ------------------ | --------------------------- |
+| Left child of $i$  | $2i + 1$                    |
+| Right child of $i$ | $2i + 2$                    |
+| Parent of $i$      | $\lfloor(i - 1) / 2\rfloor$ |
 
 **Insertion / add.** The `add(x)` algorithm works as follows:
 
@@ -319,7 +319,7 @@ flowchart TD
   Swap -- "no" --> Done
 ```
 
-Because a complete binary tree with `n` nodes has height $\lfloor log2 n \rfloor$, insertion is $O(\log n)$.
+Because a complete binary tree with $n$ nodes has height $\lfloor \log_2 n \rfloor$, insertion is $O(\log n)$.
 
 **Deletion / remove maximum.** The `remMax()` algorithm removes the root:
 
@@ -349,11 +349,11 @@ Removing the maximum is also $O(\log n)$. Inspecting the maximum is $O(1)$, beca
 
 ### Heap Operation Costs
 
-| Operation | Cost | Explanation |
-| --- | --- | --- |
-| `maximum()` | $O(1)$ | Root stores best priority. |
-| `insert()` | $O(\log n)$ | Sift up through heap height. |
-| `removeMax()` | $O(\log n)$ | Sift down through heap height. |
+| Operation             | Cost                          | Explanation                                        |
+| --------------------- | ----------------------------- | -------------------------------------------------- |
+| `maximum()`           | $O(1)$                        | Root stores best priority.                         |
+| `insert()`            | $O(\log n)$                   | Sift up through heap height.                       |
+| `removeMax()`         | $O(\log n)$                   | Sift down through heap height.                     |
 | Build heap from array | $O(n)$ with bottom-up heapify | Each subtree is repaired from lower levels upward. |
 
 For heaps, the main data-structure focus is their priority-queue behavior; heap sort is covered with sorting algorithms.
@@ -404,14 +404,14 @@ flowchart TD
 
 BST operations:
 
-| Operation | Mechanism |
-| --- | --- |
-| Search | Compare the target key with the current node. Go left if smaller, right if larger, stop if equal or null. |
-| Insert | Search for the position where the key should be, then attach a new leaf while preserving order. |
-| Delete leaf | Remove the leaf directly. |
-| Delete node with one child | Replace the node by its child. |
-| Delete node with two children | Replace by inorder predecessor or successor, then delete that moved key from its old position. |
-| Inorder traversal | Visits keys in sorted order. |
+| Operation                     | Mechanism                                                                                                 |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Search                        | Compare the target key with the current node. Go left if smaller, right if larger, stop if equal or null. |
+| Insert                        | Search for the position where the key should be, then attach a new leaf while preserving order.           |
+| Delete leaf                   | Remove the leaf directly.                                                                                 |
+| Delete node with one child    | Replace the node by its child.                                                                            |
+| Delete node with two children | Replace by inorder predecessor or successor, then delete that moved key from its old position.            |
+| Inorder traversal             | Visits keys in sorted order.                                                                              |
 
 For the example tree, inorder traversal returns:
 
@@ -419,7 +419,7 @@ For the example tree, inorder traversal returns:
 20, 30, 40, 50, 60, 70, 80
 ```
 
-The cost of search, insertion, and deletion is $O(h)$, where `h` is the tree height. In a balanced tree this is $O(\log n)$, but in a badly skewed tree the height can be $n - 1$, so operations become $O(n)$.
+The cost of search, insertion, and deletion is $O(h)$, where $h$ is the tree height. In a balanced tree this is $O(\log n)$, but in a badly skewed tree the height can be $n - 1$, so operations become $O(n)$.
 
 ### AVL Trees
 
@@ -427,20 +427,20 @@ An AVL tree is a self-balancing binary search tree. It preserves the BST orderin
 
 The usual balance factor is:
 
-```text
-balance(v) = height(left(v)) - height(right(v))
-```
+$$
+\operatorname{balance}(v) = \operatorname{height}(\operatorname{left}(v)) - \operatorname{height}(\operatorname{right}(v))
+$$
 
 For an AVL tree, each node has balance factor $-1$, $0$, or $+1$. After insertion or deletion, a node may become unbalanced. Rotations repair the tree while preserving inorder order.
 
 Rotation cases:
 
-| Case | Shape | Repair |
-| --- | --- | --- |
-| Left-left | Insertion/deletion makes left child's left side too high. | Single right rotation. |
-| Right-right | Right child's right side too high. | Single left rotation. |
-| Left-right | Left child's right side too high. | Left rotation on child, then right rotation. |
-| Right-left | Right child's left side too high. | Right rotation on child, then left rotation. |
+| Case        | Shape                                                     | Repair                                       |
+| ----------- | --------------------------------------------------------- | -------------------------------------------- |
+| Left-left   | Insertion/deletion makes left child's left side too high. | Single right rotation.                       |
+| Right-right | Right child's right side too high.                        | Single left rotation.                        |
+| Left-right  | Left child's right side too high.                         | Left rotation on child, then right rotation. |
+| Right-left  | Right child's left side too high.                         | Right rotation on child, then left rotation. |
 
 Single right rotation:
 
@@ -464,19 +464,19 @@ Single left rotation is symmetric. Double rotations combine two single rotations
 
 ### B+ Trees
 
-A B+ tree is a balanced multiway search tree designed for high fanout. For a degree `d` with $4 \le d$, each internal node contains at most `d` pointers and at most $d - 1$ keys. Internal keys guide the search; every actual data key appears in a leaf. Leaves are ordered left to right, and in practical database/file-system implementations they are often linked for efficient range scans.
+A B+ tree is a balanced multiway search tree designed for high fanout. For a degree $d$ with $4 \le d$, each internal node contains at most $d$ pointers and at most $d - 1$ keys. Internal keys guide the search; every actual data key appears in a leaf. Leaves are ordered left to right, and in practical database/file-system implementations they are often linked for efficient range scans.
 
-B+ tree invariants for degree `d`:
+B+ tree invariants for degree $d$:
 
-| Invariant | Meaning |
-| --- | --- |
-| Leaf capacity | Each leaf contains at most $d - 1$ keys and the same number of pointers to corresponding records. |
-| Equal leaf depth | Every leaf is at the same distance from the root. |
-| Internal-node shape | Every internal node has one more pointer than it has keys, and at most `d` pointers. |
-| Separator meaning | Child subtrees cover key intervals separated by the node's keys. |
-| Root minimum | The root has at least two children unless the tree is a single node. |
-| Internal minimum | Every non-root internal node has at least $\lfloor d/2 \rfloor$ children. |
-| Leaf minimum/order | Every leaf has at least $\lfloor d/2 \rfloor$ keys, and all data keys appear in leaves in increasing order. |
+| Invariant           | Meaning                                                                                                     |
+| ------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Leaf capacity       | Each leaf contains at most $d - 1$ keys and the same number of pointers to corresponding records.           |
+| Equal leaf depth    | Every leaf is at the same distance from the root.                                                           |
+| Internal-node shape | Every internal node has one more pointer than it has keys, and at most $d$ pointers.                        |
+| Separator meaning   | Child subtrees cover key intervals separated by the node's keys.                                            |
+| Root minimum        | The root has at least two children unless the tree is a single node.                                        |
+| Internal minimum    | Every non-root internal node has at least $\lfloor d/2 \rfloor$ children.                                   |
+| Leaf minimum/order  | Every leaf has at least $\lfloor d/2 \rfloor$ keys, and all data keys appear in leaves in increasing order. |
 
 Small degree-4 sketch:
 
@@ -515,11 +515,11 @@ Search starts at the root and follows the interval pointer whose key range conta
 
 ### Ordered Tree Comparison
 
-| Structure | Balance guarantee | Search/insert/delete | Typical use |
-| --- | --- | --- | --- |
-| BST | None | $O(h)$, worst $O(n)$ | Simple ordered set/map |
-| AVL tree | Height balance factor at most 1 | $O(\log n)$ | In-memory ordered set/map with strict balancing |
-| B+ tree | All leaves same depth, multiway occupancy | $O(log_d n)$ node visits | Disk/page-oriented indexes, range queries |
+| Structure | Balance guarantee                         | Search/insert/delete     | Typical use                                     |
+| --------- | ----------------------------------------- | ------------------------ | ----------------------------------------------- |
+| BST       | None                                      | $O(h)$, worst $O(n)$     | Simple ordered set/map                          |
+| AVL tree  | Height balance factor at most 1           | $O(\log n)$              | In-memory ordered set/map with strict balancing |
+| B+ tree   | All leaves same depth, multiway occupancy | $O(log_d n)$ node visits | Disk/page-oriented indexes, range queries       |
 
 ### What to Emphasize in an Oral Answer
 
@@ -571,11 +571,11 @@ flowchart LR
 
 Chaining operation behavior:
 
-| Operation | Mechanism |
-| --- | --- |
-| Insert | Compute bucket, insert into that bucket's chain. |
-| Search | Compute bucket, scan chain comparing keys. |
-| Delete | Compute bucket, find key in chain, relink/remove it. |
+| Operation | Mechanism                                            |
+| --------- | ---------------------------------------------------- |
+| Insert    | Compute bucket, insert into that bucket's chain.     |
+| Search    | Compute bucket, scan chain comparing keys.           |
+| Delete    | Compute bucket, find key in chain, relink/remove it. |
 
 If the load factor $\alpha = n / m$ is small and hashing is uniform, expected operation time is $O(1 + \alpha)$. In the worst case all keys collide into one chain, and operations are $O(n)$.
 
@@ -589,11 +589,11 @@ Open-addressing search follows the same probe sequence used by insertion. Search
 
 A probe sequence is the ordered sequence of table positions tried for a key. Common probe sequences are linear probing, quadratic probing, and double hashing.
 
-| Probe sequence | Formula idea | Strength | Weakness |
-| --- | --- | --- | --- |
-| Linear probing | $h(k), h(k)+1, h(k)+2,\ldots$ modulo table size | Simple, cache-friendly | Primary clustering: long runs of occupied cells form. |
-| Quadratic probing | $h(k)+1^2, h(k)+2^2,\ldots$ modulo table size | Reduces primary clustering | May not visit every slot unless table size/formula are chosen carefully; secondary clustering remains. |
-| Double hashing | $h1(k) + i \cdot h2(k)$ modulo table size | Better distribution, less clustering | Needs a second hash function; step size must be compatible with table size. |
+| Probe sequence    | Formula idea                                    | Strength                             | Weakness                                                                                               |
+| ----------------- | ----------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| Linear probing    | $h(k), h(k)+1, h(k)+2,\ldots$ modulo table size | Simple, cache-friendly               | Primary clustering: long runs of occupied cells form.                                                  |
+| Quadratic probing | $h(k)+1^2, h(k)+2^2,\ldots$ modulo table size   | Reduces primary clustering           | May not visit every slot unless table size/formula are chosen carefully; secondary clustering remains. |
+| Double hashing    | $h1(k) + i \cdot h2(k)$ modulo table size       | Better distribution, less clustering | Needs a second hash function; step size must be compatible with table size.                            |
 
 Example of linear probing:
 
@@ -615,10 +615,10 @@ For chaining, $\alpha$ can exceed 1, but long chains hurt performance. For open 
 
 Expected complexity under a good hash function:
 
-| Method | Search/insert/delete average | Worst case |
-| --- | --- | --- |
-| Chaining | $O(1 + \alpha)$ | $O(n)$ |
-| Open addressing | $O(1)$ while load factor is controlled | $O(n)$ |
+| Method          | Search/insert/delete average           | Worst case |
+| --------------- | -------------------------------------- | ---------- |
+| Chaining        | $O(1 + \alpha)$                        | $O(n)$     |
+| Open addressing | $O(1)$ while load factor is controlled | $O(n)$     |
 
 Hash tables are efficient for exact-key lookup. They are not naturally ordered, so they are not a replacement for search trees when sorted traversal, predecessor/successor queries, or range queries are needed.
 
@@ -650,26 +650,26 @@ Four graph representations are adjacency matrix, edge list, adjacency list, and 
 
 ### Adjacency Matrix
 
-An adjacency matrix is an `n x n` matrix for `n` vertices. Entry `(i, j)` indicates whether there is an edge from vertex `i` to vertex `j`, or stores the weight of that edge. In an undirected graph the matrix is symmetric. In a directed graph it need not be symmetric.
+An adjacency matrix is an $n \times n$ matrix for $n$ vertices. Entry $(i, j)$ indicates whether there is an edge from vertex $i$ to vertex $j$, or stores the weight of that edge. In an undirected graph the matrix is symmetric. In a directed graph it need not be symmetric.
 
 Example directed weighted matrix:
 
-| From / to | A | B | C |
-| --- | --- | --- | --- |
-| A | 0 | 5 | infinity |
-| B | infinity | 0 | 2 |
-| C | 7 | infinity | 0 |
+| From / to | A        | B        | C        |
+| --------- | -------- | -------- | -------- |
+| A         | 0        | 5        | infinity |
+| B         | infinity | 0        | 2        |
+| C         | 7        | infinity | 0        |
 
 This means $A \to B$ has weight 5, $B \to C$ has weight 2, and $C \to A$ has weight 7. Missing edges are represented by `0`, `false`, `infinity`, or another sentinel depending on the graph type.
 
 Properties:
 
-| Feature | Cost |
-| --- | --- |
-| Space | $O(n^2)$ |
-| Test whether edge `(u, v)` exists | $O(1)$ |
-| Enumerate all neighbors of `u` | $O(n)$ |
-| Good for | Dense graphs and frequent adjacency tests |
+| Feature                           | Cost                                      |
+| --------------------------------- | ----------------------------------------- |
+| Space                             | $O(n^2)$                                  |
+| Test whether edge $(u, v)$ exists | $O(1)$                                    |
+| Enumerate all neighbors of $u$    | $O(n)$                                    |
+| Good for                          | Dense graphs and frequent adjacency tests |
 
 ### Edge List
 
@@ -683,12 +683,12 @@ An edge list stores one record per edge. Each record contains start vertex, end 
 
 Properties:
 
-| Feature | Cost |
-| --- | --- |
-| Space | $O(m)$ for `m` edges |
-| Scan all edges | $O(m)$ |
-| Test adjacency | Usually $O(m)$ unless indexed |
-| Good for | Algorithms that process all edges, such as Kruskal's algorithm |
+| Feature        | Cost                                                           |
+| -------------- | -------------------------------------------------------------- |
+| Space          | $O(m)$ for $m$ edges                                           |
+| Scan all edges | $O(m)$                                                         |
+| Test adjacency | Usually $O(m)$ unless indexed                                  |
+| Good for       | Algorithms that process all edges, such as Kruskal's algorithm |
 
 ### Adjacency List
 
@@ -702,12 +702,12 @@ C: (A, 7)
 
 Properties:
 
-| Feature | Cost |
-| --- | --- |
-| Space | $O(n + m)$ |
-| Enumerate neighbors of `u` | $O(\deg(u))$ |
-| Test adjacency | $O(\deg(u))$ unless neighbor set is hashed/sorted |
-| Good for | Sparse graphs, BFS/DFS, most graph algorithms |
+| Feature                    | Cost                                              |
+| -------------------------- | ------------------------------------------------- |
+| Space                      | $O(n + m)$                                        |
+| Enumerate neighbors of `u` | $O(\deg(u))$                                      |
+| Test adjacency             | $O(\deg(u))$ unless neighbor set is hashed/sorted |
+| Good for                   | Sparse graphs, BFS/DFS, most graph algorithms     |
 
 ### Incidence Matrix
 
@@ -715,34 +715,34 @@ An incidence matrix has one row per vertex and one column per edge. In an undire
 
 Example for directed edges $e1 = A \to B$, $e2 = B \to C$, $e3 = C \to A$:
 
-| Vertex / edge | e1 | e2 | e3 |
-| --- | --- | --- | --- |
-| A | -1 | 0 | +1 |
-| B | +1 | -1 | 0 |
-| C | 0 | +1 | -1 |
+| Vertex / edge | e1  | e2  | e3  |
+| ------------- | --- | --- | --- |
+| A             | -1  | 0   | +1  |
+| B             | +1  | -1  | 0   |
+| C             | 0   | +1  | -1  |
 
 Properties:
 
-| Feature | Cost |
-| --- | --- |
-| Space | $O(nm)$ |
-| Represents edge-vertex relationship directly | Yes |
-| Good for | Algebraic graph methods, constraints, and some network formulations |
-| Weakness | Usually too large for ordinary sparse graph traversal |
+| Feature                                      | Cost                                                                |
+| -------------------------------------------- | ------------------------------------------------------------------- |
+| Space                                        | $O(nm)$                                                             |
+| Represents edge-vertex relationship directly | Yes                                                                 |
+| Good for                                     | Algebraic graph methods, constraints, and some network formulations |
+| Weakness                                     | Usually too large for ordinary sparse graph traversal               |
 
 ### Representation Comparison
 
-| Representation | Space | Fast operation | Weak operation |
-| --- | --- | --- | --- |
-| Adjacency matrix | $O(n^2)$ | Edge existence test | Neighbor enumeration in sparse graphs |
-| Edge list | $O(m)$ | Scanning/sorting all edges | Adjacency lookup |
-| Adjacency list | $O(n + m)$ | Neighbor traversal | Constant-time edge lookup unless augmented |
-| Incidence matrix | $O(nm)$ | Edge-vertex incidence algebra | General traversal/storage for large graphs |
+| Representation   | Space      | Fast operation                | Weak operation                             |
+| ---------------- | ---------- | ----------------------------- | ------------------------------------------ |
+| Adjacency matrix | $O(n^2)$   | Edge existence test           | Neighbor enumeration in sparse graphs      |
+| Edge list        | $O(m)$     | Scanning/sorting all edges    | Adjacency lookup                           |
+| Adjacency list   | $O(n + m)$ | Neighbor traversal            | Constant-time edge lookup unless augmented |
+| Incidence matrix | $O(nm)$    | Edge-vertex incidence algebra | General traversal/storage for large graphs |
 
 ### What to Emphasize in an Oral Answer
 
 - Start from the graph model: vertices and edges may be directed/undirected and weighted/unweighted; representation determines memory and operation costs.
-- Adjacency matrix: `n x n` table, $O(n^2)$ space, $O(1)$ adjacency test, $O(n)$ neighbor scan; good for dense graphs.
+- Adjacency matrix: $n \times n$ table, $O(n^2)$ space, $O(1)$ adjacency test, $O(n)$ neighbor scan; good for dense graphs.
 - Edge list: one record per edge, $O(m)$ space and $O(m)$ full-edge scan; useful for algorithms like Kruskal but poor for adjacency lookup unless indexed.
 - Adjacency list: per-vertex neighbor lists, $O(n+m)$ space, $O(\deg(u))$ neighbor enumeration; usually best for sparse graphs and BFS/DFS.
 - Incidence matrix: rows are vertices and columns are edges, with signs for directed orientation; useful for algebraic/constraint formulations but costs $O(nm)$ space.

@@ -273,11 +273,11 @@ The use case diagram answers functional boundary questions. It tells us who inte
 
 Collaboration, communication, and activity diagrams are related dynamic views that complement state and sequence diagrams.
 
-| Diagram | Role | Compact meaning |
-| --- | --- | --- |
-| Collaboration diagram | Shows cooperating objects and their links, with numbered messages. | Similar scenario information to a sequence diagram, but emphasizing object links rather than time as a vertical axis. |
-| Activity diagram | Shows a workflow as actions, decisions, forks/joins, and control flow. | Useful for business processes or algorithm-like behavior where the control flow matters more than object lifelines. |
-| Communication diagram | Shows interactions among objects with message numbering over a structural network. | A UML successor/variant close to collaboration diagrams; emphasizes who communicates with whom. |
+| Diagram               | Role                                                                               | Compact meaning                                                                                                       |
+| --------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Collaboration diagram | Shows cooperating objects and their links, with numbered messages.                 | Similar scenario information to a sequence diagram, but emphasizing object links rather than time as a vertical axis. |
+| Activity diagram      | Shows a workflow as actions, decisions, forks/joins, and control flow.             | Useful for business processes or algorithm-like behavior where the control flow matters more than object lifelines.   |
+| Communication diagram | Shows interactions among objects with message numbering over a structural network. | A UML successor/variant close to collaboration diagrams; emphasizes who communicates with whom.                       |
 
 The key relationship is the viewpoint difference. Sequence diagrams emphasize temporal order, collaboration/communication diagrams emphasize the network of participating objects, and activity diagrams emphasize workflow/control flow.
 

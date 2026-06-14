@@ -4,11 +4,13 @@ title: '[Final] Final Exam'
 
 # Final Exam
 
-These notes are based on translated materials from [TMD44/elte-ik-pti-bsc-zarovizsga](https://github.com/TMD44/elte-ik-pti-bsc-zarovizsga), with modifications, corrections, restructuring, and additional material.
+These notes are based on translated materials from [TMD44/elte-ik-pti-bsc-zarovizsga](https://github.com/TMD44/elte-ik-pti-bsc-zarovizsga), with some amount of modifications, corrections, restructuring, and some additional material.
 
-Each subject page is organized by the official numbered exam topics, with concise oral-answer blocks after the notes.
+[The Final Exam Subject List and Topics](https://www.inf.elte.hu/dstore/document/227121/finalexam_new.pdf)
 
-## Subject Index
+## Materials by Subject
+
+The list is numbered according to the official exam subject list, and each subject page contains numbered topics with relevant notes and a proposition of what to focus on for the oral answer.
 
 1. [Limits and Continuity of Functions](/materials/final-exam/limits-continuity-functions.md)
 2. [Differential and Integral Calculus](/materials/final-exam/differential-integral-calculus.md)

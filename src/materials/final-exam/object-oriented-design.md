@@ -10,56 +10,62 @@ This subject emphasizes design work around large systems: development phases, de
 
 Large-system development is a sequence of related activities. The following are phases and the information that should be produced or checked in each phase.
 
-| Phase | Main purpose | Important output or question |
-| --- | --- | --- |
-| Feasibility and background study | Decide whether and how the problem can be solved. | Required hardware, software, experts, cost, deadline, and operational constraints. |
-| Requirements specification | Describe the problem, constraints, and acceptable solution from the user's and environment's viewpoint. | Functional and non-functional requirements. |
-| Requirements analysis and prototyping | Check whether the requirements are usable before implementation. | Consistency, completeness, validation, feasibility, testability, and openness/extensibility. |
-| Program specification | Translate requirements into precise input/output and mapping expectations. | What inputs exist, what outputs are expected, and how inputs determine outputs. |
-| Design | Decide static, dynamic, and functional structure. | Program units, responsibilities, relationships, cooperation, messages, states, data flows, language/testing recommendations. |
-| Implementation | Realize the design in code. | Data representation, event mappings, algorithms, optimizations, visibility, encapsulation, and style decisions. |
-| Verification and validation | Check whether the system satisfies its specification and quality expectations. | Unit testing, system testing, black-box testing, white-box testing. |
-| Tracking and maintenance | Support the deployed system over time. | Fix hidden faults, adapt to new environments, further develop, manage configurations, versions, and documentation. |
-| Documentation | Make the software product usable and maintainable. | User documentation and developer documentation. |
+| Phase                                 | Main purpose                                                                                            | Important output or question                                                                                                 |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Feasibility and background study      | Decide whether and how the problem can be solved.                                                       | Required hardware, software, experts, cost, deadline, and operational constraints.                                           |
+| Requirements specification            | Describe the problem, constraints, and acceptable solution from the user's and environment's viewpoint. | Functional and non-functional requirements.                                                                                  |
+| Requirements analysis and prototyping | Check whether the requirements are usable before implementation.                                        | Consistency, completeness, validation, feasibility, testability, and openness/extensibility.                                 |
+| Program specification                 | Translate requirements into precise input/output and mapping expectations.                              | What inputs exist, what outputs are expected, and how inputs determine outputs.                                              |
+| Design                                | Decide static, dynamic, and functional structure.                                                       | Program units, responsibilities, relationships, cooperation, messages, states, data flows, language/testing recommendations. |
+| Implementation                        | Realize the design in code.                                                                             | Data representation, event mappings, algorithms, optimizations, visibility, encapsulation, and style decisions.              |
+| Verification and validation           | Check whether the system satisfies its specification and quality expectations.                          | Unit testing, system testing, black-box testing, white-box testing.                                                          |
+| Tracking and maintenance              | Support the deployed system over time.                                                                  | Fix hidden faults, adapt to new environments, further develop, manage configurations, versions, and documentation.           |
+| Documentation                         | Make the software product usable and maintainable.                                                      | User documentation and developer documentation.                                                                              |
 
 Distinguish functional and non-functional requirements.
 
-| Requirement type | Meaning | Typical content |
-| --- | --- | --- |
-| Functional requirement | Describes a service that the system must provide and the mapping from input to response. | Triggering the service, input data and form, preconditions, restrictions, result, output form, relationship between input and response. |
-| Non-functional requirement | Describes qualities or constraints on the system or its development. | Product requirements, management requirements, external requirements; examples include performance, reliability, usability, portability, standards, legal constraints, and development-process constraints. |
+| Requirement type           | Meaning                                                                                  | Typical content                                                                                                                                                                                             |
+| -------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Functional requirement     | Describes a service that the system must provide and the mapping from input to response. | Triggering the service, input data and form, preconditions, restrictions, result, output form, relationship between input and response.                                                                     |
+| Non-functional requirement | Describes qualities or constraints on the system or its development.                     | Product requirements, management requirements, external requirements; examples include performance, reliability, usability, portability, standards, legal constraints, and development-process constraints. |
 
 Requirements analysis should ask five exam-relevant questions:
 
-| Check | Question |
-| --- | --- |
-| Consistency | Do requirements contradict each other? |
-| Completeness | Are all necessary services and constraints described? |
-| Validation | Does the specification match the user's real problem? |
-| Feasibility | Can a solution satisfying the requirements be implemented with available resources? |
-| Testability | Can each requirement be checked by tests, review, measurement, or acceptance criteria? |
+| Check        | Question                                                                               |
+| ------------ | -------------------------------------------------------------------------------------- |
+| Consistency  | Do requirements contradict each other?                                                 |
+| Completeness | Are all necessary services and constraints described?                                  |
+| Validation   | Does the specification match the user's real problem?                                  |
+| Feasibility  | Can a solution satisfying the requirements be implemented with available resources?    |
+| Testability  | Can each requirement be checked by tests, review, measurement, or acceptance criteria? |
 
 Prototyping is a tool of requirements analysis. A prototype is a high-level, partial solution that is correct enough in external behavior to clarify requirements. It is not necessarily the final architecture.
 
 Requirements refinement can be represented as:
 
-```mermaid
-flowchart LR
-  Problem["Problem and initial expectations"] --> Draft["Draft requirements"]
-  Draft --> Prototype["Prototype"]
-  Prototype --> Feedback["User and feasibility feedback"]
-  Feedback --> Revised["Revised requirements"]
-  Revised --> Analysis["Consistency, completeness, validation, feasibility, testability"]
-  Analysis --> Specification["Accepted requirements specification"]
-  Analysis --> Draft
-```
+<div class="exam-flow">
+  <div class="exam-flow-node exam-flow-node-wide">Problem and initial expectations</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Draft requirements</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Prototype</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">User and feasibility feedback</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Revised requirements</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide exam-flow-node-tall">Check requirements:<br> consistency, completeness, validation, feasibility, testability</div>
+  <div class="exam-flow-note">If checks fail, revise the draft and repeat the refinement.</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Accepted requirements specification</div>
+</div>
 
 The design phase itself has three complementary models:
 
-| Design model | Question it answers |
-| --- | --- |
-| Static model | What units exist, what are their responsibilities, and how are they related? |
-| Dynamic model | How do units cooperate, what messages are exchanged, what states exist, and what events cause changes? |
+| Design model     | Question it answers                                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Static model     | What units exist, what are their responsibilities, and how are they related?                                                          |
+| Dynamic model    | How do units cooperate, what messages are exchanged, what states exist, and what events cause changes?                                |
 | Functional model | Through what data flows are services implemented, what mappings participate, and what implementation/testing strategy is recommended? |
 
 Procedural design starts mainly from functions and decomposes operations into modules. Object-oriented design puts data and the objects representing that data closer to the center: classes group state with operations, and design decisions allocate responsibilities among objects.
@@ -93,61 +99,76 @@ The main development-method families are Waterfall, evolutionary development, Bo
 
 ### Classical Models
 
-| Model | Core idea | Strength | Risk or disadvantage |
-| --- | --- | --- | --- |
-| Waterfall | Phases follow each other in a mostly linear order. Changes in one phase affect later phases. | Clear milestones and documentation; useful when requirements are stable and regulation is strong. | Late validation can force repetition of the lifecycle; new services require changes in many phases. |
-| V-model | Development phases are paired with corresponding test phases: requirements with acceptance testing, architecture with system/integration testing, design with component testing, implementation with unit testing. | Makes verification and validation planning explicit from the beginning. | Still assumes relatively stable requirements; can be heavy when discovery continues during development. |
-| Spiral | Iterative, risk-driven model. Each loop defines goals and constraints, analyzes risks, develops/validates, then plans the next iteration. | Strong for large, uncertain, risky projects because risks are addressed early. | Labor-intensive and complex; requires expertise to perform economically. |
-| Evolutionary / prototyping | Produce versions or prototypes step by step until the final solution is approached. Specification, development, and validation happen partly in parallel. | Good when requirements are unclear and user feedback is necessary. | Harder to oversee; rapid development can weaken documentation. |
+| Model                      | Core idea                                                                                                                                                                                                          | Strength                                                                                          | Risk or disadvantage                                                                                    |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Waterfall                  | Phases follow each other in a mostly linear order. Changes in one phase affect later phases.                                                                                                                       | Clear milestones and documentation; useful when requirements are stable and regulation is strong. | Late validation can force repetition of the lifecycle; new services require changes in many phases.     |
+| V-model                    | Development phases are paired with corresponding test phases: requirements with acceptance testing, architecture with system/integration testing, design with component testing, implementation with unit testing. | Makes verification and validation planning explicit from the beginning.                           | Still assumes relatively stable requirements; can be heavy when discovery continues during development. |
+| Spiral                     | Iterative, risk-driven model. Each loop defines goals and constraints, analyzes risks, develops/validates, then plans the next iteration.                                                                          | Strong for large, uncertain, risky projects because risks are addressed early.                    | Labor-intensive and complex; requires expertise to perform economically.                                |
+| Evolutionary / prototyping | Produce versions or prototypes step by step until the final solution is approached. Specification, development, and validation happen partly in parallel.                                                          | Good when requirements are unclear and user feedback is necessary.                                | Harder to oversee; rapid development can weaken documentation.                                          |
 
 Waterfall can be summarized as:
 
-```mermaid
-flowchart TD
-  Feasibility --> Requirements
-  Requirements --> Specification
-  Specification --> Design
-  Design --> Implementation
-  Implementation --> Testing
-  Testing --> Deployment
-  Deployment --> Maintenance
-```
+<div class="exam-flow">
+  <div class="exam-flow-node">Feasibility</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node">Requirements</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node">Specification</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node">Design</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node">Implementation</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node">Testing</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node">Deployment</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node">Maintenance</div>
+</div>
 
 V-model makes test planning visible:
 
-```mermaid
-flowchart LR
-  Req["Requirements"] --> Arch["System architecture"]
-  Arch --> Design["Detailed design"]
-  Design --> Code["Implementation"]
-  Code --> Unit["Unit tests"]
-  Unit --> Integration["Integration/system tests"]
-  Integration --> Acceptance["Acceptance tests"]
-  Req -. validates .- Acceptance
-  Arch -. verifies .- Integration
-  Design -. verifies .- Unit
-```
+<div class="exam-flow">
+  <div class="exam-flow-node exam-flow-node-wide">Requirements</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">System architecture</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Detailed design</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Implementation</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Unit tests</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Integration/system tests</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Acceptance tests</div>
+  <div class="exam-flow-note">Unit tests verify detailed design; integration/system tests verify architecture; acceptance tests validate requirements.</div>
+</div>
 
 Spiral can be represented as repeated risk-managed loops:
 
-```mermaid
-flowchart LR
-  Goals["Define goals, alternatives, constraints"] --> Risk["Analyze risks and choose strategy"]
-  Risk --> Build["Develop or prototype"]
-  Build --> Validate["Validate results"]
-  Validate --> Plan["Plan next iteration"]
-  Plan --> Goals
-```
+<div class="exam-flow">
+  <div class="exam-flow-node exam-flow-node-wide">Define goals, alternatives, and constraints</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Analyze risks and choose strategy</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Develop or prototype</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Validate results</div>
+  <div class="exam-flow-arrow">↓</div>
+  <div class="exam-flow-node exam-flow-node-wide">Plan next iteration</div>
+  <div class="exam-flow-note">Repeat the loop until the risk and delivery goals are satisfied.</div>
+</div>
 
 ### Agile Approaches
 
 Agile methods are iterative and adaptive. They assume that feedback, changing priorities, and learning during the project are normal. They usually favor short cycles, working software, customer collaboration, transparent work tracking, and frequent integration.
 
-| Approach | Main mechanism | Best exam contrast |
-| --- | --- | --- |
-| Scrum | Work is organized in sprints. A product backlog is prioritized, sprint planning selects work, daily Scrum synchronizes the team, review inspects the product, retrospective improves the process. | Time-boxed iteration and roles such as Product Owner, Scrum Master, and Developers. |
-| Kanban | Work items flow through visible states such as To Do, In Progress, Review, Done. Work-in-progress limits prevent overload. | Continuous flow rather than fixed sprints; focus on throughput, cycle time, and limiting work in progress. |
-| XP, Extreme Programming | Engineering-centered agile method. Emphasizes test-driven development, pair programming, continuous integration, simple design, refactoring, small releases, coding standards, and close customer feedback. | Strongest focus on concrete coding practices and technical quality. |
+| Approach                | Main mechanism                                                                                                                                                                                              | Best exam contrast                                                                                         |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Scrum                   | Work is organized in sprints. A product backlog is prioritized, sprint planning selects work, daily Scrum synchronizes the team, review inspects the product, retrospective improves the process.           | Time-boxed iteration and roles such as Product Owner, Scrum Master, and Developers.                        |
+| Kanban                  | Work items flow through visible states such as To Do, In Progress, Review, Done. Work-in-progress limits prevent overload.                                                                                  | Continuous flow rather than fixed sprints; focus on throughput, cycle time, and limiting work in progress. |
+| XP, Extreme Programming | Engineering-centered agile method. Emphasizes test-driven development, pair programming, continuous integration, simple design, refactoring, small releases, coding standards, and close customer feedback. | Strongest focus on concrete coding practices and technical quality.                                        |
 
 Classical and agile approaches are not only opposites; projects often combine them. For example, a regulated project may use phase gates and formal documentation but still perform implementation in agile iterations with CI and frequent reviews.
 
@@ -177,20 +198,20 @@ Agile approaches accept change and organize work around short feedback cycles. S
 
 SOLID consists of five object-oriented design principles whose purpose is to make software easier to understand, extend, and maintain.
 
-| Principle | Meaning | Design consequence |
-| --- | --- | --- |
-| Single Responsibility Principle | A class or module should have one responsibility and one main reason to change. | Separate unrelated reasons for change into separate classes/modules. |
-| Open/Closed Principle | Software entities should be open for extension but closed for modification. | Add new behavior through new implementations, strategies, subclasses, composition, configuration, or plugins instead of editing stable code repeatedly. |
-| Liskov Substitution Principle | A subtype should be usable wherever the base type is expected without breaking correct behavior. | Subclasses must preserve the base contract, not only the method signatures. |
-| Interface Segregation Principle | Clients should not depend on methods they do not use. | Prefer small, role-specific interfaces over one large interface. |
-| Dependency Inversion Principle | High-level modules should not depend on low-level modules; both should depend on abstractions. | Business logic should depend on interfaces/ports, while concrete databases, files, web APIs, or UI adapters implement those abstractions. |
+| Principle                       | Meaning                                                                                          | Design consequence                                                                                                                                      |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Single Responsibility Principle | A class or module should have one responsibility and one main reason to change.                  | Separate unrelated reasons for change into separate classes/modules.                                                                                    |
+| Open/Closed Principle           | Software entities should be open for extension but closed for modification.                      | Add new behavior through new implementations, strategies, subclasses, composition, configuration, or plugins instead of editing stable code repeatedly. |
+| Liskov Substitution Principle   | A subtype should be usable wherever the base type is expected without breaking correct behavior. | Subclasses must preserve the base contract, not only the method signatures.                                                                             |
+| Interface Segregation Principle | Clients should not depend on methods they do not use.                                            | Prefer small, role-specific interfaces over one large interface.                                                                                        |
+| Dependency Inversion Principle  | High-level modules should not depend on low-level modules; both should depend on abstractions.   | Business logic should depend on interfaces/ports, while concrete databases, files, web APIs, or UI adapters implement those abstractions.               |
 
 SOLID principles are related but distinct:
 
-| Pair | Relationship |
-| --- | --- |
-| SRP and ISP | Both reduce unnecessary coupling. SRP separates responsibilities; ISP separates client-facing contracts. |
-| OCP and DIP | OCP is easier when code depends on abstractions; DIP provides that abstraction boundary. |
+| Pair                | Relationship                                                                                                                               |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| SRP and ISP         | Both reduce unnecessary coupling. SRP separates responsibilities; ISP separates client-facing contracts.                                   |
+| OCP and DIP         | OCP is easier when code depends on abstractions; DIP provides that abstraction boundary.                                                   |
 | LSP and inheritance | Inheritance is not only code reuse. If substitutability is broken, the inheritance relationship is unsafe even if the compiler accepts it. |
 
 SOLID should not be applied mechanically. Over-splitting a small program can make it harder to understand. The goal is maintainability under change: separate what changes for different reasons and use abstractions at places where multiple implementations or future extension are realistic.
@@ -221,23 +242,23 @@ Architectural patterns include MV, MVC, MVP, MVVM, layered architecture, and rel
 
 Architectural patterns describe the high-level organization of a system. They are broader than ordinary design patterns: they shape layers, dependency directions, component responsibilities, and major communication paths.
 
-| Pattern | Main idea | Use |
-| --- | --- | --- |
-| Model-View (MV) | Separate the model from the view. The model represents domain data and behavior; the view presents it. | Small UI systems or as the shared base idea behind MVC, MVP, and MVVM. |
-| Model-View-Controller (MVC) | Separate domain model, presentation view, and input/controller logic. | Web and desktop UI applications where user actions are handled separately from display and model logic. |
-| Model-View-Presenter (MVP) | View is passive or thin; presenter contains UI logic and talks to the model. | UI systems where testability of presentation logic matters. |
-| Model-View-ViewModel (MVVM) | View binds to a ViewModel that exposes state and commands tailored for the UI. | Data-binding UI frameworks; separates UI representation state from domain model. |
-| Layered architecture | Organize code into layers such as presentation, application/service, domain, and infrastructure/data access. | Systems where dependency boundaries and separation of concerns matter. |
+| Pattern                     | Main idea                                                                                                    | Use                                                                                                     |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| Model-View (MV)             | Separate the model from the view. The model represents domain data and behavior; the view presents it.       | Small UI systems or as the shared base idea behind MVC, MVP, and MVVM.                                  |
+| Model-View-Controller (MVC) | Separate domain model, presentation view, and input/controller logic.                                        | Web and desktop UI applications where user actions are handled separately from display and model logic. |
+| Model-View-Presenter (MVP)  | View is passive or thin; presenter contains UI logic and talks to the model.                                 | UI systems where testability of presentation logic matters.                                             |
+| Model-View-ViewModel (MVVM) | View binds to a ViewModel that exposes state and commands tailored for the UI.                               | Data-binding UI frameworks; separates UI representation state from domain model.                        |
+| Layered architecture        | Organize code into layers such as presentation, application/service, domain, and infrastructure/data access. | Systems where dependency boundaries and separation of concerns matter.                                  |
 
 ### MVC in More Detail
 
 MVC separates:
 
-| MVC part | Responsibility |
-| --- | --- |
-| Model | Domain-specific representation of application information and domain logic. It may include or coordinate persistence, although many modern systems separate data access explicitly. |
-| View | Displays the model in a form suitable for interaction. Multiple views can present the same model differently. |
-| Controller | Processes user events and requests, coordinates changes in the model, and selects or triggers the view response. |
+| MVC part   | Responsibility                                                                                                                                                                      |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Model      | Domain-specific representation of application information and domain logic. It may include or coordinate persistence, although many modern systems separate data access explicitly. |
+| View       | Displays the model in a form suitable for interaction. Multiple views can present the same model differently.                                                                       |
+| Controller | Processes user events and requests, coordinates changes in the model, and selects or triggers the view response.                                                                    |
 
 Typical MVC control flow:
 
@@ -259,31 +280,31 @@ Also note a service layer between controller and model. This is not part of the 
 
 MVC advantages:
 
-| Advantage | Meaning |
-| --- | --- |
-| Concurrent development | Developers can work on model, controller, and views separately. |
-| High cohesion | Related functions can be grouped in a controller; views for a model can be grouped. |
-| Independence | Elements are more independent than in a mixed UI-and-domain structure. |
-| Easier modification | Responsibility separation makes future changes easier. |
-| Multiple views | One model can support several views. |
-| Testability | Separate elements are easier to test independently. |
+| Advantage              | Meaning                                                                             |
+| ---------------------- | ----------------------------------------------------------------------------------- |
+| Concurrent development | Developers can work on model, controller, and views separately.                     |
+| High cohesion          | Related functions can be grouped in a controller; views for a model can be grouped. |
+| Independence           | Elements are more independent than in a mixed UI-and-domain structure.              |
+| Easier modification    | Responsibility separation makes future changes easier.                              |
+| Multiple views         | One model can support several views.                                                |
+| Testability            | Separate elements are easier to test independently.                                 |
 
 MVC disadvantages:
 
-| Disadvantage | Meaning |
-| --- | --- |
-| More layers and code | The pattern introduces extra structure and often boilerplate. |
-| Readability cost | New developers must understand framework conventions and multiple technologies. |
+| Disadvantage         | Meaning                                                                          |
+| -------------------- | -------------------------------------------------------------------------------- |
+| More layers and code | The pattern introduces extra structure and often boilerplate.                    |
+| Readability cost     | New developers must understand framework conventions and multiple technologies.  |
 | Misplaced logic risk | One part may contain most of the real work while the others exist only formally. |
 
 ### Contrasting MV, MVP, and MVVM
 
-| Pattern | Input handling | UI logic location | Typical dependency idea |
-| --- | --- | --- | --- |
-| MV | View directly observes or asks model. | Often mixed into view or model boundary. | Simple separation between representation and display. |
-| MVC | Controller handles input and coordinates model/view. | Controller plus model. | View and controller depend on model; model should not depend on UI. |
-| MVP | Presenter handles UI logic and updates a passive view. | Presenter. | View exposes an interface; presenter is testable without real UI. |
-| MVVM | ViewModel exposes observable state and commands; view binds to them. | ViewModel. | View binds declaratively; ViewModel adapts domain state for display. |
+| Pattern | Input handling                                                       | UI logic location                        | Typical dependency idea                                              |
+| ------- | -------------------------------------------------------------------- | ---------------------------------------- | -------------------------------------------------------------------- |
+| MV      | View directly observes or asks model.                                | Often mixed into view or model boundary. | Simple separation between representation and display.                |
+| MVC     | Controller handles input and coordinates model/view.                 | Controller plus model.                   | View and controller depend on model; model should not depend on UI.  |
+| MVP     | Presenter handles UI logic and updates a passive view.               | Presenter.                               | View exposes an interface; presenter is testable without real UI.    |
+| MVVM    | ViewModel exposes observable state and commands; view binds to them. | ViewModel.                               | View binds declaratively; ViewModel adapts domain state for display. |
 
 ### What to Emphasize in an Oral Answer
 
@@ -311,20 +332,20 @@ Design patterns are reusable, documented solutions to recurring design problems.
 
 Main roles of design patterns:
 
-| Role | Explanation |
-| --- | --- |
-| Capture experience | Patterns collect solutions that experienced designers have found useful repeatedly. |
-| Shorten design time | A known pattern gives a ready design vocabulary and known consequences. |
-| Support communication | Pattern names such as Observer or Decorator let developers discuss designs precisely. |
+| Role                    | Explanation                                                                              |
+| ----------------------- | ---------------------------------------------------------------------------------------- |
+| Capture experience      | Patterns collect solutions that experienced designers have found useful repeatedly.      |
+| Shorten design time     | A known pattern gives a ready design vocabulary and known consequences.                  |
+| Support communication   | Pattern names such as Observer or Decorator let developers discuss designs precisely.    |
 | Raise abstraction level | A pattern describes a relationship structure above individual algorithms and statements. |
-| Record tradeoffs | Patterns include consequences, not only benefits. They may add classes or indirection. |
+| Record tradeoffs        | Patterns include consequences, not only benefits. They may add classes or indirection.   |
 
 Emphasize the Gang of Four classification:
 
-| Category | Purpose | Examples |
-| --- | --- | --- |
-| Creational | Control or abstract object creation. | Singleton, Factory Method, Builder, Prototype. |
-| Structural | Compose classes and objects into larger structures. | Proxy, Decorator, Composite. |
+| Category   | Purpose                                                                 | Examples                                                                                |
+| ---------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Creational | Control or abstract object creation.                                    | Singleton, Factory Method, Builder, Prototype.                                          |
+| Structural | Compose classes and objects into larger structures.                     | Proxy, Decorator, Composite.                                                            |
 | Behavioral | Organize responsibility, control flow, and communication among objects. | Strategy, Template Method, Observer, Iterator, Command, Chain of Responsibility, State. |
 
 Design patterns are lower-level than architectural patterns. MVC, MVVM, or layered architecture usually shape the whole application. Patterns such as Observer, Command, or Decorator usually solve a more local collaboration or extensibility problem inside that architecture.
@@ -356,12 +377,12 @@ Patterns must still be chosen carefully. If the problem context is present, a pa
 
 Creational patterns abstract the process of creating objects. They are useful when direct constructor calls would expose too much concrete type knowledge, when construction has several steps, or when instance control is important.
 
-| Pattern | Problem | Solution idea | Consequences |
-| --- | --- | --- | --- |
-| Singleton | Exactly one instance should exist and clients need a global access point. | Hide the constructor and expose a class-level `getInstance`-style operation returning the same instance. | Controls instance count, but can introduce global state, testing difficulty, and hidden dependencies. |
-| Factory Method | A superclass or client knows it needs an object but should not know the exact concrete class. | Define a creation method that subclasses or implementations override to produce concrete products. | Decouples client from concrete product classes; adds subclass/creator structure. |
-| Builder | An object has complex construction with optional parts or ordered steps. | A builder object constructs the product step by step; the final product is obtained after configuration. | Avoids telescoping constructors and clarifies construction; may add an extra class. |
-| Prototype | The exact type may be known only at runtime, and new objects should be created by copying an example. | Store a prototype object and create new objects by cloning/copying it. | Useful for runtime-configured objects; must handle shallow vs deep copy carefully. |
+| Pattern        | Problem                                                                                               | Solution idea                                                                                            | Consequences                                                                                          |
+| -------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Singleton      | Exactly one instance should exist and clients need a global access point.                             | Hide the constructor and expose a class-level `getInstance`-style operation returning the same instance. | Controls instance count, but can introduce global state, testing difficulty, and hidden dependencies. |
+| Factory Method | A superclass or client knows it needs an object but should not know the exact concrete class.         | Define a creation method that subclasses or implementations override to produce concrete products.       | Decouples client from concrete product classes; adds subclass/creator structure.                      |
+| Builder        | An object has complex construction with optional parts or ordered steps.                              | A builder object constructs the product step by step; the final product is obtained after configuration. | Avoids telescoping constructors and clarifies construction; may add an extra class.                   |
+| Prototype      | The exact type may be known only at runtime, and new objects should be created by copying an example. | Store a prototype object and create new objects by cloning/copying it.                                   | Useful for runtime-configured objects; must handle shallow vs deep copy carefully.                    |
 
 Singleton and Prototype are both creational patterns. Singleton controls instance count through a shared access point; Prototype creates new objects by copying an existing example, which makes copying semantics important.
 
@@ -441,11 +462,11 @@ Also include Prototype. Prototype creates new objects by copying an existing pro
 
 Structural patterns compose objects or classes while preserving useful interfaces.
 
-| Pattern | Problem | Solution idea | Consequences |
-| --- | --- | --- | --- |
-| Proxy | Access to an object must be controlled, delayed, remote, cached, or protected. | A proxy has the same interface as the real subject and forwards requests while adding control. | Transparent access control; extra indirection. |
+| Pattern   | Problem                                                                            | Solution idea                                                                                                          | Consequences                                                                          |
+| --------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Proxy     | Access to an object must be controlled, delayed, remote, cached, or protected.     | A proxy has the same interface as the real subject and forwards requests while adding control.                         | Transparent access control; extra indirection.                                        |
 | Decorator | Responsibilities should be added dynamically without modifying the original class. | Wrap a component in one or more decorators that implement the same interface and add behavior before/after delegation. | Flexible extension without subclass explosion; many wrappers can make tracing harder. |
-| Composite | Clients should treat individual objects and groups uniformly. | Define a common component interface for leaves and composites; composite stores child components. | Uniform tree processing; may make leaf/composite operations less explicit. |
+| Composite | Clients should treat individual objects and groups uniformly.                      | Define a common component interface for leaves and composites; composite stores child components.                      | Uniform tree processing; may make leaf/composite operations less explicit.            |
 
 ### Proxy
 
@@ -453,13 +474,13 @@ Describe Proxy as transparent wrapping of an interesting object. The proxy and r
 
 Types of proxy:
 
-| Proxy kind | Purpose |
-| --- | --- |
-| Virtual proxy | Delays creating or loading expensive objects, such as images in a document. |
-| Remote proxy | Represents an object located elsewhere, such as remote method invocation. |
-| Protection proxy | Controls access according to permissions. |
-| Smart reference | Performs extra operations when the object is accessed. |
-| Cache proxy | Stores expensive computed or downloaded results. |
+| Proxy kind       | Purpose                                                                     |
+| ---------------- | --------------------------------------------------------------------------- |
+| Virtual proxy    | Delays creating or loading expensive objects, such as images in a document. |
+| Remote proxy     | Represents an object located elsewhere, such as remote method invocation.   |
+| Protection proxy | Controls access according to permissions.                                   |
+| Smart reference  | Performs extra operations when the object is accessed.                      |
+| Cache proxy      | Stores expensive computed or downloaded results.                            |
 
 ```mermaid
 classDiagram
@@ -558,15 +579,15 @@ Composite is used for tree-like part-whole structures. It defines a common compo
 
 Behavioral patterns organize algorithms, responsibilities, requests, and object communication.
 
-| Pattern | Problem | Solution idea |
-| --- | --- | --- |
-| Strategy | Several interchangeable algorithms are possible. | Encapsulate each algorithm in a strategy object behind a common interface. |
-| Template Method | Several algorithms share a skeleton but differ in steps. | Put the algorithm skeleton in a base class method and let subclasses override selected steps. |
-| Observer | Many objects must react when one object changes. | Subject stores observers and notifies them on changes. |
-| Iterator | Clients need traversal without knowing container representation. | Iterator object exposes operations for moving through elements. |
-| Command | A request should be represented as an object. | Encapsulate operation, receiver, and parameters in a command object. |
-| Chain of Responsibility | A request may be handled by one of several handlers. | Pass the request along a handler chain until one handles it or the chain ends. |
-| State | Object behavior depends on internal state. | Move state-specific behavior into state objects and delegate to the current state. |
+| Pattern                 | Problem                                                          | Solution idea                                                                                 |
+| ----------------------- | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Strategy                | Several interchangeable algorithms are possible.                 | Encapsulate each algorithm in a strategy object behind a common interface.                    |
+| Template Method         | Several algorithms share a skeleton but differ in steps.         | Put the algorithm skeleton in a base class method and let subclasses override selected steps. |
+| Observer                | Many objects must react when one object changes.                 | Subject stores observers and notifies them on changes.                                        |
+| Iterator                | Clients need traversal without knowing container representation. | Iterator object exposes operations for moving through elements.                               |
+| Command                 | A request should be represented as an object.                    | Encapsulate operation, receiver, and parameters in a command object.                          |
+| Chain of Responsibility | A request may be handled by one of several handlers.             | Pass the request along a handler chain until one handles it or the chain ends.                |
+| State                   | Object behavior depends on internal state.                       | Move state-specific behavior into state objects and delegate to the current state.            |
 
 ### Strategy
 
@@ -599,17 +620,17 @@ Observer defines a one-to-many dependency: when the subject changes, registered 
 
 Parts:
 
-| Part | Role |
-| --- | --- |
-| Subject | Stores observers and provides register, unregister, and notify operations. |
-| Observer | Defines an update operation for objects that react to subject changes. |
+| Part     | Role                                                                       |
+| -------- | -------------------------------------------------------------------------- |
+| Subject  | Stores observers and provides register, unregister, and notify operations. |
+| Observer | Defines an update operation for objects that react to subject changes.     |
 
 Observer variants:
 
-| Variant | Meaning |
-| --- | --- |
+| Variant       | Meaning                                                                      |
+| ------------- | ---------------------------------------------------------------------------- |
 | Pull observer | The subject passes itself or a reference; the observer queries what changed. |
-| Push observer | The subject sends changed data directly to the observer. |
+| Push observer | The subject sends changed data directly to the observer.                     |
 
 ### Iterator
 
@@ -629,12 +650,12 @@ Include State. State lets an object's behavior change when its internal state ch
 
 Advantages:
 
-| Advantage | Meaning |
-| --- | --- |
-| Encapsulation of state-dependent behavior | Each state's behavior is localized. |
-| Easier new states | New state behavior can often be added with a new class. |
-| Clearer code | Avoids large switch/case conditionals over state. |
-| Shareable state objects | Stateless state objects may be reused. |
+| Advantage                                 | Meaning                                                 |
+| ----------------------------------------- | ------------------------------------------------------- |
+| Encapsulation of state-dependent behavior | Each state's behavior is localized.                     |
+| Easier new states                         | New state behavior can often be added with a new class. |
+| Clearer code                              | Avoids large switch/case conditionals over state.       |
+| Shareable state objects                   | Stateless state objects may be reused.                  |
 
 Disadvantage: the number of classes increases, so it should be used when state-dependent behavior is substantial enough to justify it.
 
@@ -666,46 +687,46 @@ Project management, DevOps, version control, CI/CD, and Clean Code are part of t
 
 Project management coordinates scope, time, cost, quality, risk, people, and communication. In software projects, it usually includes:
 
-| Area | Meaning |
-| --- | --- |
-| Scope management | What the system must and must not include. |
-| Schedule and iteration planning | When increments, milestones, releases, and reviews happen. |
-| Risk management | Technical, organizational, staffing, security, integration, and requirement risks. |
-| Work tracking | Tasks, owners, states, priorities, estimates, and dependencies. |
-| Quality management | Definition of done, reviews, test strategy, acceptance criteria, and defect handling. |
-| Communication | Keeping users, developers, testers, and maintainers aligned. |
+| Area                            | Meaning                                                                               |
+| ------------------------------- | ------------------------------------------------------------------------------------- |
+| Scope management                | What the system must and must not include.                                            |
+| Schedule and iteration planning | When increments, milestones, releases, and reviews happen.                            |
+| Risk management                 | Technical, organizational, staffing, security, integration, and requirement risks.    |
+| Work tracking                   | Tasks, owners, states, priorities, estimates, and dependencies.                       |
+| Quality management              | Definition of done, reviews, test strategy, acceptance criteria, and defect handling. |
+| Communication                   | Keeping users, developers, testers, and maintainers aligned.                          |
 
 ### Version Control Systems
 
 A version control system records the history of files and changes.
 
-| Concept | Meaning |
-| --- | --- |
-| Revision / commit | A recorded change set with metadata such as author, time, message, and parent revision. |
-| Repository | The stored project history and current branches/tags. |
-| Branch | A movable line of development used for features, releases, fixes, or experiments. |
-| Merge | Combining changes from different branches. |
-| Conflict | A situation where changes cannot be combined automatically and require human resolution. |
-| Tag | A named, fixed reference to a revision, often used for releases. |
+| Concept           | Meaning                                                                                  |
+| ----------------- | ---------------------------------------------------------------------------------------- |
+| Revision / commit | A recorded change set with metadata such as author, time, message, and parent revision.  |
+| Repository        | The stored project history and current branches/tags.                                    |
+| Branch            | A movable line of development used for features, releases, fixes, or experiments.        |
+| Merge             | Combining changes from different branches.                                               |
+| Conflict          | A situation where changes cannot be combined automatically and require human resolution. |
+| Tag               | A named, fixed reference to a revision, often used for releases.                         |
 
 Generations of version control systems:
 
-| Generation | Model | Examples | Main property |
-| --- | --- | --- | --- |
-| Local | Version database is local to one machine. | RCS-style systems. | Simple but poor for teams. |
-| Centralized | One central server stores authoritative history. | CVS, Subversion. | Clear central control, but the server is a bottleneck and offline work is limited. |
-| Distributed | Each clone has full history; synchronization happens by push/pull/fetch/merge. This is distributed version control. | Git, Mercurial. | Strong branching, offline commits, flexible collaboration. |
+| Generation  | Model                                                                                                               | Examples           | Main property                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------- |
+| Local       | Version database is local to one machine.                                                                           | RCS-style systems. | Simple but poor for teams.                                                         |
+| Centralized | One central server stores authoritative history.                                                                    | CVS, Subversion.   | Clear central control, but the server is a bottleneck and offline work is limited. |
+| Distributed | Each clone has full history; synchronization happens by push/pull/fetch/merge. This is distributed version control. | Git, Mercurial.    | Strong branching, offline commits, flexible collaboration.                         |
 
 ### Branching and Conflict Resolution
 
 Common branch purposes:
 
-| Branch kind | Purpose |
-| --- | --- |
-| Main/trunk | Stable integration line, often deployable. |
-| Feature branch | Isolates a feature until review/integration. |
+| Branch kind    | Purpose                                                           |
+| -------------- | ----------------------------------------------------------------- |
+| Main/trunk     | Stable integration line, often deployable.                        |
+| Feature branch | Isolates a feature until review/integration.                      |
 | Release branch | Stabilizes a release while later development continues elsewhere. |
-| Hotfix branch | Fixes an urgent production problem. |
+| Hotfix branch  | Fixes an urgent production problem.                               |
 
 GitFlow is a feature-branching model with long-lived `main` and `develop`, feature branches from `develop`, release branches for stabilization, and hotfix branches from production. It is useful for scheduled releases, but it can be heavy for teams practicing continuous delivery. Simpler trunk-based development keeps integration close to `main` and uses small changes, feature flags, and frequent CI.
 
@@ -715,14 +736,14 @@ A merge conflict should be resolved semantically, not only textually. The develo
 
 DevOps joins development and operations around fast, reliable delivery. It emphasizes automation, observability, shared responsibility, infrastructure as code, continuous improvement, and short feedback loops.
 
-| Practice | Meaning |
-| --- | --- |
-| Continuous integration (CI) | Developers integrate frequently; automated build and tests run on changes. |
-| Continuous delivery (CD) | Software is kept releasable; deployment may require a manual approval step. |
-| Continuous deployment | Every change that passes the pipeline can be deployed automatically. |
-| Pipeline | Ordered automated steps such as install, lint, build, unit tests, integration tests, packaging, security checks, deployment. |
-| Artifact | A built, versioned output such as a package, image, or release bundle. |
-| Rollback/roll-forward | Operational strategy for recovering from bad releases. |
+| Practice                    | Meaning                                                                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Continuous integration (CI) | Developers integrate frequently; automated build and tests run on changes.                                                   |
+| Continuous delivery (CD)    | Software is kept releasable; deployment may require a manual approval step.                                                  |
+| Continuous deployment       | Every change that passes the pipeline can be deployed automatically.                                                         |
+| Pipeline                    | Ordered automated steps such as install, lint, build, unit tests, integration tests, packaging, security checks, deployment. |
+| Artifact                    | A built, versioned output such as a package, image, or release bundle.                                                       |
+| Rollback/roll-forward       | Operational strategy for recovering from bad releases.                                                                       |
 
 CI/CD makes design feedback faster: if a design causes tight coupling, fragile tests, or hard deployment, that pain appears frequently and can guide refactoring.
 
@@ -730,15 +751,15 @@ CI/CD makes design feedback faster: if a design causes tight coupling, fragile t
 
 Clean Code principles are practical coding guidelines that support object-oriented design:
 
-| Principle | Meaning |
-| --- | --- |
-| Intention-revealing names | Names should communicate purpose, not only type or implementation. |
-| Small focused functions/classes | Keep one level of abstraction and one responsibility where practical. |
-| Low coupling and high cohesion | Related behavior belongs together; unrelated modules should not depend unnecessarily. |
-| Avoid duplication | Repeated knowledge should have one source of truth. |
-| Prefer clarity over cleverness | Code should be understandable by maintainers. |
-| Keep boundaries explicit | Isolate frameworks, I/O, databases, and external services behind clear interfaces. |
-| Tests as design feedback | Tests should confirm behavior and make risky changes safer. |
+| Principle                       | Meaning                                                                               |
+| ------------------------------- | ------------------------------------------------------------------------------------- |
+| Intention-revealing names       | Names should communicate purpose, not only type or implementation.                    |
+| Small focused functions/classes | Keep one level of abstraction and one responsibility where practical.                 |
+| Low coupling and high cohesion  | Related behavior belongs together; unrelated modules should not depend unnecessarily. |
+| Avoid duplication               | Repeated knowledge should have one source of truth.                                   |
+| Prefer clarity over cleverness  | Code should be understandable by maintainers.                                         |
+| Keep boundaries explicit        | Isolate frameworks, I/O, databases, and external services behind clear interfaces.    |
+| Tests as design feedback        | Tests should confirm behavior and make risky changes safer.                           |
 
 Clean Code complements SOLID. SOLID gives design-level dependency and responsibility principles; Clean Code gives day-to-day readability and maintainability practices.
 

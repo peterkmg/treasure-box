@@ -8,11 +8,11 @@ title: '[Final] Advanced Algorithms'
 
 Graph algorithms usually assume a graph $G=(V,E)$ with vertices and edges. A graph may be directed or undirected, weighted or unweighted. Representation matters because the chosen representation affects algorithmic cost.
 
-| Representation | Space | Best for | Key operation cost |
-| --- | ---: | --- | --- |
-| Adjacency matrix | $O(|V|^2)$ | Dense graphs and constant-time adjacency tests | Test edge $(u,v)$ in $O(1)$ |
-| Adjacency list | $O(|V|+|E|)$ | Sparse graphs and traversing neighbors | Iterate neighbors of $u$ in $O(\deg(u))$ |
-| Edge list | $O(|E|)$ | Algorithms that repeatedly scan all edges | Scan all edges in $O(|E|)$ |
+| Representation   |                   Space | Best for                                       | Key operation cost                       |
+| ---------------- | ----------------------: | ---------------------------------------------- | ---------------------------------------- |
+| Adjacency matrix |         $O(\| V \| ^2)$ | Dense graphs and constant-time adjacency tests | Test edge $(u,v)$ in $O(1)$              |
+| Adjacency list   | $O(\| V \| + \| E \| )$ | Sparse graphs and traversing neighbors         | Iterate neighbors of $u$ in $O(\deg(u))$ |
+| Edge list        |           $O(\| E \| )$ | Algorithms that repeatedly scan all edges      | Scan all edges in $O(\| E \| )$          |
 
 Matrix values depend on the task. For shortest paths, missing edges are usually represented by $\infty$; for unweighted adjacency, missing edges are usually `0` or `false`.
 
@@ -51,12 +51,12 @@ flowchart LR
 
 BFS properties:
 
-| Property | Explanation |
-| --- | --- |
-| Time complexity | $O(|V|+|E|)$ with adjacency lists. |
-| Shortest path in unweighted graphs | $d[v]$ is the minimum number of edges from $s$ to $v$. |
-| BFS tree | `parent[v]` records a shortest-path tree rooted at $s$. |
-| Applications | Connectivity, shortest unweighted paths, bipartite testing, level structure. |
+| Property                           | Explanation                                                                  |
+| ---------------------------------- | ---------------------------------------------------------------------------- |
+| Time complexity                    | $O(\| V \| + \| E \| )$ with adjacency lists.                                |
+| Shortest path in unweighted graphs | $d[v]$ is the minimum number of edges from $s$ to $v$.                       |
+| BFS tree                           | `parent[v]` records a shortest-path tree rooted at $s$.                      |
+| Applications                       | Connectivity, shortest unweighted paths, bipartite testing, level structure. |
 
 A graph is bipartite if vertices can be colored with two colors so every edge goes between colors. BFS tests this by assigning alternating colors by distance parity; an edge connecting equal colors proves the graph is not bipartite.
 
@@ -95,22 +95,22 @@ flowchart TD
 
 DFS properties:
 
-| Property | Explanation |
-| --- | --- |
-| Time complexity | $O(|V|+|E|)$ with adjacency lists. |
-| DFS forest | Parent pointers form a forest when the graph is disconnected. |
-| Discovery/finish times | Support interval reasoning and topological sorting. |
-| Edge classification | Tree, back, forward, and cross edges in directed DFS. |
+| Property               | Explanation                                                   |
+| ---------------------- | ------------------------------------------------------------- |
+| Time complexity        | $O(\| V \| + \| E \| )$ with adjacency lists.                 |
+| DFS forest             | Parent pointers form a forest when the graph is disconnected. |
+| Discovery/finish times | Support interval reasoning and topological sorting.           |
+| Edge classification    | Tree, back, forward, and cross edges in directed DFS.         |
 
 DFS applications:
 
-| Application | Mechanism |
-| --- | --- |
-| Cycle detection | A back edge to a gray vertex indicates a directed cycle. In undirected graphs, an edge to an already visited non-parent vertex indicates a cycle. |
-| Topological ordering | In a DAG, list vertices by decreasing finish time. |
-| Connected components | Run DFS/BFS from unvisited vertices in an undirected graph. |
-| Strongly connected components | Use DFS ordering plus graph reversal in algorithms such as Kosaraju. |
-| Maze/backtracking search | DFS explores one branch and backtracks when stuck. |
+| Application                   | Mechanism                                                                                                                                         |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cycle detection               | A back edge to a gray vertex indicates a directed cycle. In undirected graphs, an edge to an already visited non-parent vertex indicates a cycle. |
+| Topological ordering          | In a DAG, list vertices by decreasing finish time.                                                                                                |
+| Connected components          | Run DFS/BFS from unvisited vertices in an undirected graph.                                                                                       |
+| Strongly connected components | Use DFS ordering plus graph reversal in algorithms such as Kosaraju.                                                                              |
+| Maze/backtracking search      | DFS explores one branch and backtracks when stuck.                                                                                                |
 
 A **topological ordering** of a directed acyclic graph (DAG) orders vertices so every edge goes from earlier to later. It exists exactly for DAGs. DFS can compute it by placing each vertex at the front of a list when it finishes.
 
@@ -211,11 +211,11 @@ flowchart LR
 
 Common running times:
 
-| Implementation | Time |
-| --- | ---: |
-| Adjacency matrix/simple array | $O(|V|^2)$ |
-| Binary heap with adjacency lists | $O(|E|\log |V|)$ |
-| Fibonacci heap | $O(|E|+|V|\log |V|)$ |
+| Implementation                   |                                    Time |
+| -------------------------------- | --------------------------------------: |
+| Adjacency matrix/simple array    |                         $O(\| V \| ^2)$ |
+| Binary heap with adjacency lists |               $O(\| E\| \log \| V \| )$ |
+| Fibonacci heap                   | $O(\| E \| +    \| V \| \log \| V \| )$ |
 
 Kruskal is often natural for sparse graphs with easily sorted edges. Prim is often natural when the graph is dense or when growing one connected component from a root is convenient.
 
@@ -257,7 +257,7 @@ Relax(u, v, w):
 Initialize:
 
 $$
-d[s]=0,\qquad d[v]=\infty\text{ for }v\ne s.
+d[s]=0,\quad d[v]=\infty\text{ for }v\ne s.
 $$
 
 ### Bellman-Ford and Queue-Based Bellman-Ford
@@ -321,11 +321,11 @@ The correctness relies on nonnegative weights: once the smallest tentative verte
 
 Common running times:
 
-| Implementation | Time |
-| --- | ---: |
-| Array / adjacency matrix | $O(|V|^2)$ |
-| Binary heap with adjacency lists | $O((|V|+|E|)\log |V|)$ |
-| Fibonacci heap | $O(|E|+|V|\log |V|)$ |
+| Implementation                   |                                      Time |
+| -------------------------------- | ----------------------------------------: |
+| Array / adjacency matrix         |                           $O(\| V \| ^2)$ |
+| Binary heap with adjacency lists | $O((\| V \| +    \| E \| )\log \| V \| )$ |
+| Fibonacci heap                   |   $O(\| E \| +    \| V \| \log \| V \| )$ |
 
 ### DAG Shortest Paths
 
@@ -406,11 +406,11 @@ FloydWarshall(W):
 
 Properties:
 
-| Property | Explanation |
-| --- | --- |
-| Time | $O(|V|^3)$ |
-| Space | $O(|V|^2)$ for the distance matrix |
-| Negative edges | Allowed if there are no negative cycles |
+| Property                  | Explanation                                                                                     |
+| ------------------------- | ----------------------------------------------------------------------------------------------- |
+| Time                      | $O(\| V \| ^3)$                                                                                 |
+| Space                     | $O(\| V \| ^2)$ for the distance matrix                                                         |
+| Negative edges            | Allowed if there are no negative cycles                                                         |
 | Negative cycle indication | A negative value on $D[i,i]$ after the algorithm indicates a negative cycle reachable from $i$. |
 
 Floyd-Warshall is attractive when the graph is dense or when all pair distances are needed. For sparse graphs with nonnegative weights, running Dijkstra from every vertex may be better.
@@ -476,12 +476,12 @@ Transitive closure connects relations and partial orders. In relation terms, the
 
 Applications:
 
-| Application | Use |
-| --- | --- |
-| Reachability queries | Answer whether one vertex can reach another. |
-| Dependency analysis | Determine indirect prerequisites or module dependencies. |
+| Application             | Use                                                         |
+| ----------------------- | ----------------------------------------------------------- |
+| Reachability queries    | Answer whether one vertex can reach another.                |
+| Dependency analysis     | Determine indirect prerequisites or module dependencies.    |
 | Partial-order reasoning | Convert direct cover-like relations into full reachability. |
-| Control-flow analysis | Find which program points can reach which others. |
+| Control-flow analysis   | Find which program points can reach which others.           |
 
 ### What to Emphasize in an Oral Answer
 

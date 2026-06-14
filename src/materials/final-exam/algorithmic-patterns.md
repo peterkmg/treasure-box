@@ -10,19 +10,19 @@ Algorithmic patterns are useful only when the task has first been specified prec
 
 Program construction proceeds through these phases:
 
-| Phase | Role |
-| --- | --- |
-| Specification | Define exactly what the task is, including input, output, value sets, precondition, and postcondition. |
-| Design | Choose the solution algorithm and data representation. This should be independent of a concrete programming language when possible. |
-| Implementation | Code the designed algorithm in a programming language. |
-| Testing and debugging | Run the program on selected test cases, compare actual and expected output, locate defects, correct them, and retest. |
-| Quality improvement | Examine efficiency, memory use, usability, portability, and similar requirements. |
+| Phase                 | Role                                                                                                                                |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Specification         | Define exactly what the task is, including input, output, value sets, precondition, and postcondition.                              |
+| Design                | Choose the solution algorithm and data representation. This should be independent of a concrete programming language when possible. |
+| Implementation        | Code the designed algorithm in a programming language.                                                                              |
+| Testing and debugging | Run the program on selected test cases, compare actual and expected output, locate defects, correct them, and retest.               |
+| Quality improvement   | Examine efficiency, memory use, usability, portability, and similar requirements.                                                   |
 
 These phases are not strictly one-way. Defects in the specification may be discovered during design. Defects in the design may be found during implementation or testing. Fixes require retesting because a fix can introduce new defects.
 
 ### Specification
 
-A specification should be correct, unambiguous, precise, complete, concise, and understandable. A textual task statement is usually not enough. For example, "give the tallest person among `N` people" is ambiguous until the specification says what data are given and what should be returned.
+A specification should be correct, unambiguous, precise, complete, concise, and understandable. A textual task statement is usually not enough. For example, "give the tallest person among $N$ people" is ambiguous until the specification says what data are given and what should be returned.
 
 The specification must include:
 
@@ -101,23 +101,23 @@ A test case must include both input data and expected output. Otherwise the resu
 
 Basic testing principles:
 
-| Principle | Meaning |
-| --- | --- |
-| Good tests are error-revealing | A good test case is likely to reveal a previously unknown error. |
-| Expected results are required | Inputs alone are not enough. |
-| Tests should be repeatable | Non-repeatable tests make debugging expensive and unreliable. |
-| Test valid and invalid data | Both data satisfying and violating the precondition matter. |
-| Examine each result thoroughly | Each test should provide as much information as possible. |
+| Principle                             | Meaning                                                                        |
+| ------------------------------------- | ------------------------------------------------------------------------------ |
+| Good tests are error-revealing        | A good test case is likely to reveal a previously unknown error.               |
+| Expected results are required         | Inputs alone are not enough.                                                   |
+| Tests should be repeatable            | Non-repeatable tests make debugging expensive and unreliable.                  |
+| Test valid and invalid data           | Both data satisfying and violating the precondition matter.                    |
+| Examine each result thoroughly        | Each test should provide as much information as possible.                      |
 | Check missing and unexpected behavior | Testing must check both missing required function and unwanted extra behavior. |
-| Independent testing is valuable | The author tends to assume their own program is correct. |
+| Independent testing is valuable       | The author tends to assume their own program is correct.                       |
 
 Dynamic testing methods:
 
-| Method | Basis for test cases | Strength | Limitation |
-| --- | --- | --- | --- |
-| Black-box testing | Task specification | Finds errors against required behavior without depending on implementation | Cannot guarantee all paths are tested |
-| White-box testing | Program code and control structure | Can cover instructions, branches, and paths | Exhaustive path testing is impractical, especially with loops |
-| Stress/efficiency testing | Non-functional requirements | Checks scale and runtime behavior | Does not establish functional correctness by itself |
+| Method                    | Basis for test cases               | Strength                                                                   | Limitation                                                    |
+| ------------------------- | ---------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Black-box testing         | Task specification                 | Finds errors against required behavior without depending on implementation | Cannot guarantee all paths are tested                         |
+| White-box testing         | Program code and control structure | Can cover instructions, branches, and paths                                | Exhaustive path testing is impractical, especially with loops |
+| Stress/efficiency testing | Non-functional requirements        | Checks scale and runtime behavior                                          | Does not establish functional correctness by itself           |
 
 ### What to Emphasize in an Oral Answer
 
@@ -146,45 +146,45 @@ Data types matter before reduction to programming patterns. This matters because
 
 Use the following ideas:
 
-| Concept | Meaning |
-| --- | --- |
-| $A^*$ | Set of finite sequences over $A$. |
-| $A^\infty$ | Set of infinite sequences over `A`. |
-| $A^{**}$ | Union of finite and infinite sequences over $A$. |
-| State space | Cartesian product of type value sets. |
-| Task | A relation on the state space describing acceptable state transformations. |
-| Program | An abstract operation that assigns a non-empty state sequence to every starting state. |
+| Concept     | Meaning                                                                                |
+| ----------- | -------------------------------------------------------------------------------------- |
+| $A^*$       | Set of finite sequences over $A$.                                                      |
+| $A^\infty$  | Set of infinite sequences over $A$.                                                    |
+| $A^{**}$    | Union of finite and infinite sequences over $A$.                                       |
+| State space | Cartesian product of type value sets.                                                  |
+| Task        | A relation on the state space describing acceptable state transformations.             |
+| Program     | An abstract operation that assigns a non-empty state sequence to every starting state. |
 
 A type specification describes the requirements for values and operations:
 
-```text
-Type specification = (H, I_S, F)
-```
+$$
+\text{Type specification} = (H, I_S, F)
+$$
 
 where:
 
-| Component | Meaning |
-| --- | --- |
-| $H$ | Base set. |
-| $I_S$ | Specification invariant. |
-| $T_T$ | Type value set selected from $H$ by the invariant. |
-| $F$ | Specifications of the type operations. |
+| Component | Meaning                                            |
+| --------- | -------------------------------------------------- |
+| $H$       | Base set.                                          |
+| $I_S$     | Specification invariant.                           |
+| $T_T$     | Type value set selected from $H$ by the invariant. |
+| $F$       | Specifications of the type operations.             |
 
 The invariant is a property that must never be violated. For a set type, an invariant can be that an element occurs at most once.
 
 A concrete type implements the specification:
 
-```text
-Type = (rho, I, S)
-```
+$$
+\text{Type} = (\rho, I, S)
+$$
 
 where:
 
-| Component | Meaning |
-| --- | --- |
-| $\rho$ | Representation function/relation from concrete representation values to abstract type values. |
-| `I` | Concrete type invariant. |
-| `S` | Programs implementing the operations. |
+| Component | Meaning                                                                                       |
+| --------- | --------------------------------------------------------------------------------------------- |
+| $\rho$    | Representation function/relation from concrete representation values to abstract type values. |
+| $I$       | Concrete type invariant.                                                                      |
+| $S$       | Programs implementing the operations.                                                         |
 
 Representation is how abstract values are stored concretely. For example, a stack can be represented by an array or by a linked list. Implementation is the realization of the specified operations by concrete programs. In the model, program variables should be changed only through the operations of their types.
 
@@ -202,22 +202,22 @@ Steps of reduction:
 
 Typical substitutions:
 
-| Pattern element | Concrete counterpart |
-| --- | --- |
-| Enumerator `t: enor(E)` | The collection traversal used by the task. |
-| Predicate $\beta: E \to Bool$ | A task-specific condition, such as "is negative". |
-| Function $f: E \to H$ | A value extracted or computed from each enumerated element. |
-| Operation on `H` | Addition, multiplication, comparison, or another associative/ordered operation as needed. |
-| Result variables | Concrete task outputs, often renamed. |
+| Pattern element                        | Concrete counterpart                                                                      |
+| -------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Enumerator $t: \operatorname{enor}(E)$ | The collection traversal used by the task.                                                |
+| Predicate $\beta: E \to Bool$          | A task-specific condition, such as "is negative".                                         |
+| Function $f: E \to H$                  | A value extracted or computed from each enumerated element.                               |
+| Operation on $H$                       | Addition, multiplication, comparison, or another associative/ordered operation as needed. |
+| Result variables                       | Concrete task outputs, often renamed.                                                     |
 
 Example: count the negative numbers in a sequence.
 
-| Pattern element | Concrete task |
-| --- | --- |
-| Pattern | Counting |
-| Enumerator | Sequence enumerator over the input sequence |
-| Predicate $\beta(e)$ | $e<0$ |
-| Result $c$ | Number of negative elements |
+| Pattern element      | Concrete task                               |
+| -------------------- | ------------------------------------------- |
+| Pattern              | Counting                                    |
+| Enumerator           | Sequence enumerator over the input sequence |
+| Predicate $\beta(e)$ | $e<0$                                       |
+| Result $c$           | Number of negative elements                 |
 
 This reduces the task to the counting pattern by analogy.
 
@@ -230,7 +230,7 @@ The embedded programming-theorem PDF notes that careful efficiency improvements 
 - Distinguish abstract type specification from concrete representation: invariants and operations define valid values and allowed changes.
 - Define reduction/technique of analogy as matching a concrete task to a known programming theorem or pattern.
 - Walk through the reduction steps: choose the pattern, rewrite the task in pattern notation, identify differences, substitute concrete elements, and derive the algorithm.
-- Name the important substitutions: enumerator, predicate $\beta$, function $f$, operation on `H`, and result variables.
+- Name the important substitutions: enumerator, predicate $\beta$, function $f$, operation on $H$, and result variables.
 - Give a small example such as counting negative elements in a sequence.
 - Mention that meaning-preserving efficiency improvements are allowed, such as caching `Current()` or omitting unnecessary abstract result components.
 
@@ -248,11 +248,11 @@ After reduction, the concrete algorithm is obtained from the pattern algorithm b
 
 A collection is a data item or object suitable for storing elements. Collections may be concrete or virtual:
 
-| Collection kind | Examples |
-| --- | --- |
-| Structured values | Sets, sequences, stacks, queues, files |
-| Recursive structures | Trees, graphs |
-| Virtual collections | Integer intervals, prime divisors of a number |
+| Collection kind      | Examples                                      |
+| -------------------- | --------------------------------------------- |
+| Structured values    | Sets, sequences, stacks, queues, files        |
+| Recursive structures | Trees, graphs                                 |
+| Virtual collections  | Integer intervals, prime divisors of a number |
 
 Processing a collection means processing its elements. Examples include:
 
@@ -264,12 +264,12 @@ Processing a collection means processing its elements. Examples include:
 
 An enumerator standardizes traversal. An enumerator uses four operations:
 
-| Operation | Meaning |
-| --- | --- |
-| `First()` | Move to the first element; start the enumeration. |
-| `Next()` | Move to the next element after the current one. |
-| `End()` | Tell whether the enumeration has reached the end. |
-| `Current()` | Return the current element. |
+| Operation   | Meaning                                           |
+| ----------- | ------------------------------------------------- |
+| `First()`   | Move to the first element; start the enumeration. |
+| `Next()`    | Move to the next element after the current one.   |
+| `End()`     | Tell whether the enumeration has reached the end. |
+| `Current()` | Return the current element.                       |
 
 The standard processing scheme is:
 
@@ -282,11 +282,11 @@ while not t.End():
 
 The enumeration state can be:
 
-| State | Meaning | Valid operations |
-| --- | --- | --- |
-| Ready to start | The enumerator exists but traversal has not started. | `First()` |
-| In progress | There is a current element. | `Current()`, `Next()`, `End()` |
-| Finished | No more elements remain. | `End()`; usually not `Current()` |
+| State          | Meaning                                              | Valid operations                 |
+| -------------- | ---------------------------------------------------- | -------------------------------- |
+| Ready to start | The enumerator exists but traversal has not started. | `First()`                        |
+| In progress    | There is a current element.                          | `Current()`, `Next()`, `End()`   |
+| Finished       | No more elements remain.                             | `End()`; usually not `Current()` |
 
 The processing algorithm is responsible for using enumerator operations only in valid states. For example, it must not call `Current()` after `End()` is true.
 
@@ -328,7 +328,7 @@ Important collection enumerators include interval, array, sequence, sequential i
 
 ### Interval Enumerator
 
-An interval enumerator traverses integer values between bounds. A simple forward interval enumerator over `[m..n]` can be represented by the current index `i`.
+An interval enumerator traverses integer values between bounds. A simple forward interval enumerator over $[m..n]$ can be represented by the current index $i$.
 
 ```text
 First():   i := m
@@ -343,7 +343,7 @@ Intervals may also be traversed backwards or with a step other than one, if the 
 
 For indexable collections, the enumerator often enumerates indexes rather than stored values. The current value is obtained from the collection by indexing.
 
-Vector enumerator for `v[m..n]`:
+Vector enumerator for $v[m..n]$:
 
 ```text
 First():   i := m
@@ -386,10 +386,10 @@ A set has no inherent order, but an enumerator may still produce each element on
 
 A sequential input file is enumerated by reading records in order. Its enumerator can be represented by:
 
-| Component | Meaning |
-| --- | --- |
-| file `x` | Remaining input file/stream |
-| element `e` | Last element read |
+| Component   | Meaning                                     |
+| ----------- | ------------------------------------------- |
+| file `x`    | Remaining input file/stream                 |
+| element `e` | Last element read                           |
 | status `st` | Read status, such as normal or abnormal/end |
 
 Typical operations:
@@ -409,12 +409,12 @@ A pre-read file situation can occur when the first element has already been read
 
 Direct notation for common enumerators:
 
-| Collection | Notation idea |
-| --- | --- |
-| Sequential input file $x$ | Replace $e\in t'$ by $e\in x'$. |
-| Set $h$ | Replace $e\in t'$ by $e\in h'$. |
-| Vector $v[m..n]$ | Sum/search over indexes $i=m,\ldots,n$, using values $v[i]$. |
-| Matrix $a[1..n, 1..m]$ | Sum/search over index pairs $(i,j)$. |
+| Collection                | Notation idea                                                |
+| ------------------------- | ------------------------------------------------------------ |
+| Sequential input file $x$ | Replace $e\in t'$ by $e\in x'$.                              |
+| Set $h$                   | Replace $e\in t'$ by $e\in h'$.                              |
+| Vector $v[m..n]$          | Sum/search over indexes $i=m,\ldots,n$, using values $v[i]$. |
+| Matrix $a[1..n, 1..m]$    | Sum/search over index pairs $(i,j)$.                         |
 
 For example, vector summation can be written as:
 
@@ -455,13 +455,13 @@ The six concrete programming patterns are summation, counting, maximum selection
 
 Notation used below:
 
-| Symbol | Meaning |
-| --- | --- |
-| $t: enor(E)$ | Enumerator producing elements of set/type $E$. |
-| `t'` | Initial state of the enumerator. |
-| $f: E \to H$ | Function assigning a value to each enumerated element. |
-| $\beta: E \to Bool$ | Predicate over enumerated elements. |
-| `H` | Result value set, with an operation or total order as required. |
+| Symbol              | Meaning                                                         |
+| ------------------- | --------------------------------------------------------------- |
+| $t: enor(E)$        | Enumerator producing elements of set/type $E$.                  |
+| $t'$                | Initial state of the enumerator.                                |
+| $f: E \to H$        | Function assigning a value to each enumerated element.          |
+| $\beta: E \to Bool$ | Predicate over enumerated elements.                             |
+| $H$                 | Result value set, with an operation or total order as required. |
 
 ### 7.5.1 Summation
 
@@ -489,7 +489,7 @@ Typical examples: sum of numbers, product if the operation is multiplication and
 
 ### 7.5.2 Counting
 
-**Task.** Given an enumerator `t` over `E` and a predicate $\beta: E \to Bool$, determine how many enumerated elements satisfy the predicate.
+**Task.** Given an enumerator $t$ over $E$ and a predicate $\beta: E \to Bool$, determine how many enumerated elements satisfy the predicate.
 
 Specification:
 
@@ -510,11 +510,11 @@ while not t.End():
     t.Next()
 ```
 
-Counting is a special summation where each element contributes `1` if the predicate holds and `0` otherwise.
+Counting is a special summation where each element contributes $1$ if the predicate holds and $0$ otherwise.
 
 ### 7.5.3 Maximum Selection
 
-**Task.** Given a non-empty enumeration `t` and a function $f: E \to H$, where `H` has a total order, find where `f` takes its maximum value on the enumerated elements. The abstract result includes both the maximum value and the element where it occurs.
+**Task.** Given a non-empty enumeration $t$ and a function $f: E \to H$, where $H$ has a total order, find where $f$ takes its maximum value on the enumerated elements. The abstract result includes both the maximum value and the element where it occurs.
 
 Specification:
 
@@ -630,20 +630,20 @@ This pattern combines filtering and maximum selection. The flag `l` records whet
 
 ### Pattern Summary
 
-| Pattern | Precondition | Result | Stops early? |
-| --- | --- | --- | --- |
-| Summation | Enumerator can be empty | Accumulated value | No |
-| Counting | Enumerator can be empty | Count of elements satisfying $\beta$ | No |
-| Maximum selection | Enumerator non-empty | Maximum value and element | No |
-| Selection | Matching element exists | First matching element | Yes |
-| Linear search | No existence guarantee | Success flag and first matching element if any | Yes |
-| Conditional maximum search | No matching-element guarantee | Success flag, maximum value, and element if any | No |
+| Pattern                    | Precondition                  | Result                                          | Stops early? |
+| -------------------------- | ----------------------------- | ----------------------------------------------- | ------------ |
+| Summation                  | Enumerator can be empty       | Accumulated value                               | No           |
+| Counting                   | Enumerator can be empty       | Count of elements satisfying $\beta$            | No           |
+| Maximum selection          | Enumerator non-empty          | Maximum value and element                       | No           |
+| Selection                  | Matching element exists       | First matching element                          | Yes          |
+| Linear search              | No existence guarantee        | Success flag and first matching element if any  | Yes          |
+| Conditional maximum search | No matching-element guarantee | Success flag, maximum value, and element if any | No           |
 
 ### What to Emphasize in an Oral Answer
 
-- Define the patterns as reusable one-pass loop schemes over an enumerator `t`, using optional function $f$, predicate $\beta$, operation or order on `H`, and result variables.
+- Define the patterns as reusable one-pass loop schemes over an enumerator $t$, using optional function $f$, predicate $\beta$, operation or order on $H$, and result variables.
 - Summation and counting both tolerate empty enumerations; summation needs a neutral element and counting is a special summation of 0/1 contributions.
-- Maximum selection requires a non-empty enumeration and a total order; mention initialization from the first element and tie-handling by `>` versus `>=`.
+- Maximum selection requires a non-empty enumeration and a total order; mention initialization from the first element and tie-handling by $>$ versus $\ge$.
 - Distinguish selection from linear search: selection assumes a match exists and needs no success flag; linear search has no existence guarantee and returns a Boolean flag.
 - Explain early stopping and enumerator state for selection/search; the remaining enumeration may matter later.
 - Conditional maximum search filters by $\beta$, initializes on the first qualifying element, and uses a flag because no qualifying element may exist.
@@ -663,11 +663,11 @@ Conditional maximum search combines filtering with maximum selection. It conside
 
 Programs built from programming patterns can be tested with three strategies:
 
-| Strategy | Test-case origin | Use for pattern-based programs |
-| --- | --- | --- |
-| Black box | Task specification | Use valid and invalid data; derive cases from the postcondition. |
-| White box | Code | Try every instruction and every control node such as branches and loops. |
-| Grey box | Executable specification projected by the pattern | If the executable specification is itself pattern-based, use the usual test cases of that pattern. |
+| Strategy  | Test-case origin                                  | Use for pattern-based programs                                                                     |
+| --------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Black box | Task specification                                | Use valid and invalid data; derive cases from the postcondition.                                   |
+| White box | Code                                              | Try every instruction and every control node such as branches and loops.                           |
+| Grey box  | Executable specification projected by the pattern | If the executable specification is itself pattern-based, use the usual test cases of that pattern. |
 
 Because programming theorems are algorithmic patterns, each pattern has characteristic cases that should be tested after reducing a concrete task to that pattern.
 
@@ -675,14 +675,14 @@ Because programming theorems are algorithmic patterns, each pattern has characte
 
 The image-based examples are represented here as test-case categories.
 
-| Pattern | Essential test cases |
-| --- | --- |
-| Summation | Empty enumeration; one element; several elements; values that exercise the operation identity and associativity assumptions. |
-| Counting | Empty enumeration; no matching elements; all matching elements; first/last/some middle elements matching. |
-| Maximum selection | One element; maximum first; maximum last; maximum in the middle; ties if tie-handling matters. |
-| Selection | Match at first element; match after several nonmatching elements; smallest case satisfying the existence precondition. |
-| Linear search | Empty enumeration; no match; match first; match last; match in the middle. |
-| Conditional maximum search | Empty enumeration; no element satisfies predicate; one matching element; maximum among matching elements first/last/middle; nonmatching elements with larger raw `f` values to verify filtering. |
+| Pattern                    | Essential test cases                                                                                                                                                                             |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Summation                  | Empty enumeration; one element; several elements; values that exercise the operation identity and associativity assumptions.                                                                     |
+| Counting                   | Empty enumeration; no matching elements; all matching elements; first/last/some middle elements matching.                                                                                        |
+| Maximum selection          | One element; maximum first; maximum last; maximum in the middle; ties if tie-handling matters.                                                                                                   |
+| Selection                  | Match at first element; match after several nonmatching elements; smallest case satisfying the existence precondition.                                                                           |
+| Linear search              | Empty enumeration; no match; match first; match last; match in the middle.                                                                                                                       |
+| Conditional maximum search | Empty enumeration; no element satisfies predicate; one matching element; maximum among matching elements first/last/middle; nonmatching elements with larger raw $f$ values to verify filtering. |
 
 ### Valid and Invalid Data
 
@@ -690,12 +690,12 @@ Testing must include data satisfying the precondition and data violating it. For
 
 Examples:
 
-| Task | Valid cases | Invalid or boundary cases |
-| --- | --- | --- |
-| Maximum selection | Non-empty input | Empty input violates the pattern precondition and should be handled or rejected. |
-| Selection | At least one matching element | No matching element violates selection's existence precondition. |
-| Linear search | Any finite input | Empty input and no-match input are valid and important. |
-| Sequential input file processing | Normal readable input | Empty file, malformed record, abnormal read status. |
+| Task                             | Valid cases                   | Invalid or boundary cases                                                        |
+| -------------------------------- | ----------------------------- | -------------------------------------------------------------------------------- |
+| Maximum selection                | Non-empty input               | Empty input violates the pattern precondition and should be handled or rejected. |
+| Selection                        | At least one matching element | No matching element violates selection's existence precondition.                 |
+| Linear search                    | Any finite input              | Empty input and no-match input are valid and important.                          |
+| Sequential input file processing | Normal readable input         | Empty file, malformed record, abnormal read status.                              |
 
 ### Testing a Task Reduced to a Pattern
 
@@ -703,20 +703,20 @@ For a concrete task, testing should check both the concrete transformation and t
 
 Example: "Count negative values in an array."
 
-| Aspect | Test |
-| --- | --- |
-| Empty/small boundary | Empty array if allowed; one positive; one negative. |
-| Predicate behavior | All positive; all negative; mixed signs; zero if zero is not negative. |
-| Position variety | Negative at first, last, and middle positions. |
-| Result correctness | Count equals exactly the number of values satisfying $x<0$. |
+| Aspect               | Test                                                                   |
+| -------------------- | ---------------------------------------------------------------------- |
+| Empty/small boundary | Empty array if allowed; one positive; one negative.                    |
+| Predicate behavior   | All positive; all negative; mixed signs; zero if zero is not negative. |
+| Position variety     | Negative at first, last, and middle positions.                         |
+| Result correctness   | Count equals exactly the number of values satisfying $x<0$.            |
 
 Example: "Find the first student with an excellent average."
 
-| Aspect | Test |
-| --- | --- |
-| Selection/search difference | If existence is guaranteed, selection is valid; otherwise use linear search. |
-| First-match rule | Excellent student first, middle, last. |
-| No-match case | Must be handled only if using linear search or if input validation rejects it. |
+| Aspect                      | Test                                                                           |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| Selection/search difference | If existence is guaranteed, selection is valid; otherwise use linear search.   |
+| First-match rule            | Excellent student first, middle, last.                                         |
+| No-match case               | Must be handled only if using linear search or if input validation rejects it. |
 
 The key idea is that applying a pattern does not remove the need for testing. It gives a structured way to choose meaningful tests.
 

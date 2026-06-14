@@ -16,11 +16,11 @@ Parallelism is narrower: activities actually execute at the same time on differe
 
 Relevant base terms:
 
-| Term | Meaning |
-| --- | --- |
-| Thread | A software counterpart of a processor with minimal context. If it is stopped, its context can be saved and later reloaded so execution continues. |
+| Term           | Meaning                                                                                                                                                          |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Thread         | A software counterpart of a processor with minimal context. If it is stopped, its context can be saved and later reloaded so execution continues.                |
 | Process / task | A larger unit that groups one or more threads. Threads in the same process share one address space; different processes do not directly see each other's memory. |
-| Context switch | Passing control to another process or thread so one processor can execute several processes or threads over time. |
+| Context switch | Passing control to another process or thread so one processor can execute several processes or threads over time.                                                |
 
 Threads are lighter than processes because switching between threads of the same process does not require replacing the whole address-space/MMU context. Process creation, deletion, and switching are usually much more expensive because the OS must preserve isolation between memory areas, and only kernel mode may rewrite the necessary MMU state.
 
@@ -48,12 +48,12 @@ The additional material is Java-centered. In Java:
 
 Ways to describe thread work:
 
-| Method | Example idea | Notes |
-| --- | --- | --- |
-| Extend `Thread` | Subclass `Thread` and override `run()`. | Simple but uses the class's only superclass slot. |
-| Implement `Runnable` | Put work in `run()` and pass the object to a `Thread`. | Usually cleaner because it separates task from execution resource. |
-| Lambda / anonymous class | Pass a short `Runnable` body. | Concise for small tasks; captured local variables must be final or effectively final. |
-| `Callable<V>` via executors | Put work in `call()` and return a value. | Used with `ExecutorService` and `Future`, covered in 19.9. |
+| Method                      | Example idea                                           | Notes                                                                                 |
+| --------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| Extend `Thread`             | Subclass `Thread` and override `run()`.                | Simple but uses the class's only superclass slot.                                     |
+| Implement `Runnable`        | Put work in `run()` and pass the object to a `Thread`. | Usually cleaner because it separates task from execution resource.                    |
+| Lambda / anonymous class    | Pass a short `Runnable` body.                          | Concise for small tasks; captured local variables must be final or effectively final. |
+| `Callable<V>` via executors | Put work in `call()` and return a value.               | Used with `ExecutorService` and `Future`, covered in 19.9.                            |
 
 Example:
 
@@ -129,11 +129,11 @@ Scheduling goals:
 
 Scheduling styles:
 
-| Style | Meaning | Consequence |
-| --- | --- | --- |
-| Run-to-completion | A task runs until it finishes or blocks. | Low switching overhead, but poor fairness/responsiveness if tasks are long. |
-| Cooperative | A thread voluntarily yields control. | Correctness depends on cooperation; one bad task can block others. |
-| Preemptive time sharing | A timer or scheduler can interrupt a running thread and run another. | Better fairness and responsiveness, but more possible interleavings. |
+| Style                   | Meaning                                                              | Consequence                                                                 |
+| ----------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Run-to-completion       | A task runs until it finishes or blocks.                             | Low switching overhead, but poor fairness/responsiveness if tasks are long. |
+| Cooperative             | A thread voluntarily yields control.                                 | Correctness depends on cooperation; one bad task can block others.          |
+| Preemptive time sharing | A timer or scheduler can interrupt a running thread and run another. | Better fairness and responsiveness, but more possible interleavings.        |
 
 `Thread.yield()` is only a hint. It does not guarantee that another thread will run, so it must not be used to prove program ordering.
 
@@ -228,14 +228,14 @@ void deposit(int amount) {
 
 Possible unsafe interleaving:
 
-| Step | Thread A | Thread B | Balance |
-| --- | --- | --- | --- |
-| 1 | reads `100` | | 100 |
-| 2 | computes `150` | | 100 |
-| 3 | | reads `100` | 100 |
-| 4 | | computes `130` | 100 |
-| 5 | writes `150` | | 150 |
-| 6 | | writes `130` | 130 |
+| Step | Thread A       | Thread B       | Balance |
+| ---- | -------------- | -------------- | ------- |
+| 1    | reads `100`    |                | 100     |
+| 2    | computes `150` |                | 100     |
+| 3    |                | reads `100`    | 100     |
+| 4    |                | computes `130` | 100     |
+| 5    | writes `150`   |                | 150     |
+| 6    |                | writes `130`   | 130     |
 
 One update is lost. Each thread locally performed a reasonable read-compute-write sequence, but together the result is wrong.
 
@@ -252,12 +252,12 @@ Stack-local data is normally confined to one thread. Heap objects can be shared 
 
 ### Correctness Options
 
-| Strategy | Meaning |
-| --- | --- |
-| Do not share | Keep data thread-confined. |
-| Share immutable data | Use values that cannot change after construction. |
+| Strategy                        | Meaning                                                                                                              |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Do not share                    | Keep data thread-confined.                                                                                           |
+| Share immutable data            | Use values that cannot change after construction.                                                                    |
 | Synchronize shared mutable data | Use `synchronized`, explicit locks, atomics, concurrent collections, blocking queues, or other correct abstractions. |
-| Communicate instead of sharing | Pass messages/items through queues so ownership is clearer. |
+| Communicate instead of sharing  | Pass messages/items through queues so ownership is clearer.                                                          |
 
 ### Critical Sections
 
@@ -318,12 +318,12 @@ Both reading and writing use the same monitor lock.
 
 ### Intrinsic Locks Versus Explicit Locks
 
-| Mechanism | What it gives | Useful when | Main risk |
-| --- | --- | --- | --- |
-| `synchronized` method/block | Intrinsic monitor mutual exclusion with automatic release on exit. | Simple critical sections tied to an object or lock object. | One wait set per object; less control over timed or interruptible acquisition. |
-| `ReentrantLock` | Explicit `lock()` and `unlock()` with `try-finally`. | `tryLock()`, timed locking, interruptible locking, multiple conditions. | Forgetting `unlock()`; more complex code. |
-| `Condition` | Explicit wait queue associated with a lock. | Protocols with several wait conditions such as `notEmpty` and `notFull`. | Must signal correctly and check conditions in loops. |
-| `ReentrantReadWriteLock` | Many simultaneous readers or one exclusive writer. | Read-heavy data such as caches/maps. | Misclassifying operations; possible writer or reader starvation depending on policy. |
+| Mechanism                   | What it gives                                                      | Useful when                                                              | Main risk                                                                            |
+| --------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `synchronized` method/block | Intrinsic monitor mutual exclusion with automatic release on exit. | Simple critical sections tied to an object or lock object.               | One wait set per object; less control over timed or interruptible acquisition.       |
+| `ReentrantLock`             | Explicit `lock()` and `unlock()` with `try-finally`.               | `tryLock()`, timed locking, interruptible locking, multiple conditions.  | Forgetting `unlock()`; more complex code.                                            |
+| `Condition`                 | Explicit wait queue associated with a lock.                        | Protocols with several wait conditions such as `notEmpty` and `notFull`. | Must signal correctly and check conditions in loops.                                 |
+| `ReentrantReadWriteLock`    | Many simultaneous readers or one exclusive writer.                 | Read-heavy data such as caches/maps.                                     | Misclassifying operations; possible writer or reader starvation depending on policy. |
 
 The standard explicit-lock pattern is:
 
@@ -352,10 +352,10 @@ Explicit locks can provide:
 
 Reader-writer synchronization allows multiple readers at the same time but excludes writers:
 
-| Operation | Lock needed | Can run with |
-| --- | --- | --- |
-| Read-only operation | Read lock | Other readers |
-| Mutating operation | Write lock | No readers and no other writers |
+| Operation           | Lock needed | Can run with                    |
+| ------------------- | ----------- | ------------------------------- |
+| Read-only operation | Read lock   | Other readers                   |
+| Mutating operation  | Write lock  | No readers and no other writers |
 
 This improves concurrency when reads are frequent and writes are rare. It is incorrect if a "read" operation actually mutates state, caches lazily, updates statistics, or participates in an invariant requiring exclusive access.
 
@@ -430,17 +430,17 @@ Blocking is useful because waiting threads should not waste CPU in a busy loop.
 
 ### Common Java Blocking Operations
 
-| Operation | Blocks until |
-| --- | --- |
-| `Thread.join()` | The target thread finishes. |
-| `Thread.sleep(time)` | The time interval expires or the thread is interrupted. |
-| `Object.wait()` | The thread is notified/interrupted and reacquires the monitor. |
-| `Condition.await()` | The condition is signaled/interrupted and the lock is reacquired. |
-| `BlockingQueue.take()` | An item is available. |
-| `BlockingQueue.put()` | Space is available in a bounded queue. |
-| `Future.get()` | The asynchronous computation finishes or fails. |
-| `ExecutorService.awaitTermination()` | The executor terminates or timeout expires. |
-| Blocking I/O | Data or completion is available, or an error/cancellation occurs. |
+| Operation                            | Blocks until                                                      |
+| ------------------------------------ | ----------------------------------------------------------------- |
+| `Thread.join()`                      | The target thread finishes.                                       |
+| `Thread.sleep(time)`                 | The time interval expires or the thread is interrupted.           |
+| `Object.wait()`                      | The thread is notified/interrupted and reacquires the monitor.    |
+| `Condition.await()`                  | The condition is signaled/interrupted and the lock is reacquired. |
+| `BlockingQueue.take()`               | An item is available.                                             |
+| `BlockingQueue.put()`                | Space is available in a bounded queue.                            |
+| `Future.get()`                       | The asynchronous computation finishes or fails.                   |
+| `ExecutorService.awaitTermination()` | The executor terminates or timeout expires.                       |
+| Blocking I/O                         | Data or completion is available, or an error/cancellation occurs. |
 
 ### `join()` and `sleep()`
 
@@ -523,11 +523,11 @@ Blocking operations should also support cancellation. Java uses interruption: on
 
 A Java program has heap memory for objects and stacks for method calls.
 
-| Location | Contents | Thread meaning |
-| --- | --- | --- |
-| Thread stack | Stack frames, parameters, local variables, temporary references, return information, exception propagation. | Each started thread has its own stack. Ordinary stack data is thread-confined. |
-| Heap | Objects and object fields. | Shared if references to the same object are reachable from several threads. |
-| Static fields | Class-level variables stored outside individual stacks. | Shared by all threads in the same JVM/class loader context. |
+| Location      | Contents                                                                                                    | Thread meaning                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Thread stack  | Stack frames, parameters, local variables, temporary references, return information, exception propagation. | Each started thread has its own stack. Ordinary stack data is thread-confined. |
+| Heap          | Objects and object fields.                                                                                  | Shared if references to the same object are reachable from several threads.    |
+| Static fields | Class-level variables stored outside individual stacks.                                                     | Shared by all threads in the same JVM/class loader context.                    |
 
 When a new thread starts, it receives its own independent call stack. However, local variables on that stack may hold references to heap objects. If another thread also has a reference to the same object, the object is shared even though each reference variable is local.
 
@@ -535,13 +535,13 @@ When a new thread starts, it receives its own independent call stack. However, l
 
 Important cases:
 
-| Case | Safe without synchronization? | Why |
-| --- | --- | --- |
-| Local primitive variable used by one thread | Usually yes | It is on that thread's stack. |
-| Local reference to a private object | Yes if object does not escape | The object is effectively thread-confined. |
-| Local reference to shared object | No if object is mutable | The reference is local, but the object is on the heap. |
-| Immutable shared object | Yes for reads | State cannot change after construction. |
-| Mutable shared object | No | Needs synchronization, atomics, or a concurrent abstraction. |
+| Case                                        | Safe without synchronization? | Why                                                          |
+| ------------------------------------------- | ----------------------------- | ------------------------------------------------------------ |
+| Local primitive variable used by one thread | Usually yes                   | It is on that thread's stack.                                |
+| Local reference to a private object         | Yes if object does not escape | The object is effectively thread-confined.                   |
+| Local reference to shared object            | No if object is mutable       | The reference is local, but the object is on the heap.       |
+| Immutable shared object                     | Yes for reads                 | State cannot change after construction.                      |
+| Mutable shared object                       | No                            | Needs synchronization, atomics, or a concurrent abstraction. |
 
 ### `final` and Effectively Final
 
@@ -599,15 +599,15 @@ There is also a visibility issue. Without a proper happens-before relationship, 
 
 Java supports threads through the language and standard library:
 
-| Feature | Role |
-| --- | --- |
-| `Thread` | Represents an execution thread. |
-| `Runnable` | Represents work with no result. |
-| `Callable<V>` | Represents work that returns a value or throws checked exceptions. |
-| `synchronized` | Enters an intrinsic monitor lock. |
-| `wait`, `notify`, `notifyAll` | Monitor condition waiting and notification. |
-| `volatile` | Visibility/order tool for simple state, not a replacement for compound synchronization. |
-| `java.util.concurrent` | Executors, locks, atomics, queues, synchronizers, concurrent collections. |
+| Feature                       | Role                                                                                    |
+| ----------------------------- | --------------------------------------------------------------------------------------- |
+| `Thread`                      | Represents an execution thread.                                                         |
+| `Runnable`                    | Represents work with no result.                                                         |
+| `Callable<V>`                 | Represents work that returns a value or throws checked exceptions.                      |
+| `synchronized`                | Enters an intrinsic monitor lock.                                                       |
+| `wait`, `notify`, `notifyAll` | Monitor condition waiting and notification.                                             |
+| `volatile`                    | Visibility/order tool for simple state, not a replacement for compound synchronization. |
+| `java.util.concurrent`        | Executors, locks, atomics, queues, synchronizers, concurrent collections.               |
 
 The language-level support matters because correct synchronization must be visible to the compiler, JVM, and CPU memory model. Hand-written timing tricks are not reliable.
 
@@ -761,26 +761,26 @@ These are designed for concurrent access and often scale better than simply lock
 
 `BlockingQueue` is the core in-process communication type for many producer-consumer designs.
 
-| Operation family | Full/empty behavior |
-| --- | --- |
-| `add` / `remove` | Throw exception if operation cannot proceed. |
-| `offer` / `poll` | Return a special value instead of blocking. |
-| `put` / `take` | Block until operation can proceed. |
+| Operation family             | Full/empty behavior                                    |
+| ---------------------------- | ------------------------------------------------------ |
+| `add` / `remove`             | Throw exception if operation cannot proceed.           |
+| `offer` / `poll`             | Return a special value instead of blocking.            |
+| `put` / `take`               | Block until operation can proceed.                     |
 | timed `offer` / timed `poll` | Wait up to a timeout, then return if still impossible. |
 
 This gives both synchronization and backpressure.
 
 ### Synchronizers
 
-| Type | Purpose |
-| --- | --- |
-| `Semaphore` | Permit-based access to limited resources. |
-| `CountDownLatch` | One-time gate; threads wait until count reaches zero. |
-| `CyclicBarrier` | Group waits until all parties reach the barrier; reusable. |
-| `Phaser` | Flexible multi-phase barrier. |
-| `Exchanger` | Two threads swap values. |
-| `SynchronousQueue` | Zero-capacity handoff queue. |
-| `Future<V>` | Represents result of asynchronous computation. |
+| Type               | Purpose                                                    |
+| ------------------ | ---------------------------------------------------------- |
+| `Semaphore`        | Permit-based access to limited resources.                  |
+| `CountDownLatch`   | One-time gate; threads wait until count reaches zero.      |
+| `CyclicBarrier`    | Group waits until all parties reach the barrier; reusable. |
+| `Phaser`           | Flexible multi-phase barrier.                              |
+| `Exchanger`        | Two threads swap values.                                   |
+| `SynchronousQueue` | Zero-capacity handoff queue.                               |
+| `Future<V>`        | Represents result of asynchronous computation.             |
 
 The right data type should match the protocol. Using a `BlockingQueue` for producer-consumer is usually safer than manual `wait`/`notify`; using a latch for one-time startup is clearer than a custom flag and lock.
 
@@ -829,14 +829,14 @@ Creating one thread per task can waste memory, add context-switching overhead, a
 
 ### Core Executor Concepts
 
-| Concept | Role | Main operations |
-| --- | --- | --- |
-| `Runnable` | Task that returns no value. | `run()` |
-| `Callable<V>` | Task that returns a value or throws an exception. | `call()` |
-| `Executor` | Basic task submission interface. | `execute(Runnable)` |
+| Concept           | Role                                              | Main operations                                                    |
+| ----------------- | ------------------------------------------------- | ------------------------------------------------------------------ |
+| `Runnable`        | Task that returns no value.                       | `run()`                                                            |
+| `Callable<V>`     | Task that returns a value or throws an exception. | `call()`                                                           |
+| `Executor`        | Basic task submission interface.                  | `execute(Runnable)`                                                |
 | `ExecutorService` | Executor with lifecycle and result-oriented APIs. | `submit`, `invokeAll`, `invokeAny`, `shutdown`, `awaitTermination` |
-| `Future<V>` | Handle for asynchronous result. | `get`, `isDone`, `cancel` |
-| `ForkJoinPool` | Executor for divide-and-conquer computation. | fork/join tasks, work stealing |
+| `Future<V>`       | Handle for asynchronous result.                   | `get`, `isDone`, `cancel`                                          |
+| `ForkJoinPool`    | Executor for divide-and-conquer computation.      | fork/join tasks, work stealing                                     |
 
 ### `Executor`
 
@@ -850,11 +850,11 @@ The caller submits work; the executor decides when and on which worker thread it
 
 This improves server design:
 
-| Design | Problem |
-| --- | --- |
-| Sequential server | One slow client blocks all later clients. |
-| New thread per client | Too many threads under high load. |
-| Fixed-pool executor | Limits resource usage while still handling clients concurrently. |
+| Design                | Problem                                                          |
+| --------------------- | ---------------------------------------------------------------- |
+| Sequential server     | One slow client blocks all later clients.                        |
+| New thread per client | Too many threads under high load.                                |
+| Fixed-pool executor   | Limits resource usage while still handling clients concurrently. |
 
 ### `ExecutorService`, `Callable`, and `Future`
 
@@ -944,12 +944,12 @@ The buffer absorbs speed differences.
 
 ### Amount of Asynchronicity
 
-| Buffer size | Meaning | Consequence |
-| --- | --- | --- |
-| `0` | Rendezvous / direct handoff. | Producer and consumer must meet at the same time. |
-| `1` | One-slot buffer. | Very limited decoupling. |
-| `N` bounded | Producer can run ahead by up to `N` items. | Gives controlled asynchronicity and backpressure. |
-| Unbounded | Producer can run arbitrarily far ahead. | Risk of memory growth if consumers are slower. |
+| Buffer size | Meaning                                    | Consequence                                       |
+| ----------- | ------------------------------------------ | ------------------------------------------------- |
+| `0`         | Rendezvous / direct handoff.               | Producer and consumer must meet at the same time. |
+| `1`         | One-slot buffer.                           | Very limited decoupling.                          |
+| $N$ bounded | Producer can run ahead by up to $N$ items. | Gives controlled asynchronicity and backpressure. |
+| Unbounded   | Producer can run arbitrarily far ahead.    | Risk of memory growth if consumers are slower.    |
 
 Bounded buffers are often best because they allow overlap but also prevent unlimited memory use.
 
@@ -1089,25 +1089,25 @@ Bank-transfer example:
 
 ### Deadlock Versus Race and Ordinary Waiting
 
-| Concept | Meaning |
-| --- | --- |
-| Race condition | Unsafe interleaving corrupts data or violates an invariant. |
-| Ordinary blocking | A thread waits, but another runnable action can eventually satisfy the condition. |
-| Deadlock | The waiting tasks themselves form a cycle, so none can satisfy the others' conditions. |
-| Starvation | A task could progress in principle, but policy keeps bypassing it. |
+| Concept           | Meaning                                                                                |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| Race condition    | Unsafe interleaving corrupts data or violates an invariant.                            |
+| Ordinary blocking | A thread waits, but another runnable action can eventually satisfy the condition.      |
+| Deadlock          | The waiting tasks themselves form a cycle, so none can satisfy the others' conditions. |
+| Starvation        | A task could progress in principle, but policy keeps bypassing it.                     |
 
 ### Handling Strategies
 
 There is no universal solution. Strategies include:
 
-| Strategy | Meaning | Tradeoff |
-| --- | --- | --- |
-| Detection and recovery | Detect a cycle or timeout, then abort/rollback/retry something. | Recovery may be expensive or complex. |
-| Timeout | Give up after waiting too long. | Simple but may mistake slow progress for deadlock. |
-| Prediction/avoidance | Check whether an acquisition would create unsafe state. | Needs information that may be hard to know. |
-| Prevention | Design the locking protocol so deadlock cannot form. | May reduce concurrency or require discipline. |
-| Central control | One coordinator manages resource acquisition. | Simpler reasoning, but bottleneck/single-point risk. |
-| Random waiting/backoff | Break repeated symmetric conflicts. | Probabilistic, not a complete correctness proof alone. |
+| Strategy               | Meaning                                                         | Tradeoff                                               |
+| ---------------------- | --------------------------------------------------------------- | ------------------------------------------------------ |
+| Detection and recovery | Detect a cycle or timeout, then abort/rollback/retry something. | Recovery may be expensive or complex.                  |
+| Timeout                | Give up after waiting too long.                                 | Simple but may mistake slow progress for deadlock.     |
+| Prediction/avoidance   | Check whether an acquisition would create unsafe state.         | Needs information that may be hard to know.            |
+| Prevention             | Design the locking protocol so deadlock cannot form.            | May reduce concurrency or require discipline.          |
+| Central control        | One coordinator manages resource acquisition.                   | Simpler reasoning, but bottleneck/single-point risk.   |
+| Random waiting/backoff | Break repeated symmetric conflicts.                             | Probabilistic, not a complete correctness proof alone. |
 
 ### Resource Ordering
 

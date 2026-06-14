@@ -10,13 +10,13 @@ This subject covers class-based programming-language concepts, including abstrac
 
 A class is a user-defined type from which objects, also called instances, are created. A class describes the state and behavior of its objects.
 
-| Concept | Meaning |
-| --- | --- |
-| Class | A type definition containing attributes/data members and methods/operations. |
-| Object / instance | A runtime entity created from a class. It has identity, state, and behavior. |
-| Attribute / field | A named piece of state stored by an object or class. |
-| Method / operation | Behavior that can be requested from an object or class. |
-| Message | A request sent to an object; the object responds by executing an operation. |
+| Concept            | Meaning                                                                      |
+| ------------------ | ---------------------------------------------------------------------------- |
+| Class              | A type definition containing attributes/data members and methods/operations. |
+| Object / instance  | A runtime entity created from a class. It has identity, state, and behavior. |
+| Attribute / field  | A named piece of state stored by an object or class.                         |
+| Method / operation | Behavior that can be requested from an object or class.                      |
+| Message            | A request sent to an object; the object responds by executing an operation.  |
 
 The object-oriented paradigm builds programs from objects that communicate through operations. The main OOP principles are encapsulation, inheritance, and polymorphism.
 
@@ -69,20 +69,20 @@ Instantiation is the act of creating an object from a class. The runtime allocat
 
 Encapsulation means grouping related data and operations in one program unit. In OOP that unit is usually the class/object: the object's state is kept together with the methods that maintain it.
 
-| Idea | Meaning |
-| --- | --- |
-| Encapsulation | Data and methods are packaged together. |
-| Object state | The current values of the object's data members. |
-| Object behavior | The methods through which the object responds to requests. |
-| Invariant | A condition that should remain true for every valid object state. |
+| Idea            | Meaning                                                           |
+| --------------- | ----------------------------------------------------------------- |
+| Encapsulation   | Data and methods are packaged together.                           |
+| Object state    | The current values of the object's data members.                  |
+| Object behavior | The methods through which the object responds to requests.        |
+| Invariant       | A condition that should remain true for every valid object state. |
 
 Members are named class contents:
 
-| Member kind | Meaning |
-| --- | --- |
-| Data member / field | Stores state. |
-| Method member | Defines behavior. |
-| Constructor | Initializes a newly created object. |
+| Member kind                           | Meaning                                                           |
+| ------------------------------------- | ----------------------------------------------------------------- |
+| Data member / field                   | Stores state.                                                     |
+| Method member                         | Defines behavior.                                                 |
+| Constructor                           | Initializes a newly created object.                               |
 | Destructor / finalizer-like operation | Releases resources or cleanup logic in languages that support it. |
 
 A constructor is the initialization operation of an object. It runs when a new object is instantiated. A default constructor has no parameters. Overloaded constructors provide several valid initialization forms. A good constructor should establish the object's invariant, so the object starts its life in a valid state.
@@ -112,23 +112,23 @@ Some languages have destructors. In C++, a destructor is called deterministicall
 
 The topic explicitly names instance and static members. Static members include static data members and static methods; static data members are shared by instances of the class.
 
-| Member type | Belongs to | Receiver object needed? | Typical use |
-| --- | --- | --- | --- |
-| Instance field | One object | Yes | Object-specific state such as a point's coordinates. |
-| Instance method | One object | Yes | Behavior that reads or modifies the receiver object's state. |
-| Static/class field | The class | No | Shared counters, constants, registries, or class-level configuration. |
-| Static/class method | The class | No | Factory helpers, utilities, or operations over static data. |
+| Member type         | Belongs to | Receiver object needed? | Typical use                                                           |
+| ------------------- | ---------- | ----------------------- | --------------------------------------------------------------------- |
+| Instance field      | One object | Yes                     | Object-specific state such as a point's coordinates.                  |
+| Instance method     | One object | Yes                     | Behavior that reads or modifies the receiver object's state.          |
+| Static/class field  | The class  | No                      | Shared counters, constants, registries, or class-level configuration. |
+| Static/class method | The class  | No                      | Factory helpers, utilities, or operations over static data.           |
 
 Instance methods usually have an implicit receiver such as `this` or `self`. Static methods do not operate on a receiver object. They can often be called before any instance is created.
 
 Static members are useful but can create risks:
 
-| Risk | Explanation |
-| --- | --- |
-| Shared mutable state | All users of the class can observe or change the same state. |
-| Hidden dependency | Code can depend on global-like class state without explicit parameters. |
-| Testing difficulty | Static mutable state may leak between tests. |
-| Dispatch difference | Static methods are usually not dynamically dispatched like ordinary virtual instance methods. |
+| Risk                 | Explanation                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------- |
+| Shared mutable state | All users of the class can observe or change the same state.                                  |
+| Hidden dependency    | Code can depend on global-like class state without explicit parameters.                       |
+| Testing difficulty   | Static mutable state may leak between tests.                                                  |
+| Dispatch difference  | Static methods are usually not dynamically dispatched like ordinary virtual instance methods. |
 
 ### What to Emphasize in an Oral Answer
 
@@ -153,12 +153,12 @@ The danger is that static mutable state behaves like global state. It can create
 
 Information hiding means that an object hides its representation and selected operations. Clients use controlled public operations instead of depending on private data layout.
 
-| Visibility | Meaning |
-| --- | --- |
-| `public` | Visible to all clients. |
-| `private` | Visible only inside the defining class or its language-specific private scope. |
-| `protected` | Visible inside the class and descendants, depending on language rules. |
-| package/default/internal | Visible inside a package, module, or assembly. |
+| Visibility               | Meaning                                                                        |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| `public`                 | Visible to all clients.                                                        |
+| `private`                | Visible only inside the defining class or its language-specific private scope. |
+| `protected`              | Visible inside the class and descendants, depending on language rules.         |
+| package/default/internal | Visible inside a package, module, or assembly.                                 |
 
 Common visibility modifiers appear in Java, C++, and C#. Python often relies on conventions such as leading underscores rather than strict enforcement.
 
@@ -166,12 +166,12 @@ Visibility is not the same as scope. Scope asks where a name can be referenced. 
 
 Information hiding supports:
 
-| Benefit | Explanation |
-| --- | --- |
-| Refactoring | Internal representation can change while the public API remains stable. |
-| Invariant protection | Clients cannot freely place the object into invalid states. |
-| Lower coupling | Clients depend on behavior, not representation. |
-| Clear API | The public surface communicates what the class promises. |
+| Benefit              | Explanation                                                             |
+| -------------------- | ----------------------------------------------------------------------- |
+| Refactoring          | Internal representation can change while the public API remains stable. |
+| Invariant protection | Clients cannot freely place the object into invalid states.             |
+| Lower coupling       | Clients depend on behavior, not representation.                         |
+| Clear API            | The public surface communicates what the class promises.                |
 
 ### What to Emphasize in an Oral Answer
 
@@ -196,24 +196,24 @@ Visibility should be distinguished from scope. Scope is where a name can be refe
 
 Overloading means defining several functions or methods with the same name but different signatures.
 
-| Property | Meaning |
-| --- | --- |
-| Signature | Usually the name plus number and types of parameters; in some languages, such as Ada, return type can also participate. |
-| Binding time | Usually compile time. |
-| Selection rule | Actual argument types and count determine which overload is called. |
-| Error cases | No matching overload or several equally good overloads. |
-| Polymorphism kind | Ad-hoc polymorphism. |
+| Property          | Meaning                                                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Signature         | Usually the name plus number and types of parameters; in some languages, such as Ada, return type can also participate. |
+| Binding time      | Usually compile time.                                                                                                   |
+| Selection rule    | Actual argument types and count determine which overload is called.                                                     |
+| Error cases       | No matching overload or several equally good overloads.                                                                 |
+| Polymorphism kind | Ad-hoc polymorphism.                                                                                                    |
 
 For example, overloaded `Translate` operations may accept either coordinate deltas or a `Point` delta.
 
 Overloading must be contrasted with overriding:
 
-| Feature | Overloading | Overriding |
-| --- | --- | --- |
-| Where variants appear | Same scope/class or overload set. | Class hierarchy. |
-| Signature | Same name, different parameters. | Same or compatible signature. |
-| Selection | Usually compile-time. | Usually run-time for dynamically dispatched methods. |
-| Purpose | Same conceptual operation with different parameter forms. | Subclass-specific implementation of inherited behavior. |
+| Feature               | Overloading                                               | Overriding                                              |
+| --------------------- | --------------------------------------------------------- | ------------------------------------------------------- |
+| Where variants appear | Same scope/class or overload set.                         | Class hierarchy.                                        |
+| Signature             | Same name, different parameters.                          | Same or compatible signature.                           |
+| Selection             | Usually compile-time.                                     | Usually run-time for dynamically dispatched methods.    |
+| Purpose               | Same conceptual operation with different parameter forms. | Subclass-specific implementation of inherited behavior. |
 
 ### What to Emphasize in an Oral Answer
 
@@ -238,32 +238,32 @@ It should not be confused with overriding. Overloading selects among different s
 
 lifetime is the part of program execution during which storage allocated for a variable belongs to that variable.
 
-| Lifetime kind | Storage area | Meaning |
-| --- | --- | --- |
+| Lifetime kind      | Storage area                        | Meaning                                                                                |
+| ------------------ | ----------------------------------- | -------------------------------------------------------------------------------------- |
 | Automatic lifetime | Execution stack / activation record | Local block variables usually live from declaration to the end of the enclosing block. |
-| Static lifetime | Static/global storage | Global and static variables exist for the whole execution of the program. |
-| Dynamic lifetime | Heap / dynamic storage | Storage is allocated and released independently of lexical scope. |
+| Static lifetime    | Static/global storage               | Global and static variables exist for the whole execution of the program.              |
+| Dynamic lifetime   | Heap / dynamic storage              | Storage is allocated and released independently of lexical scope.                      |
 
 Manual dynamic memory management gives control but creates risks:
 
-| Problem | Meaning |
-| --- | --- |
-| Memory leak | Allocated storage is no longer released. |
-| Dangling reference | A pointer/reference still points to storage already released. |
-| Double free | The same storage is released twice. |
-| Ownership confusion | It is unclear which object is responsible for release. |
+| Problem             | Meaning                                                       |
+| ------------------- | ------------------------------------------------------------- |
+| Memory leak         | Allocated storage is no longer released.                      |
+| Dangling reference  | A pointer/reference still points to storage already released. |
+| Double free         | The same storage is released twice.                           |
+| Ownership confusion | It is unclear which object is responsible for release.        |
 
 The statement that a garbage collector automates deallocation and reduces responsibility from the programmer, but has computational cost and nondeterministic timing.
 
 Correction/clarification: a garbage collector normally reclaims heap objects that are no longer reachable from live roots such as stack variables, registers, static variables, and runtime structures. It does not simply free every variable that goes out of scope, and it should not be relied on to release every resource at a precise time.
 
-| Garbage collection property | Meaning |
-| --- | --- |
-| Reachability-based | Reachable objects are kept; unreachable heap objects can be reclaimed. |
-| Nondeterministic timing | Collection usually happens later, according to runtime policy. |
-| Runtime overhead | The collector needs CPU time and memory metadata. |
-| Safety benefit | Reduces leaks and dangling references compared with manual memory management. |
-| Resource caution | Files, sockets, locks, and transactions should be closed explicitly or through scoped constructs. |
+| Garbage collection property | Meaning                                                                                           |
+| --------------------------- | ------------------------------------------------------------------------------------------------- |
+| Reachability-based          | Reachable objects are kept; unreachable heap objects can be reclaimed.                            |
+| Nondeterministic timing     | Collection usually happens later, according to runtime policy.                                    |
+| Runtime overhead            | The collector needs CPU time and memory metadata.                                                 |
+| Safety benefit              | Reduces leaks and dangling references compared with manual memory management.                     |
+| Resource caution            | Files, sockets, locks, and transactions should be closed explicitly or through scoped constructs. |
 
 Examples: Java and C# use garbage collection. Standard C and C++ require manual or library-managed ownership; C++ often uses deterministic destructors and RAII rather than ordinary GC.
 
@@ -290,33 +290,33 @@ A garbage collector automates memory reclamation. It usually keeps objects reach
 
 inheritance is creating a new class from an existing class.
 
-| Term | Meaning |
-| --- | --- |
-| Base / parent / superclass | More general class. |
-| Derived / child / subclass | More specific class derived from the base. |
-| Inherited member | Non-private member taken over by the subclass according to language rules. |
-| Abstract class | Class that cannot be instantiated and may contain abstract operations. |
-| Concrete class | Class that can be instantiated. |
-| Final/sealed class | Class that cannot be further derived. |
+| Term                       | Meaning                                                                    |
+| -------------------------- | -------------------------------------------------------------------------- |
+| Base / parent / superclass | More general class.                                                        |
+| Derived / child / subclass | More specific class derived from the base.                                 |
+| Inherited member           | Non-private member taken over by the subclass according to language rules. |
+| Abstract class             | Class that cannot be instantiated and may contain abstract operations.     |
+| Concrete class             | Class that can be instantiated.                                            |
+| Final/sealed class         | Class that cannot be further derived.                                      |
 
 Inheritance supports code reuse and specialization. A subclass can add data and operations and can override inherited behavior.
 
 Single vs multiple inheritance:
 
-| Form | Meaning | Example language style |
-| --- | --- | --- |
-| Single inheritance | One direct superclass. | Java class inheritance. |
-| Multiple inheritance | More than one direct superclass. | C++ class inheritance. |
+| Form                                   | Meaning                                                       | Example language style                                         |
+| -------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------- |
+| Single inheritance                     | One direct superclass.                                        | Java class inheritance.                                        |
+| Multiple inheritance                   | More than one direct superclass.                              | C++ class inheritance.                                         |
 | Interface inheritance / implementation | A class has one superclass but implements several interfaces. | Java-style alternative to multiple implementation inheritance. |
 
 Multiple inheritance risks:
 
-| Risk | Meaning |
-| --- | --- |
-| Diamond problem | A class inherits from two classes that share a common ancestor. |
-| Name conflict | Different bases define members with the same name. |
-| Repeated state | The same base state may appear more than once without special rules. |
-| Ambiguous method resolution | The language must decide which inherited operation is meant. |
+| Risk                        | Meaning                                                              |
+| --------------------------- | -------------------------------------------------------------------- |
+| Diamond problem             | A class inherits from two classes that share a common ancestor.      |
+| Name conflict               | Different bases define members with the same name.                   |
+| Repeated state              | The same base state may appear more than once without special rules. |
+| Ambiguous method resolution | The language must decide which inherited operation is meant.         |
 
 C++ supports multiple inheritance and uses rules such as virtual inheritance to handle shared bases. Java avoids multiple class inheritance but supports multiple interfaces. Other languages may use traits or mixins.
 
@@ -346,19 +346,19 @@ Inheritance should not be treated as only code reuse. It also implies a type rel
 
 Subtyping is a type relationship. If $S$ is a subtype of $T$, a value of type $S$ can be used where a $T$ is expected. It is often written as $S <: T$.
 
-| Concept | Meaning |
-| --- | --- |
-| Subtype | More specific type usable as a more general type. |
-| Supertype | More general type. |
-| Substitutability | Subtype instances can replace supertype instances without breaking correctness. |
-| Liskov substitution | Behavioral form of substitutability: subtypes preserve the expected contract. |
+| Concept             | Meaning                                                                         |
+| ------------------- | ------------------------------------------------------------------------------- |
+| Subtype             | More specific type usable as a more general type.                               |
+| Supertype           | More general type.                                                              |
+| Substitutability    | Subtype instances can replace supertype instances without breaking correctness. |
+| Liskov substitution | Behavioral form of substitutability: subtypes preserve the expected contract.   |
 
 Inheritance and subtyping are related but distinct:
 
-| Concept | Focus |
-| --- | --- |
+| Concept     | Focus                                   |
+| ----------- | --------------------------------------- |
 | Inheritance | Class derivation and code/member reuse. |
-| Subtyping | Safe use through a more general type. |
+| Subtyping   | Safe use through a more general type.   |
 
 A `Number`, `Rational`, `Integer` hierarchy and an `Animal`, `Cat`, `Dog` example. A function expecting `Animal` can accept `Cat` and `Dog` if they satisfy the `Animal` contract.
 
@@ -387,10 +387,10 @@ Subtyping and inheritance often occur together, but they are not the same. Inher
 
 Static and dynamic type:
 
-| Type concept | Meaning |
-| --- | --- |
-| Static type | The declared or inferred type known at compile time. It determines which operations may be called. |
-| Dynamic type | The actual runtime type/class of the object currently referenced. |
+| Type concept | Meaning                                                                                            |
+| ------------ | -------------------------------------------------------------------------------------------------- |
+| Static type  | The declared or inferred type known at compile time. It determines which operations may be called. |
+| Dynamic type | The actual runtime type/class of the object currently referenced.                                  |
 
 Example:
 
@@ -404,12 +404,12 @@ Clarification: an object's dynamic type does not normally change after creation.
 
 Type checking:
 
-| Type-checking idea | Meaning |
-| --- | --- |
-| Static type checking | Type errors are caught before execution, usually by the compiler. |
-| Dynamic type checking | Type compatibility is checked at runtime for some operations. |
+| Type-checking idea    | Meaning                                                                         |
+| --------------------- | ------------------------------------------------------------------------------- |
+| Static type checking  | Type errors are caught before execution, usually by the compiler.               |
+| Dynamic type checking | Type compatibility is checked at runtime for some operations.                   |
 | Cast / type narrowing | The program asks to treat a value as a more specific type; may fail at runtime. |
-| Strong typing | Operations are restricted so unrelated values are not silently misused. |
+| Strong typing         | Operations are restricted so unrelated values are not silently misused.         |
 
 The static type controls what members are accessible. Even if the dynamic type has more methods, code cannot call them through a variable whose static type does not expose them unless a cast or type refinement is used.
 
@@ -436,30 +436,30 @@ Static type checking detects type errors before execution. Dynamic type checking
 
 Overriding occurs when a subclass redefines an inherited method with the same or compatible signature. Dynamic binding means that the method implementation is selected according to the dynamic type of the receiver at runtime.
 
-| Concept | Meaning |
-| --- | --- |
-| Overriding | Subclass-specific implementation of an inherited operation. |
-| Static/early binding | Called operation is chosen at compile time. |
-| Dynamic/late binding | Called operation is chosen at runtime. |
-| Receiver | The object receiving the method call/message. |
-| Virtual table | A common implementation technique: objects/classes refer to a table of dynamically dispatched methods. |
+| Concept              | Meaning                                                                                                |
+| -------------------- | ------------------------------------------------------------------------------------------------------ |
+| Overriding           | Subclass-specific implementation of an inherited operation.                                            |
+| Static/early binding | Called operation is chosen at compile time.                                                            |
+| Dynamic/late binding | Called operation is chosen at runtime.                                                                 |
+| Receiver             | The object receiving the method call/message.                                                          |
+| Virtual table        | A common implementation technique: objects/classes refer to a table of dynamically dispatched methods. |
 
 The statement that a method call can be seen as message passing, where the client sends a message to the object participating in binding.
 
 Language differences:
 
-| Language example | Rule |
-| --- | --- |
-| Java | Ordinary instance methods are dynamically dispatched unless restricted. Fields, static methods, private methods, final methods, and constructors are not ordinary virtual dispatch. |
-| C++ | Dynamic binding requires `virtual`; non-virtual calls are statically bound. |
-| Ada | Dispatching depends on tagged types and the call/type context. |
+| Language example | Rule                                                                                                                                                                                |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Java             | Ordinary instance methods are dynamically dispatched unless restricted. Fields, static methods, private methods, final methods, and constructors are not ordinary virtual dispatch. |
+| C++              | Dynamic binding requires `virtual`; non-virtual calls are statically bound.                                                                                                         |
+| Ada              | Dispatching depends on tagged types and the call/type context.                                                                                                                      |
 
 Dispatch forms:
 
-| Dispatch form | Meaning |
-| --- | --- |
-| Single dispatch | Method selection considers the receiver's dynamic type. This is common in OO languages. |
-| Multiple dispatch | Method selection can consider dynamic types of several arguments. |
+| Dispatch form     | Meaning                                                                                 |
+| ----------------- | --------------------------------------------------------------------------------------- |
+| Single dispatch   | Method selection considers the receiver's dynamic type. This is common in OO languages. |
+| Multiple dispatch | Method selection can consider dynamic types of several arguments.                       |
 
 Dynamic binding is the implementation mechanism behind subtype polymorphism: code can call an operation through a base/interface type, and the object chooses the concrete method appropriate to its dynamic type.
 
@@ -487,22 +487,22 @@ Many languages implement dynamic binding with a virtual table: the object or its
 
 An interface is a behavior contract: a set of operation declarations. If a class implements an interface, its instances provide the behavior specified by that interface.
 
-| Interface role | Meaning |
-| --- | --- |
-| Contract | Specifies operations clients may call. |
-| Object interface | The set of operations that can be performed on an object. |
-| Abstraction boundary | Clients depend on behavior, not concrete classes. |
-| Subtype source | A class implementing an interface can be used through the interface type. |
-| Testing support | Interfaces allow substituting fakes, mocks, or alternative implementations. |
+| Interface role       | Meaning                                                                     |
+| -------------------- | --------------------------------------------------------------------------- |
+| Contract             | Specifies operations clients may call.                                      |
+| Object interface     | The set of operations that can be performed on an object.                   |
+| Abstraction boundary | Clients depend on behavior, not concrete classes.                           |
+| Subtype source       | A class implementing an interface can be used through the interface type.   |
+| Testing support      | Interfaces allow substituting fakes, mocks, or alternative implementations. |
 
 Abstract class vs interface:
 
-| Feature | Abstract class | Interface |
-| --- | --- | --- |
-| Main role | Partial implementation plus abstract operations. | Behavioral contract. |
-| State | May have instance state. | Traditionally no instance state; modern languages vary. |
-| Inheritance limit | Often one superclass. | Often multiple interfaces can be implemented. |
-| Use | Share code and define a common base. | Decouple clients from implementations and express capabilities. |
+| Feature           | Abstract class                                   | Interface                                                       |
+| ----------------- | ------------------------------------------------ | --------------------------------------------------------------- |
+| Main role         | Partial implementation plus abstract operations. | Behavioral contract.                                            |
+| State             | May have instance state.                         | Traditionally no instance state; modern languages vary.         |
+| Inheritance limit | Often one superclass.                            | Often multiple interfaces can be implemented.                   |
+| Use               | Share code and define a common base.             | Decouple clients from implementations and express capabilities. |
 
 Interfaces are central for dependency inversion: high-level code can depend on an interface, while low-level concrete classes implement it.
 
@@ -529,28 +529,28 @@ An abstract class and an interface are related but not identical. An abstract cl
 
 generic programming is writing algorithms and data structures in a generalized form so that they work with several types. The general unit is a generic or template.
 
-| Generic concept | Meaning |
-| --- | --- |
-| Type parameter | A type supplied to a generic class/function, such as `List<T>`. |
-| Generic class/type | A family of types parameterized by one or more types. |
-| Generic function/method | An operation parameterized by types. |
-| Constraint/bound | Restriction on which types may instantiate the generic. |
-| Specialization | A specific implementation for a particular type or case. |
+| Generic concept         | Meaning                                                         |
+| ----------------------- | --------------------------------------------------------------- |
+| Type parameter          | A type supplied to a generic class/function, such as `List<T>`. |
+| Generic class/type      | A family of types parameterized by one or more types.           |
+| Generic function/method | An operation parameterized by types.                            |
+| Constraint/bound        | Restriction on which types may instantiate the generic.         |
+| Specialization          | A specific implementation for a particular type or case.        |
 
 Language contrasts:
 
-| Language family | Generic mechanism |
-| --- | --- |
-| Ada | Generic specification is a contract; the body may use only what the specification allows, and instantiation supplies required types/objects/subprograms. |
-| C++ | Templates are instantiated; the full definition is normally needed at instantiation time, often in headers. |
-| Java | Generics use type parameters, but type erasure removes most type-parameter information at runtime. |
+| Language family | Generic mechanism                                                                                                                                        |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ada             | Generic specification is a contract; the body may use only what the specification allows, and instantiation supplies required types/objects/subprograms. |
+| C++             | Templates are instantiated; the full definition is normally needed at instantiation time, often in headers.                                              |
+| Java            | Generics use type parameters, but type erasure removes most type-parameter information at runtime.                                                       |
 
 Reified vs erased generics:
 
-| Model | Meaning |
-| --- | --- |
-| Reified | Type arguments are available at runtime. |
-| Erased | Type arguments are checked mostly at compile time and removed or represented indirectly at runtime. |
+| Model   | Meaning                                                                                             |
+| ------- | --------------------------------------------------------------------------------------------------- |
+| Reified | Type arguments are available at runtime.                                                            |
+| Erased  | Type arguments are checked mostly at compile time and removed or represented indirectly at runtime. |
 
 Generics support type-safe reuse: a `Stack<T>` can be written once and used as `Stack<Integer>`, `Stack<String>`, and so on, while preserving element type checking.
 
@@ -577,11 +577,11 @@ Generics may also have bounds or constraints, stating what operations the type p
 
 Polymorphism means that one operation or interface can apply to values of several types.
 
-| Polymorphism kind | Mechanism | Binding tendency |
-| --- | --- | --- |
-| Ad-hoc polymorphism | Several separate implementations, often overloading. | Usually static. |
+| Polymorphism kind       | Mechanism                                                                    | Binding tendency                     |
+| ----------------------- | ---------------------------------------------------------------------------- | ------------------------------------ |
+| Ad-hoc polymorphism     | Several separate implementations, often overloading.                         | Usually static.                      |
 | Parametric polymorphism | One generic implementation works for type parameters satisfying constraints. | Generic/static or language-specific. |
-| Subtype polymorphism | A base class or interface reference can refer to subtype objects. | Usually dynamic dispatch. |
+| Subtype polymorphism    | A base class or interface reference can refer to subtype objects.            | Usually dynamic dispatch.            |
 
 The topic specifically names subtype and parametric polymorphism.
 
@@ -639,23 +639,23 @@ Parametric polymorphism uses type parameters. A generic data structure such as `
 
 Object-oriented programs are organized above individual classes.
 
-| Unit | Meaning |
-| --- | --- |
-| Class | Defines object state and behavior. |
-| Interface | Defines a behavioral contract. |
-| Package / namespace / module | Groups related classes/interfaces and avoids name collisions. |
-| Compilation unit | Source unit processed by the compiler. |
+| Unit                          | Meaning                                                                  |
+| ----------------------------- | ------------------------------------------------------------------------ |
+| Class                         | Defines object state and behavior.                                       |
+| Interface                     | Defines a behavioral contract.                                           |
+| Package / namespace / module  | Groups related classes/interfaces and avoids name collisions.            |
+| Compilation unit              | Source unit processed by the compiler.                                   |
 | Library / assembly / artifact | Reusable or deployable unit produced from one or more compilation units. |
 
 Packages support:
 
-| Package role | Meaning |
-| --- | --- |
-| Namespace management | Same class names can exist in different packages. |
-| Imports/exports | Code can use declarations from another package/module; modules may control what is exported. |
-| Visibility | Some languages provide package-private or internal access. |
-| Dependency management | Packages make high-level dependencies visible. |
-| Reuse and deployment | Packages/modules can form library boundaries. |
+| Package role          | Meaning                                                                                      |
+| --------------------- | -------------------------------------------------------------------------------------------- |
+| Namespace management  | Same class names can exist in different packages.                                            |
+| Imports/exports       | Code can use declarations from another package/module; modules may control what is exported. |
+| Visibility            | Some languages provide package-private or internal access.                                   |
+| Dependency management | Packages make high-level dependencies visible.                                               |
+| Reuse and deployment  | Packages/modules can form library boundaries.                                                |
 
 Example dependency direction:
 
@@ -669,11 +669,11 @@ flowchart TD
 
 Compilation units differ by language:
 
-| Language style | Compilation-unit idea |
-| --- | --- |
-| Java | Often a `.java` file; a public class name normally matches the file name; packages organize files. |
-| C++ | A `.cpp` source after preprocessing is a compilation unit; headers are included into units; linking combines object files. |
-| Ada | Package specification and package body separate public interface and implementation. |
+| Language style | Compilation-unit idea                                                                                                      |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Java           | Often a `.java` file; a public class name normally matches the file name; packages organize files.                         |
+| C++            | A `.cpp` source after preprocessing is a compilation unit; headers are included into units; linking combines object files. |
+| Ada            | Package specification and package body separate public interface and implementation.                                       |
 
 Compilation units matter for separate compilation, name visibility, dependency cost, and information hiding. A change to a widely imported or included unit may force recompilation of many dependent units.
 
@@ -704,21 +704,21 @@ Comparing and copying objects are both covered here, because they are separate o
 
 Object equality is separate from object identity; in other words, object equality asks whether two objects represent the same logical value, not whether two references point to the same instance. A class must define which state participates in logical equality and whether equal objects may still be distinct instances.
 
-| Comparison | Question | Example |
-| --- | --- | --- |
-| Identity comparison | Are two references pointing to the same object? | Java `==` on object references, Python `is`. |
+| Comparison             | Question                                                              | Example                                           |
+| ---------------------- | --------------------------------------------------------------------- | ------------------------------------------------- |
+| Identity comparison    | Are two references pointing to the same object?                       | Java `==` on object references, Python `is`.      |
 | Value/logical equality | Do two objects represent the same value according to class semantics? | Java `equals`, Python `__eq__`, C++ `operator==`. |
-| Ordering comparison | Which object comes before the other? | `compareTo`, comparator, ordering operators. |
+| Ordering comparison    | Which object comes before the other?                                  | `compareTo`, comparator, ordering operators.      |
 
 Equality contract:
 
-| Property | Meaning |
-| --- | --- |
-| Reflexive | An object equals itself. |
-| Symmetric | If `a` equals `b`, then `b` equals `a`. |
-| Transitive | If `a` equals `b` and `b` equals `c`, then `a` equals `c`. |
-| Consistent | Repeated comparisons agree while relevant state does not change. |
-| Hash-compatible | Equal objects used in hash tables must have equal hash values. |
+| Property        | Meaning                                                          |
+| --------------- | ---------------------------------------------------------------- |
+| Reflexive       | An object equals itself.                                         |
+| Symmetric       | If $a$ equals $b$, then $b$ equals $a$.                          |
+| Transitive      | If $a$ equals $b$ and $b$ equals $c$, then $a$ equals $c$.       |
+| Consistent      | Repeated comparisons agree while relevant state does not change. |
+| Hash-compatible | Equal objects used in hash tables must have equal hash values.   |
 
 Immutable value objects are often easier to compare safely because their equality-relevant state cannot change after construction.
 
@@ -726,11 +726,11 @@ Immutable value objects are often easier to compare safely because their equalit
 
 Copy constructors, shallow copy, and deep copy:
 
-| Copy kind | Meaning | Risk |
-| --- | --- | --- |
-| Reference assignment | Only the reference is copied; both variables refer to the same object. | Mutating through one reference affects the same object. |
-| Shallow copy | Immediate fields are copied, but referenced nested objects are shared. | Nested mutable state remains shared accidentally. |
-| Deep copy | The object and the nested objects that should be independent are copied. | More expensive and must handle cycles and ownership carefully. |
+| Copy kind            | Meaning                                                                  | Risk                                                           |
+| -------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| Reference assignment | Only the reference is copied; both variables refer to the same object.   | Mutating through one reference affects the same object.        |
+| Shallow copy         | Immediate fields are copied, but referenced nested objects are shared.   | Nested mutable state remains shared accidentally.              |
+| Deep copy            | The object and the nested objects that should be independent are copied. | More expensive and must handle cycles and ownership carefully. |
 
 In C++, a copy constructor receives an object of the same class and initializes the new object from it. If the compiler-generated copy only copies fields, dynamically allocated state may require a custom copy constructor and copy assignment operator. Otherwise copies may share owned memory, leak memory, or free the same memory twice.
 
@@ -760,25 +760,25 @@ In C++, copying is often implemented with a copy constructor and copy assignment
 
 Testing is part of the subject and is covered here explicitly.
 
-| Test level | Meaning |
-| --- | --- |
-| Unit test | Tests one class, method, or small object group in isolation. |
-| Integration test | Tests collaboration between classes/components. |
-| System test | Tests larger end-to-end behavior. |
-| Regression test | Preserves behavior after bug fixes and future changes. |
+| Test level       | Meaning                                                      |
+| ---------------- | ------------------------------------------------------------ |
+| Unit test        | Tests one class, method, or small object group in isolation. |
+| Integration test | Tests collaboration between classes/components.              |
+| System test      | Tests larger end-to-end behavior.                            |
+| Regression test  | Preserves behavior after bug fixes and future changes.       |
 
 Object-oriented testing concerns:
 
-| Concern | Test focus |
-| --- | --- |
-| Constructors and invariants | Object starts in a valid state and rejects invalid initialization. |
-| Encapsulation | Tests verify public behavior rather than private fields where possible. |
-| State changes | Methods move the object through valid states and reject invalid transitions. |
-| Inheritance/subtyping | Subclasses satisfy the contract of base classes and interfaces. |
-| Dynamic binding | Calls through base/interface references dispatch correctly. |
-| Equality/copying | Equality, hashing, shallow copy, and deep copy match the intended semantics. |
-| Error paths | Exceptions and invalid inputs are handled as specified. |
-| Memory/resources | Owned resources are released; leaks and use-after-free are avoided where relevant. |
+| Concern                     | Test focus                                                                         |
+| --------------------------- | ---------------------------------------------------------------------------------- |
+| Constructors and invariants | Object starts in a valid state and rejects invalid initialization.                 |
+| Encapsulation               | Tests verify public behavior rather than private fields where possible.            |
+| State changes               | Methods move the object through valid states and reject invalid transitions.       |
+| Inheritance/subtyping       | Subclasses satisfy the contract of base classes and interfaces.                    |
+| Dynamic binding             | Calls through base/interface references dispatch correctly.                        |
+| Equality/copying            | Equality, hashing, shallow copy, and deep copy match the intended semantics.       |
+| Error paths                 | Exceptions and invalid inputs are handled as specified.                            |
+| Memory/resources            | Owned resources are released; leaks and use-after-free are avoided where relevant. |
 
 Interaction testing uses mocks, stubs, fakes, or spies when an object collaborates with external services or slow dependencies. Interfaces make this easier because tests can substitute a controlled implementation.
 

@@ -9,7 +9,7 @@ title: '[Final] Numerical Methods'
 Start with equations of the form
 
 $$
-f(x)=0,\qquad f:R\to R.
+f(x)=0,\quad f:R\to R.
 $$
 
 Numerical methods construct a sequence $(x_k)$ that should converge to a root $x^*$.
@@ -31,8 +31,7 @@ $$
 A function $g:[a,b]\to [a,b]$ is a contraction if there is a number $0\le q<1$ such that
 
 $$
-|g(x)-g(y)|\le q|x-y|
-\qquad(x,y\in [a,b]).
+|g(x)-g(y)|\le q|x-y| \quad (x,y\in [a,b]).
 $$
 
 The Banach fixed-point theorem on $[a,b]$ says:
@@ -80,11 +79,11 @@ Two useful convergence theorems for Newton's method. A monotone convergence theo
 
 Additional related methods:
 
-| Method | Formula / idea | Main point |
-| --- | --- | --- |
-| Chord method | Use a line through two points with opposite signs and keep a bracketing interval. | Preserves a sign-change bracket. |
-| Secant method | $x_{k+1}=x_k - f(x_k)(x_k-x_{k-1})/(f(x_k)-f(x_{k-1}))$ | Avoids explicit derivative; superlinear order about $(1+\sqrt{5})/2$. |
-| Multivariate Newton | $x^{k+1}=x^k - [F'(x^k)]^{-1}F(x^k)$ | In practice solve $F'(x^k)(x^{k+1}-x^k)=-F(x^k)$. |
+| Method              | Formula / idea                                                                    | Main point                                                            |
+| ------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Chord method        | Use a line through two points with opposite signs and keep a bracketing interval. | Preserves a sign-change bracket.                                      |
+| Secant method       | $x_{k+1}=x_k - f(x_k)(x_k-x_{k-1})/(f(x_k)-f(x_{k-1}))$                           | Avoids explicit derivative; superlinear order about $(1+\sqrt{5})/2$. |
+| Multivariate Newton | $x^{k+1}=x^k - [F'(x^k)]^{-1}F(x^k)$                                              | In practice solve $F'(x^k)(x^{k+1}-x^k)=-F(x^k)$.                     |
 
 ### What to Emphasize in an Oral Answer
 
@@ -115,8 +114,7 @@ The polynomial interpolation problem is:
 Given distinct nodes $x_0,\ldots,x_n$ and values $f(x_0),\ldots,f(x_n)$, find a polynomial $p_n$ of degree at most $n$ such that
 
 $$
-p_n(x_k)=f(x_k)
-\qquad(k=0,\ldots,n).
+p_n(x_k)=f(x_k) \quad (k=0,\ldots,n).
 $$
 
 The interpolation polynomial exists and is unique.
@@ -147,9 +145,7 @@ $$
 where
 
 $$
-\omega_n(x)=\prod_{i=0}^n(x-x_i),
-\qquad
-M_{n+1}=\max_{[a,b]}|f^{(n+1)}(x)|.
+\omega_n(x)=\prod_{i=0}^n(x-x_i), \quad M_{n+1}=\max_{[a,b]}|f^{(n+1)}(x)|.
 $$
 
 Divided differences build the Newton form. First-order divided differences are
@@ -172,12 +168,12 @@ $$
 
 The divided-difference table is triangular:
 
-| Node | Value | 1st divided difference | 2nd divided difference | ... |
-| --- | --- | --- | --- | --- |
-| $x_0$ | $f(x_0)$ |  |  |  |
-| $x_1$ | $f(x_1)$ | $f[x_0,x_1]$ |  |  |
-| $x_2$ | $f(x_2)$ | $f[x_1,x_2]$ | $f[x_0,x_1,x_2]$ |  |
-| $\cdots$ | $\cdots$ | $\cdots$ | $\cdots$ | $\cdots$ |
+| Node     | Value    | 1st divided difference | 2nd divided difference | ...      |
+| -------- | -------- | ---------------------- | ---------------------- | -------- |
+| $x_0$    | $f(x_0)$ |                        |                        |          |
+| $x_1$    | $f(x_1)$ | $f[x_0,x_1]$           |                        |          |
+| $x_2$    | $f(x_2)$ | $f[x_1,x_2]$           | $f[x_0,x_1,x_2]$       |          |
+| $\cdots$ | $\cdots$ | $\cdots$               | $\cdots$               | $\cdots$ |
 
 The Newton interpolation polynomial is
 
@@ -284,7 +280,7 @@ A^TA=
 m & \sum x_i\\
 \sum x_i & \sum x_i^2
 \end{bmatrix},
-\qquad
+\quad
 A^Tb=
 \begin{bmatrix}
 \sum y_i\\
@@ -355,18 +351,18 @@ $$
 
 Newton-Cotes formulas are interpolation-type quadrature formulas where the nodes are equally spaced. They are:
 
-| Type | Node choice |
-| --- | --- |
+| Type                | Node choice                                      |
+| ------------------- | ------------------------------------------------ |
 | Closed Newton-Cotes | The endpoints $a$ and $b$ are included as nodes. |
-| Open Newton-Cotes | The endpoints are not used as nodes. |
+| Open Newton-Cotes   | The endpoints are not used as nodes.             |
 
 Named quadrature formulas:
 
-| Formula | Nodes | Approximation | Degree of exactness | Local error order |
-| --- | --- | --- | --- | --- |
-| Midpoint rule | $m=(a+b)/2$ | $(b-a)f(m)$ | exact for degree $1$ polynomials | $O(h^3)$ |
-| Trapezoidal rule | $a,b$ | $(b-a)(f(a)+f(b))/2$ | exact for degree $1$ polynomials | $O(h^3)$ |
-| Simpson rule | $a,(a+b)/2,b$ | $(b-a)(f(a)+4f((a+b)/2)+f(b))/6$ | exact for degree $3$ polynomials | $O(h^5)$ |
+| Formula          | Nodes         | Approximation                    | Degree of exactness              | Local error order |
+| ---------------- | ------------- | -------------------------------- | -------------------------------- | ----------------- |
+| Midpoint rule    | $m=(a+b)/2$   | $(b-a)f(m)$                      | exact for degree $1$ polynomials | $O(h^3)$          |
+| Trapezoidal rule | $a,b$         | $(b-a)(f(a)+f(b))/2$             | exact for degree $1$ polynomials | $O(h^3)$          |
+| Simpson rule     | $a,(a+b)/2,b$ | $(b-a)(f(a)+4f((a+b)/2)+f(b))/6$ | exact for degree $3$ polynomials | $O(h^5)$          |
 
 Here $h=b-a$ for a single interval. The usual error forms, when the required derivatives exist, are:
 
@@ -389,7 +385,7 @@ Composite formulas improve accuracy by splitting $[a,b]$ into subintervals and a
 For composite trapezoidal rule, split $[a,b]$ into $n$ equal parts with
 
 $$
-h=\frac{b-a}{n},\qquad x_i=a+ih.
+h=\frac{b-a}{n},\quad x_i=a+ih.
 $$
 
 Then
@@ -429,11 +425,11 @@ with global error order $O(h^4)$.
 
 Accuracy summary:
 
-| Rule | Single-panel order | Composite global order | Practical note |
-| --- | --- | --- | --- |
-| Midpoint | $O(h^3)$ | $O(h^2)$ | One interior node; often better than trapezoid for similar cost. |
-| Trapezoidal | $O(h^3)$ | $O(h^2)$ | Uses endpoints; simple and robust. |
-| Simpson | $O(h^5)$ | $O(h^4)$ | More accurate for smooth functions; requires paired intervals or midpoints. |
+| Rule        | Single-panel order | Composite global order | Practical note                                                              |
+| ----------- | ------------------ | ---------------------- | --------------------------------------------------------------------------- |
+| Midpoint    | $O(h^3)$           | $O(h^2)$               | One interior node; often better than trapezoid for similar cost.            |
+| Trapezoidal | $O(h^3)$           | $O(h^2)$               | Uses endpoints; simple and robust.                                          |
+| Simpson     | $O(h^5)$           | $O(h^4)$               | More accurate for smooth functions; requires paired intervals or midpoints. |
 
 ### What to Emphasize in an Oral Answer
 
@@ -477,13 +473,13 @@ If $B$ is a contraction, or more generally if the spectral radius $\rho(B)<1$, t
 
 Main methods:
 
-| Method | Iteration idea |
-| --- | --- |
-| Jacobi | Split $A=L+D+U$; use old values on the right side: $x^{k+1}=-D^{-1}(L+U)x^k+D^{-1}b$. |
-| Damped Jacobi | Blend Jacobi with old values using a parameter $\omega$. |
-| Gauss-Seidel | Use newly computed components immediately: $x^{k+1}=-(L+D)^{-1}Ux^k+(L+D)^{-1}b$. |
+| Method           | Iteration idea                                                                                                  |
+| ---------------- | --------------------------------------------------------------------------------------------------------------- |
+| Jacobi           | Split $A=L+D+U$; use old values on the right side: $x^{k+1}=-D^{-1}(L+U)x^k+D^{-1}b$.                           |
+| Damped Jacobi    | Blend Jacobi with old values using a parameter $\omega$.                                                        |
+| Gauss-Seidel     | Use newly computed components immediately: $x^{k+1}=-(L+D)^{-1}Ux^k+(L+D)^{-1}b$.                               |
 | Relaxation / SOR | Damped Gauss-Seidel with parameter $\omega$; convergence for symmetric positive definite $A$ when $0<\omega<2$. |
-| Richardson | $x^{k+1}=x^k+p(b-Ax^k)$ using the residual. |
+| Richardson       | $x^{k+1}=x^k+p(b-Ax^k)$ using the residual.                                                                     |
 
 Spline interpolation uses a spline of degree $l$ on a partition
 

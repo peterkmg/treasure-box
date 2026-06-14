@@ -12,33 +12,22 @@ Computer networks are usually explained through **layer models**. A layer offers
 
 There are two relevant models.
 
-| Model | Layers | Main idea |
-| --- | --- | --- |
-| TCP/IP model | Link, network, transport, application | The practical Internet model. It became the standard protocol family for large-scale internetworking and is the model most directly reflected in real protocols such as IP, TCP, UDP, DNS, and HTTP. |
-| ISO/OSI reference model | Physical, data link, network, transport, session, presentation, application | A conceptual reference model that separates communication functions more finely. It is useful for naming responsibilities even when real protocols do not fit it perfectly. |
+| Model                   | Layers                                                                      | Main idea                                                                                                                                                                                            |
+| ----------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TCP/IP model            | Link, network, transport, application                                       | The practical Internet model. It became the standard protocol family for large-scale internetworking and is the model most directly reflected in real protocols such as IP, TCP, UDP, DNS, and HTTP. |
+| ISO/OSI reference model | Physical, data link, network, transport, session, presentation, application | A conceptual reference model that separates communication functions more finely. It is useful for naming responsibilities even when real protocols do not fit it perfectly.                          |
 
 The OSI model can be remembered from bottom to top:
-
-```mermaid
-flowchart BT
-  Physical["1. Physical: bits as signals"]
-  DataLink["2. Data link: frames, local delivery, media access"]
-  Network["3. Network: packets across multiple networks"]
-  Transport["4. Transport: end-to-end process communication"]
-  Session["5. Session: dialog/session management"]
-  Presentation["6. Presentation: representation, encoding, compression, encryption"]
-  Application["7. Application: user-facing network protocols"]
-  Physical --> DataLink --> Network --> Transport --> Session --> Presentation --> Application
-```
+![](/assets/osi-layers.webp)
 
 The TCP/IP model merges several OSI responsibilities:
 
-| TCP/IP layer | Rough OSI correspondence | Examples |
-| --- | --- | --- |
-| Link | Physical + data link responsibilities | Ethernet, Wi-Fi, PPP, local framing and MAC |
-| Network | Network layer | IP, ICMP, routing |
-| Transport | Transport layer | TCP, UDP |
-| Application | Session + presentation + application responsibilities | DNS, HTTP, DHCP, application protocols |
+| TCP/IP layer | Rough OSI correspondence                              | Examples                                    |
+| ------------ | ----------------------------------------------------- | ------------------------------------------- |
+| Link         | Physical + data link responsibilities                 | Ethernet, Wi-Fi, PPP, local framing and MAC |
+| Network      | Network layer                                         | IP, ICMP, routing                           |
+| Transport    | Transport layer                                       | TCP, UDP                                    |
+| Application  | Session + presentation + application responsibilities | DNS, HTTP, DHCP, application protocols      |
 
 The exam point is not that one model is "right" and the other is "wrong." The OSI model is a clean vocabulary; TCP/IP is the deployed Internet architecture.
 
@@ -69,52 +58,52 @@ The **physical layer** transmits bits through a communication channel. It specif
 
 Distinguish wired and wireless transmission:
 
-| Area | Key facts |
-| --- | --- |
-| Wired transmission | Data is sent by changing a physical quantity such as voltage or current. Periodic signals can be decomposed into harmonic components, which explains bandwidth limits. |
-| Wireless transmission | Electromagnetic waves have frequency $f$ and wavelength $\lambda$; in vacuum, $\lambda \cdot f = c$, where $c$ is the speed of light. |
-| Symbol | The transmitted unit need not be one bit. A symbol may encode several bits, such as four symbols `A=00`, `B=01`, `C=10`, `D=11`. |
-| Baud versus bit rate | Baud means symbols per second; data rate means bits per second. They are equal only when one symbol encodes exactly one bit. |
+| Area                  | Key facts                                                                                                                                                              |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Wired transmission    | Data is sent by changing a physical quantity such as voltage or current. Periodic signals can be decomposed into harmonic components, which explains bandwidth limits. |
+| Wireless transmission | Electromagnetic waves have frequency $f$ and wavelength $\lambda$; in vacuum, $\lambda \cdot f = c$, where $c$ is the speed of light.                                  |
+| Symbol                | The transmitted unit need not be one bit. A symbol may encode several bits, such as four symbols $A=00$, $B=01$, $C=10$, $D=11$.                                       |
+| Baud versus bit rate  | Baud means symbols per second; data rate means bits per second. They are equal only when one symbol encodes exactly one bit.                                           |
 
 Synchronization answers the question: **when should the receiver sample the signal and where does a symbol begin?**
 
-| Synchronization method | Meaning |
-| --- | --- |
-| Explicit clock | A separate clock signal is available; suitable for short or parallel transmissions. |
-| Critical instants | Sender and receiver synchronize at the beginning of a symbol or block and assume clocks remain close enough for a short interval. |
-| Symbol codes / self-clocking signals | The signal itself contains transitions that allow clock recovery without a separate clock. |
+| Synchronization method               | Meaning                                                                                                                           |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| Explicit clock                       | A separate clock signal is available; suitable for short or parallel transmissions.                                               |
+| Critical instants                    | Sender and receiver synchronize at the beginning of a symbol or block and assume clocks remain close enough for a short interval. |
+| Symbol codes / self-clocking signals | The signal itself contains transitions that allow clock recovery without a separate clock.                                        |
 
 ### Transmission Media
 
 The following are media.
 
-| Medium | Characteristics |
-| --- | --- |
-| Magnetic carriers | High bandwidth, high latency; useful for physical data transfer, not interactive networking. |
-| Twisted pair | Common in telecommunication and Ethernet; supports analog and digital transmission. |
-| Coaxial cable | Higher speed and distance than simple twisted copper; supports analog and digital signals. |
-| Optical fiber | Uses light source, fiber, and detector; a pulse can represent `1`, no pulse `0`; high bandwidth and long distance. |
-| Radio | Easy to generate, usable indoors and outdoors, supports long distances; propagation depends strongly on frequency. |
-| Microwave | Mostly line-of-sight, fading can occur, relatively inexpensive for some links. |
-| Infrared and millimeter wave | Useful at short distance; does not penetrate solid objects well. |
-| Visible light / laser | High bandwidth, cheap and license-free, but weather and alignment can matter. |
+| Medium                       | Characteristics                                                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Magnetic carriers            | High bandwidth, high latency; useful for physical data transfer, not interactive networking.                       |
+| Twisted pair                 | Common in telecommunication and Ethernet; supports analog and digital transmission.                                |
+| Coaxial cable                | Higher speed and distance than simple twisted copper; supports analog and digital signals.                         |
+| Optical fiber                | Uses light source, fiber, and detector; a pulse can represent `1`, no pulse `0`; high bandwidth and long distance. |
+| Radio                        | Easy to generate, usable indoors and outdoors, supports long distances; propagation depends strongly on frequency. |
+| Microwave                    | Mostly line-of-sight, fading can occur, relatively inexpensive for some links.                                     |
+| Infrared and millimeter wave | Useful at short distance; does not penetrate solid objects well.                                                   |
+| Visible light / laser        | High bandwidth, cheap and license-free, but weather and alignment can matter.                                      |
 
 ### Baseband and Broadband
 
-| Transmission type | Meaning | Typical use |
-| --- | --- | --- |
-| Baseband | The digital signal is converted directly to voltage/current and transmitted in the channel without carrier modulation. | Many local wired digital links. |
-| Broadband | The signal is carried by modulating a carrier in a wider frequency band. | Radio, cable, and other carrier-based systems. |
+| Transmission type | Meaning                                                                                                                | Typical use                                    |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| Baseband          | The digital signal is converted directly to voltage/current and transmitted in the channel without carrier modulation. | Many local wired digital links.                |
+| Broadband         | The signal is carried by modulating a carrier in a wider frequency band.                                               | Radio, cable, and other carrier-based systems. |
 
 ### Digital Encoding Schemes
 
 Manchester, NRZI, and 4B/5B are important digital encoding schemes. The 4/5 item is the common 4B/5B line-coding scheme.
 
-| Encoding | How it represents bits | Why it matters |
-| --- | --- | --- |
-| Manchester | Each bit period contains a transition, so data and clock are combined. Depending on convention, low-to-high may mean `1` and high-to-low `0`, or vice versa. | Self-clocking and robust synchronization, but it uses more bandwidth because every bit has a transition. |
-| NRZI | Information is represented by whether the signal changes state, commonly "invert on 1" and "no transition on 0" or the opposite by convention. | Reduces some synchronization problems compared with simple NRZ, but long runs without transitions may still be an issue. |
-| 4B/5B | Each 4-bit data group is mapped to a 5-bit code word chosen to avoid too many consecutive zeros. | Improves clock recovery and works well with encodings such as NRZI; overhead is 25%. |
+| Encoding   | How it represents bits                                                                                                                                       | Why it matters                                                                                                           |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Manchester | Each bit period contains a transition, so data and clock are combined. Depending on convention, low-to-high may mean `1` and high-to-low `0`, or vice versa. | Self-clocking and robust synchronization, but it uses more bandwidth because every bit has a transition.                 |
+| NRZI       | Information is represented by whether the signal changes state, commonly "invert on 1" and "no transition on 0" or the opposite by convention.               | Reduces some synchronization problems compared with simple NRZ, but long runs without transitions may still be an issue. |
+| 4B/5B      | Each 4-bit data group is mapped to a 5-bit code word chosen to avoid too many consecutive zeros.                                                             | Improves clock recovery and works well with encodings such as NRZI; overhead is 25%.                                     |
 
 ```mermaid
 flowchart LR
@@ -131,23 +120,23 @@ flowchart LR
 
 For broadband transmission, Start from a sinusoidal carrier:
 
-```text
+$$
 g(t) = A * sin(2*pi*f*t + phi)
-```
+$$
 
 The information can be encoded by changing amplitude $A$, frequency $f$, or phase $\varphi$.
 
-| Modulation family | Analog form | Digital form | Idea |
-| --- | --- | --- | --- |
-| Amplitude | AM | ASK | Encode information in the amplitude of the carrier. |
-| Frequency | FM | FSK | Encode information in the frequency of the carrier. |
-| Phase | PM | PSK | Encode information in phase shifts of the carrier. |
+| Modulation family | Analog form | Digital form | Idea                                                |
+| ----------------- | ----------- | ------------ | --------------------------------------------------- |
+| Amplitude         | AM          | ASK          | Encode information in the amplitude of the carrier. |
+| Frequency         | FM          | FSK          | Encode information in the frequency of the carrier. |
+| Phase             | PM          | PSK          | Encode information in phase shifts of the carrier.  |
 
 The topic also names QPSK and QAM-16:
 
-| Scheme | Meaning | Core description |
-| --- | --- | --- |
-| QPSK | Quadrature phase-shift keying | Uses four carrier phases, so one symbol can carry 2 bits. It is a PSK scheme. |
+| Scheme | Meaning                                  | Core description                                                                                                  |
+| ------ | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| QPSK   | Quadrature phase-shift keying            | Uses four carrier phases, so one symbol can carry 2 bits. It is a PSK scheme.                                     |
 | QAM-16 | 16-point quadrature amplitude modulation | Combines amplitude and phase changes; one of 16 constellation points is selected, so one symbol can carry 4 bits. |
 
 Digital transmission uses a finite set of discrete signal states. Analog transmission uses a continuous set of signal values. Digital reception can often regenerate the original discrete value despite moderate noise; analog noise tends to accumulate.
@@ -181,22 +170,22 @@ The **data link layer** provides a well-defined service interface to the network
 
 Three service styles. The wording is normalized here:
 
-| Service style | Meaning |
-| --- | --- |
-| Unacknowledged connectionless service | Frames are sent without explicit acknowledgement; suitable where the medium is reliable or higher layers handle errors. |
-| Acknowledged connectionless service | Each frame is acknowledged, but no long-lived connection is set up. |
-| Acknowledged connection-oriented service | A logical connection is established and frames are acknowledged in order. |
+| Service style                            | Meaning                                                                                                                 |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Unacknowledged connectionless service    | Frames are sent without explicit acknowledgement; suitable where the medium is reliable or higher layers handle errors. |
+| Acknowledged connectionless service      | Each frame is acknowledged, but no long-lived connection is set up.                                                     |
+| Acknowledged connection-oriented service | A logical connection is established and frames are acknowledged in order.                                               |
 
 ### Framing
 
 The physical layer sends a stream of bits; the data link layer must split it into **frames** and compute checksums. Four framing techniques are:
 
-| Method | Mechanism | Main problem or use |
-| --- | --- | --- |
-| Character count | The header states how many characters are in the frame. | Very sensitive to header errors; a corrupted count loses frame boundaries. |
-| Flag bytes with character stuffing | Special start/end bytes mark frame boundaries; escape bytes protect accidental flag bytes inside data. | Byte-oriented method. |
-| Flag bit pattern with bit stuffing | Frames begin/end with a bit pattern such as `01111110`; after five consecutive `1` bits in data, the sender inserts a `0`. | Bit-oriented method; receiver removes stuffed zeros. |
-| Physical-layer coding violation | Uses redundant physical encoding patterns that cannot appear in normal data. | Works only when the physical code has unused symbols. |
+| Method                             | Mechanism                                                                                                                  | Main problem or use                                                        |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Character count                    | The header states how many characters are in the frame.                                                                    | Very sensitive to header errors; a corrupted count loses frame boundaries. |
+| Flag bytes with character stuffing | Special start/end bytes mark frame boundaries; escape bytes protect accidental flag bytes inside data.                     | Byte-oriented method.                                                      |
+| Flag bit pattern with bit stuffing | Frames begin/end with a bit pattern such as `01111110`; after five consecutive `1` bits in data, the sender inserts a `0`. | Bit-oriented method; receiver removes stuffed zeros.                       |
+| Physical-layer coding violation    | Uses redundant physical encoding patterns that cannot appear in normal data.                                               | Works only when the physical code has unused symbols.                      |
 
 ```mermaid
 flowchart LR
@@ -219,27 +208,27 @@ To achieve this, protocols use acknowledgements, timeouts, retransmissions, and 
 
 Bit errors:
 
-| Error type | Meaning |
-| --- | --- |
-| Single-bit error | One bit changes from `0` to `1` or from `1` to `0`. |
-| Burst error | A sequence is affected, with first and last symbols wrong and no sufficiently long correct subsequence inside. |
+| Error type       | Meaning                                                                                                        |
+| ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| Single-bit error | One bit changes from `0` to `1` or from `1` to `0`.                                                            |
+| Burst error      | A sequence is affected, with first and last symbols wrong and no sufficiently long correct subsequence inside. |
 
 ### Hamming Distance, Detection, and Correction
 
 Let a code contain permitted codewords of equal length. The **Hamming distance** between two codewords is the number of bit positions where they differ. The distance of a code is the minimum distance between any two different permitted codewords.
 
-| Code distance | Consequence |
-| --- | --- |
-| 1 | No reliable error detection: one bit error may turn one valid codeword into another. |
-| 2 | One-bit errors can be detected but not corrected. |
-| 3 | One-bit errors can be corrected and two-bit errors can be detected. |
+| Code distance | Consequence                                                                          |
+| ------------- | ------------------------------------------------------------------------------------ |
+| 1             | No reliable error detection: one bit error may turn one valid codeword into another. |
+| 2             | One-bit errors can be detected but not corrected.                                    |
+| 3             | One-bit errors can be corrected and two-bit errors can be detected.                  |
 
 General rule:
 
-| Goal | Required minimum code distance |
-| --- | --- |
-| Detect `d` bit errors | $d + 1$ |
-| Correct `d` bit errors | $2d + 1$ |
+| Goal                   | Required minimum code distance |
+| ---------------------- | ------------------------------ |
+| Detect $d$ bit errors  | $d + 1$                        |
+| Correct $d$ bit errors | $2d + 1$                       |
 
 Also give the Hamming bound: for a code $C$ of length $n$ and distance $k$, disjoint balls around codewords must fit into all $2^n$ bit strings. This expresses the tradeoff between code rate and error-handling power. A good code has both high rate and high distance, but those goals conflict.
 
@@ -247,24 +236,24 @@ Also give the Hamming bound: for a code $C$ of length $n$ and distance $k$, disj
 
 A **parity bit** is chosen so the number of `1` bits is even or odd.
 
-| Parity | Rule |
-| --- | --- |
+| Parity      | Rule                                                              |
+| ----------- | ----------------------------------------------------------------- |
 | Even parity | Add `0` if the number of ones is already even; otherwise add `1`. |
-| Odd parity | Add `0` if the number of ones is already odd; otherwise add `1`. |
+| Odd parity  | Add `0` if the number of ones is already odd; otherwise add `1`.  |
 
 In a Hamming code, check bits are placed at power-of-two positions (`1`, `2`, `4`, `8`, ...). Data bits fill the remaining positions. Each check bit controls a pattern of positions, and the resulting parity syndrome identifies a one-bit error.
 
 ### CRC
 
-CRC, or cyclic redundancy check, treats a bit sequence as coefficients of a polynomial over `Z2`.
+CRC, or cyclic redundancy check, treats a bit sequence as coefficients of a polynomial over $Z_2$.
 
 Steps:
 
-1. Choose a generator polynomial `G(x)` of degree `r`, known by sender and receiver.
-2. Append `r` zero bits to the frame, forming $x^r M(x)$.
-3. Divide by `G(x)` modulo 2.
+1. Choose a generator polynomial $G(x)$ of degree $r$, known by sender and receiver.
+2. Append $r$ zero bits to the frame, forming $x^r M(x)$.
+3. Divide by $G(x) \pmod 2$.
 4. Subtract the remainder modulo 2 and append it as the checksum.
-5. The receiver divides the received polynomial by `G(x)`. A nonzero remainder indicates an error.
+5. The receiver divides the received polynomial by $G(x)$. A nonzero remainder indicates an error.
 
 CRC cannot detect errors whose error polynomial is a multiple of the generator polynomial, but well-chosen generators detect common burst errors very well.
 
@@ -272,27 +261,27 @@ CRC cannot detect errors whose error polynomial is a multiple of the generator p
 
 Describe a progression of data link protocols:
 
-| Protocol | Assumptions | Behavior |
-| --- | --- | --- |
-| Unrestricted simplex | Sender and receiver always ready, no errors, infinite buffers. | Sender continuously sends frames; no sequence number or acknowledgement is needed. |
-| Simplex stop-and-wait | Receiver needs processing time, no frame damage/loss. | Sender sends one frame and waits for acknowledgement before sending the next. |
-| Simplex for noisy channel | Frames may be damaged or lost. | Sender uses timeout and retransmission; receiver checks checksum, acknowledges good frames, drops bad ones. |
+| Protocol                  | Assumptions                                                    | Behavior                                                                                                    |
+| ------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Unrestricted simplex      | Sender and receiver always ready, no errors, infinite buffers. | Sender continuously sends frames; no sequence number or acknowledgement is needed.                          |
+| Simplex stop-and-wait     | Receiver needs processing time, no frame damage/loss.          | Sender sends one frame and waits for acknowledgement before sending the next.                               |
+| Simplex for noisy channel | Frames may be damaged or lost.                                 | Sender uses timeout and retransmission; receiver checks checksum, acknowledges good frames, drops bad ones. |
 
-The **sliding-window protocol** generalizes stop-and-wait. The sender may have up to `n` unacknowledged frames in flight. Sender and receiver each maintain a window of allowed sequence numbers.
+The **sliding-window protocol** generalizes stop-and-wait. The sender may have up to $n$ unacknowledged frames in flight. Sender and receiver each maintain a window of allowed sequence numbers.
 
 If an error happens in a stream:
 
-| Strategy | Receiver behavior | Tradeoff |
-| --- | --- | --- |
-| Go-back-N | Discards frames after the missing or bad frame; sender retransmits from that frame onward. | Simpler, but wastes bandwidth after isolated errors. |
-| Selective repeat | Buffers good frames after the bad one and asks for/retransmits only missing frames. | Better bandwidth use, but needs more receiver memory and sequence-number care. |
+| Strategy         | Receiver behavior                                                                          | Tradeoff                                                                       |
+| ---------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Go-back-N        | Discards frames after the missing or bad frame; sender retransmits from that frame onward. | Simpler, but wastes bandwidth after isolated errors.                           |
+| Selective repeat | Buffers good frames after the bad one and asks for/retransmits only missing frames.        | Better bandwidth use, but needs more receiver memory and sequence-number care. |
 
 ### HDLC and PPP
 
-| Protocol | Main content |
-| --- | --- |
-| HDLC | Bit-oriented data link protocol using a sliding window. Frame fields include flag, address, control, data, and checksum. Frame types include information, supervisory, and unnumbered frames. Supervisory frames include receive ready, reject, receive not ready, and selective reject. |
-| PPP | Point-to-Point Protocol. Provides framing, a line control protocol for setup/testing/option negotiation/release, and negotiation of network-layer options. It is byte-oriented and can carry protocol identifiers such as LCP, NCP, IP, IPX, or AppleTalk. |
+| Protocol | Main content                                                                                                                                                                                                                                                                             |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HDLC     | Bit-oriented data link protocol using a sliding window. Frame fields include flag, address, control, data, and checksum. Frame types include information, supervisory, and unnumbered frames. Supervisory frames include receive ready, reject, receive not ready, and selective reject. |
+| PPP      | Point-to-Point Protocol. Provides framing, a line control protocol for setup/testing/option negotiation/release, and negotiation of network-layer options. It is byte-oriented and can carry protocol identifiers such as LCP, NCP, IP, IPX, or AppleTalk.                               |
 
 ### Medium Access Control and Dynamic Channel Allocation
 
@@ -300,21 +289,21 @@ When several stations share a broadcast channel, the MAC sublayer decides who ma
 
 Competition protocols assume that collisions can happen and collided frames must be retransmitted.
 
-| Protocol | Time model / sensing | Behavior |
-| --- | --- | --- |
-| Pure ALOHA | Continuous time, no carrier sensing | Send whenever ready; on collision, wait random time and retry. |
-| Slotted ALOHA | Discrete slots | Send only at slot boundaries; this roughly doubles ALOHA capacity but performance still drops sharply under high load. |
-| 1-persistent CSMA | Carrier sensing, continuous time | If channel is idle, send immediately; if busy, keep listening and send as soon as it becomes idle. |
-| Non-persistent CSMA | Carrier sensing, continuous time | If busy, wait random time before checking again; reduces greediness. |
-| p-persistent CSMA | Carrier sensing, slotted time | If idle, transmit with probability $p$; otherwise defer to the next slot with probability $1-p$. |
-| CSMA/CD | Carrier sensing with collision detection | Monitor while transmitting; abort on collision, wait random time, and retry. |
+| Protocol            | Time model / sensing                     | Behavior                                                                                                               |
+| ------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Pure ALOHA          | Continuous time, no carrier sensing      | Send whenever ready; on collision, wait random time and retry.                                                         |
+| Slotted ALOHA       | Discrete slots                           | Send only at slot boundaries; this roughly doubles ALOHA capacity but performance still drops sharply under high load. |
+| 1-persistent CSMA   | Carrier sensing, continuous time         | If channel is idle, send immediately; if busy, keep listening and send as soon as it becomes idle.                     |
+| Non-persistent CSMA | Carrier sensing, continuous time         | If busy, wait random time before checking again; reduces greediness.                                                   |
+| p-persistent CSMA   | Carrier sensing, slotted time            | If idle, transmit with probability $p$; otherwise defer to the next slot with probability $1-p$.                       |
+| CSMA/CD             | Carrier sensing with collision detection | Monitor while transmitting; abort on collision, wait random time, and retry.                                           |
 
 Non-race protocols avoid collisions:
 
-| Protocol | Idea |
-| --- | --- |
-| Reservation / placeholder protocol | Stations reserve future sending opportunities in numbered contention slots. |
-| Binary countdown | Stations send binary identifiers from most significant bit; if a station sends `0` and hears `1`, it withdraws because a higher-priority sender exists. |
+| Protocol                           | Idea                                                                                                                                                    |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Reservation / placeholder protocol | Stations reserve future sending opportunities in numbered contention slots.                                                                             |
+| Binary countdown                   | Stations send binary identifiers from most significant bit; if a station sends `0` and hears `1`, it withdraws because a higher-priority sender exists. |
 
 Limited-race protocols combine low-latency contention under light load with collision-free selection under heavy load. A typical example is **adaptive tree traversal**:
 
@@ -342,8 +331,8 @@ At each tree node, the protocol tests whether zero, one, or several stations in 
 - Define the data link layer as local-link delivery that packages bits into frames and handles framing, errors, flow control, and medium access.
 - List framing methods and their problems: character count, flag bytes plus character stuffing, flag bit patterns plus bit stuffing, and physical-layer coding violations.
 - Explain error handling with checksums, acknowledgements, timeouts, retransmission, sequence numbers, and duplicate suppression.
-- State the Hamming-distance rules: distance `d + 1` detects `d` bit errors, and distance `2d + 1` corrects `d` bit errors.
-- Include parity, Hamming codes, and CRC; for CRC, mention polynomial division over `Z2` and nonzero remainder detection.
+- State the Hamming-distance rules: distance $d + 1$ detects $d$ bit errors, and distance $2d + 1$ corrects $d$ bit errors.
+- Include parity, Hamming codes, and CRC; for CRC, mention polynomial division over $Z_2$ and nonzero remainder detection.
 - Explain stop-and-wait versus sliding windows, and compare go-back-N with selective repeat.
 - Mention HDLC/PPP as protocol examples if time allows: HDLC is bit-oriented with sliding windows, PPP is byte-oriented with link and network-control negotiation.
 - For MAC, contrast random access/competition protocols such as ALOHA and CSMA/CD with reservation, binary countdown, and adaptive-tree style collision reduction.
@@ -372,20 +361,20 @@ Services offered to the transport layer should:
 
 ### Routing Types and Algorithms
 
-| Routing type | Meaning |
-| --- | --- |
+| Routing type         | Meaning                                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | Hierarchical routing | Routers are grouped into domains. A router knows its own domain in detail and treats other domains more abstractly. |
-| Broadcast routing | A packet is sent everywhere. |
-| Multicast routing | A packet is sent to a selected group. |
+| Broadcast routing    | A packet is sent everywhere.                                                                                        |
+| Multicast routing    | A packet is sent to a selected group.                                                                               |
 
 A routing algorithm fills/maintains routing tables and then uses them for forwarding.
 
-| Algorithm / family | Classification | Core idea |
-| --- | --- | --- |
-| Dijkstra shortest path | Static / link-state style computation | Label nodes by best known distance from a start node; finalize the closest temporary label repeatedly. |
-| Flooding | Static | Forward incoming packets on all outgoing lines except the incoming line. Use hop count and duplicate tracking to limit explosion. |
-| Distance-vector / distributed Bellman-Ford | Adaptive, distance-based | Each router knows costs to neighbors and exchanges distance vectors with them; it updates its own vector from neighbor information. |
-| Link-state routing | Adaptive, connection/topology-based | Discover neighbors, measure cost, build a link-state packet, flood it to routers, then compute shortest paths. |
+| Algorithm / family                         | Classification                        | Core idea                                                                                                                           |
+| ------------------------------------------ | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Dijkstra shortest path                     | Static / link-state style computation | Label nodes by best known distance from a start node; finalize the closest temporary label repeatedly.                              |
+| Flooding                                   | Static                                | Forward incoming packets on all outgoing lines except the incoming line. Use hop count and duplicate tracking to limit explosion.   |
+| Distance-vector / distributed Bellman-Ford | Adaptive, distance-based              | Each router knows costs to neighbors and exchanges distance vectors with them; it updates its own vector from neighbor information. |
+| Link-state routing                         | Adaptive, connection/topology-based   | Discover neighbors, measure cost, build a link-state packet, flood it to routers, then compute shortest paths.                      |
 
 Distance-vector protocols are simple and distributed, but can converge slowly and suffer from problems such as count-to-infinity. Link-state protocols require more global topology information but usually converge more predictably.
 
@@ -393,11 +382,11 @@ Distance-vector protocols are simple and distributed, but can converge slowly an
 
 At the network layer, the Internet is an interconnection of autonomous systems. Inside an autonomous system, protocols such as OSPF can compute least-cost paths from link-state information. Between autonomous systems, **BGP** is used.
 
-| Protocol | Scope | Main idea |
-| --- | --- | --- |
-| OSPF | Inside an autonomous system | Builds a weighted directed graph of topology and computes least-cost paths. |
-| BGP | Between autonomous systems | Exchanges reachability between ASes while allowing policy decisions. |
-| Path-vector routing | BGP's routing model | A route advertisement carries the AS path. A router can detect loops and apply policy based on the path, not just a distance number. |
+| Protocol            | Scope                       | Main idea                                                                                                                            |
+| ------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| OSPF                | Inside an autonomous system | Builds a weighted directed graph of topology and computes least-cost paths.                                                          |
+| BGP                 | Between autonomous systems  | Exchanges reachability between ASes while allowing policy decisions.                                                                 |
+| Path-vector routing | BGP's routing model         | A route advertisement carries the AS path. A router can detect loops and apply policy based on the path, not just a distance number. |
 
 BGP is not simply "shortest path." It may prefer or reject paths because of administrative policies, business relations, and transit rules.
 
@@ -412,21 +401,21 @@ Describe Internet communication as follows:
 
 Important IPv4 header fields:
 
-| Field | Purpose |
-| --- | --- |
-| Version | Which IP version is used. |
-| IHL | IPv4 header length. |
-| Type of service / DS field | Service class or traffic treatment. |
-| Total length | Header plus payload length. |
-| Identification | Same value in all fragments of one original datagram. |
-| DF flag | "Don't fragment": routers must not fragment. |
-| MF flag | "More fragments": set on all fragments except the last. |
-| Fragment offset | Position of this fragment in the original datagram. |
-| Time to live | Hop limit; reduced at routers and packet is discarded at zero. |
-| Protocol | Identifies upper-layer protocol, such as TCP or UDP. |
-| Header checksum | Protects the IPv4 header and is recalculated at each hop. |
-| Source and destination address | IPv4 addresses. |
-| Options | Extensibility field, rarely used in fast paths. |
+| Field                          | Purpose                                                        |
+| ------------------------------ | -------------------------------------------------------------- |
+| Version                        | Which IP version is used.                                      |
+| IHL                            | IPv4 header length.                                            |
+| Type of service / DS field     | Service class or traffic treatment.                            |
+| Total length                   | Header plus payload length.                                    |
+| Identification                 | Same value in all fragments of one original datagram.          |
+| DF flag                        | "Don't fragment": routers must not fragment.                   |
+| MF flag                        | "More fragments": set on all fragments except the last.        |
+| Fragment offset                | Position of this fragment in the original datagram.            |
+| Time to live                   | Hop limit; reduced at routers and packet is discarded at zero. |
+| Protocol                       | Identifies upper-layer protocol, such as TCP or UDP.           |
+| Header checksum                | Protects the IPv4 header and is recalculated at each hop.      |
+| Source and destination address | IPv4 addresses.                                                |
+| Options                        | Extensibility field, rarely used in fast paths.                |
 
 ### IPv4 Addresses, Subnets, CIDR, NAT, and Fragmentation
 
@@ -436,11 +425,11 @@ Subnets divide an internal network into parts while appearing as one network ext
 
 Private IPv4 ranges commonly used with NAT:
 
-| Private range | Size |
-| --- | --- |
-| `10.0.0.0/8` | 16,777,216 addresses |
-| `172.16.0.0/12` | 1,048,576 addresses |
-| `192.168.0.0/16` | 65,536 addresses |
+| Private range    | Size                 |
+| ---------------- | -------------------- |
+| `10.0.0.0/8`     | 16,777,216 addresses |
+| `172.16.0.0/12`  | 1,048,576 addresses  |
+| `192.168.0.0/16` | 65,536 addresses     |
 
 **NAT** lets many internal hosts use private addresses while sharing one or a few public addresses. It mitigates IPv4 exhaustion but breaks the pure end-to-end addressing model and requires state at the NAT device.
 
@@ -456,23 +445,23 @@ IPv6 uses 16-byte addresses written as eight hexadecimal groups, such as:
 
 Important contrasts:
 
-| Aspect | IPv4 | IPv6 |
-| --- | --- | --- |
-| Address length | 32 bits | 128 bits |
-| Header | Variable length with header checksum | Simplified fixed base header, no header checksum |
-| Fragmentation | Routers may fragment unless DF set | Fragmentation is handled by source nodes using an extension header; routers do not fragment ordinary packets |
-| Address pressure | Exhausted; NAT common | Vast address space; NAT is less central |
-| Extensibility | Options in base header | Extension headers |
+| Aspect           | IPv4                                 | IPv6                                                                                                         |
+| ---------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Address length   | 32 bits                              | 128 bits                                                                                                     |
+| Header           | Variable length with header checksum | Simplified fixed base header, no header checksum                                                             |
+| Fragmentation    | Routers may fragment unless DF set   | Fragmentation is handled by source nodes using an extension header; routers do not fragment ordinary packets |
+| Address pressure | Exhausted; NAT common                | Vast address space; NAT is less central                                                                      |
+| Extensibility    | Options in base header               | Extension headers                                                                                            |
 
 ### Network-Layer Protocols
 
-| Protocol | Role |
-| --- | --- |
-| ICMP | Reports unexpected events such as unreachable destination, timeout, parameter problem, resource throttling, echo request, and echo response. |
-| ARP | Maps an IPv4 address to a physical address on a local network by broadcast request and reply. |
-| RARP | Historical reverse mapping from physical address to IP address. |
-| OSPF | Interior link-state routing protocol. |
-| BGP | Exterior inter-AS routing protocol using policy and AS paths. |
+| Protocol | Role                                                                                                                                         |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| ICMP     | Reports unexpected events such as unreachable destination, timeout, parameter problem, resource throttling, echo request, and echo response. |
+| ARP      | Maps an IPv4 address to a physical address on a local network by broadcast request and reply.                                                |
+| RARP     | Historical reverse mapping from physical address to IP address.                                                                              |
+| OSPF     | Interior link-state routing protocol.                                                                                                        |
+| BGP      | Exterior inter-AS routing protocol using policy and AS paths.                                                                                |
 
 ### What to Emphasize in an Oral Answer
 
@@ -503,10 +492,10 @@ The content belongs to the **transport layer**. The transport layer provides pro
 
 ### Connectionless and Connection-Oriented Transport
 
-| Mode | Meaning | Tradeoff |
-| --- | --- | --- |
-| Connectionless | No connection setup; each datagram is sent independently. | Low overhead, but no built-in reliability or ordering. |
-| Connection-oriented | Connection state is established and maintained. | Can hide loss, duplication, corruption, and reordering from applications, but costs more overhead. |
+| Mode                | Meaning                                                   | Tradeoff                                                                                           |
+| ------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Connectionless      | No connection setup; each datagram is sent independently. | Low overhead, but no built-in reliability or ordering.                                             |
+| Connection-oriented | Connection state is established and maintained.           | Can hide loss, duplication, corruption, and reordering from applications, but costs more overhead. |
 
 Reliability mechanisms:
 
@@ -520,12 +509,12 @@ Reliability mechanisms:
 
 Transport protocols multiplex many application flows over the same network-layer service. Ports identify the sending and receiving processes.
 
-| Concept | Meaning |
-| --- | --- |
-| Multiplexing | Combining traffic from several processes or channels into one lower-layer communication path. |
-| Demultiplexing | Using identifiers such as ports to deliver received data to the correct process. |
-| Bidirectional byte stream | TCP's model: two byte sequences flow in opposite directions; data may be segmented and reassembled by TCP. |
-| RPC | Remote Procedure Call hides network communication behind a procedure-call interface. A client stub packs parameters, the OS sends a message, a server stub unpacks it, the server runs the procedure, and the result returns similarly. |
+| Concept                   | Meaning                                                                                                                                                                                                                                 |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Multiplexing              | Combining traffic from several processes or channels into one lower-layer communication path.                                                                                                                                           |
+| Demultiplexing            | Using identifiers such as ports to deliver received data to the correct process.                                                                                                                                                        |
+| Bidirectional byte stream | TCP's model: two byte sequences flow in opposite directions; data may be segmented and reassembled by TCP.                                                                                                                              |
+| RPC                       | Remote Procedure Call hides network communication behind a procedure-call interface. A client stub packs parameters, the OS sends a message, a server stub unpacks it, the server runs the procedure, and the result returns similarly. |
 
 ```mermaid
 sequenceDiagram
@@ -548,12 +537,12 @@ sequenceDiagram
 
 UDP is a simple connectionless transport protocol.
 
-| UDP property | Meaning |
-| --- | --- |
-| Header size | 8 bytes. |
-| Header fields | Source port, destination port, UDP length, UDP checksum. |
-| Reliability | No retransmission, ordering, or flow control. |
-| Use case | Short messages and applications that implement their own reliability or prefer low latency, such as DNS queries, streaming, or real-time protocols. |
+| UDP property  | Meaning                                                                                                                                             |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Header size   | 8 bytes.                                                                                                                                            |
+| Header fields | Source port, destination port, UDP length, UDP checksum.                                                                                            |
+| Reliability   | No retransmission, ordering, or flow control.                                                                                                       |
+| Use case      | Short messages and applications that implement their own reliability or prefer low latency, such as DNS queries, streaming, or real-time protocols. |
 
 ### TCP Header and Service
 
@@ -561,17 +550,17 @@ TCP creates a reliable bidirectional byte stream between endpoints. It segments 
 
 Important TCP header fields:
 
-| Field | Purpose |
-| --- | --- |
-| Source port, destination port | Identify sender and receiver process endpoints. |
-| Sequence number | Number of the first data byte in the segment; SYN consumes one sequence number. |
-| Acknowledgement number | If ACK is set, the next byte expected by the receiver. |
-| Header length | TCP header length in 32-bit words. |
-| Window | Receiver-advertised window: how many bytes may be sent from the acknowledged position. |
-| Checksum | Protects TCP header, data, and pseudo-header. |
-| Options | Includes MSS and other extensions. |
-| Urgent pointer | Indicates urgent data position when URG is used. |
-| Flags | URG, ACK, PSH, RST, SYN, FIN. Modern headers also include ECN-related flags, but The list includes the classic six. |
+| Field                         | Purpose                                                                                                             |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Source port, destination port | Identify sender and receiver process endpoints.                                                                     |
+| Sequence number               | Number of the first data byte in the segment; SYN consumes one sequence number.                                     |
+| Acknowledgement number        | If ACK is set, the next byte expected by the receiver.                                                              |
+| Header length                 | TCP header length in 32-bit words.                                                                                  |
+| Window                        | Receiver-advertised window: how many bytes may be sent from the acknowledged position.                              |
+| Checksum                      | Protects TCP header, data, and pseudo-header.                                                                       |
+| Options                       | Includes MSS and other extensions.                                                                                  |
+| Urgent pointer                | Indicates urgent data position when URG is used.                                                                    |
+| Flags                         | URG, ACK, PSH, RST, SYN, FIN. Modern headers also include ECN-related flags, but The list includes the classic six. |
 
 ### Three-Way Handshake and TCP States
 
@@ -591,18 +580,18 @@ sequenceDiagram
 
 Common TCP states:
 
-| State | Meaning |
-| --- | --- |
-| CLOSED | No connection state exists. |
-| LISTEN | Server waits for a connection request. |
-| SYN-SENT | Client has sent SYN and waits for a matching response. |
-| SYN-RECEIVED | SYN received and SYN+ACK sent; waiting for final ACK. |
-| ESTABLISHED | Data transfer state. |
-| FIN-WAIT-1 | Endpoint sent FIN and waits for ACK or FIN. |
-| FIN-WAIT-2 | FIN was acknowledged; waiting for peer's FIN. |
-| CLOSE-WAIT | Peer sent FIN; local application has not closed yet. |
-| CLOSING | Both sides sent FIN, waiting for ACK. |
-| LAST-ACK | Local FIN sent after receiving peer FIN, waiting for final ACK. |
+| State                   | Meaning                                                                                    |
+| ----------------------- | ------------------------------------------------------------------------------------------ |
+| CLOSED                  | No connection state exists.                                                                |
+| LISTEN                  | Server waits for a connection request.                                                     |
+| SYN-SENT                | Client has sent SYN and waits for a matching response.                                     |
+| SYN-RECEIVED            | SYN received and SYN+ACK sent; waiting for final ACK.                                      |
+| ESTABLISHED             | Data transfer state.                                                                       |
+| FIN-WAIT-1              | Endpoint sent FIN and waits for ACK or FIN.                                                |
+| FIN-WAIT-2              | FIN was acknowledged; waiting for peer's FIN.                                              |
+| CLOSE-WAIT              | Peer sent FIN; local application has not closed yet.                                       |
+| CLOSING                 | Both sides sent FIN, waiting for ACK.                                                      |
+| LAST-ACK                | Local FIN sent after receiving peer FIN, waiting for final ACK.                            |
 | TIME-WAIT (`TIME_WAIT`) | Wait to ensure old duplicate segments expire and final ACK can be retransmitted if needed. |
 
 TCP close is usually a four-segment exchange because each direction of the byte stream is closed independently with FIN and ACK.
@@ -617,10 +606,10 @@ TCP close is usually a four-segment exchange because each direction of the byte 
 
 Requirements:
 
-| Requirement | Meaning |
-| --- | --- |
-| Efficiency | High throughput with low latency. |
-| Fairness | Competing flows get roughly fair bandwidth, unless policy deliberately prioritizes some traffic. |
+| Requirement | Meaning                                                                                          |
+| ----------- | ------------------------------------------------------------------------------------------------ |
+| Efficiency  | High throughput with low latency.                                                                |
+| Fairness    | Competing flows get roughly fair bandwidth, unless policy deliberately prioritizes some traffic. |
 
 Tools:
 
@@ -637,10 +626,10 @@ Tools:
 
 TCP uses two windows:
 
-| Window | Owner | Meaning |
-| --- | --- | --- |
-| `rwnd` / advertised window | Receiver | Receiver-side flow-control limit. |
-| `cwnd` / congestion window | Sender | Sender-side estimate of safe in-flight data for the network. |
+| Window                     | Owner    | Meaning                                                      |
+| -------------------------- | -------- | ------------------------------------------------------------ |
+| `rwnd` / advertised window | Receiver | Receiver-side flow-control limit.                            |
+| `cwnd` / congestion window | Sender   | Sender-side estimate of safe in-flight data for the network. |
 
 The effective sending window is roughly:
 
@@ -652,10 +641,10 @@ In slow start, `cwnd` begins small, often around one MSS, and grows by approxima
 
 After `cwnd` reaches `ssthresh`, congestion avoidance uses additional increase. On congestion, TCP applies multiplicative decrease. This is **AIMD**: additional increase, multiplicative decrease. It tends toward both efficiency and fairness.
 
-| Algorithm | Packet loss response |
-| --- | --- |
-| Tahoe | On timeout or loss signal, set `ssthresh` to about half the window, reset `cwnd` to one MSS, and restart slow start. |
-| Reno | Uses fast retransmit on three duplicate ACKs and fast recovery. After fast retransmit, it halves the window but avoids returning all the way to the beginning of slow start for that case. Timeout still causes a stronger reduction. |
+| Algorithm | Packet loss response                                                                                                                                                                                                                  |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tahoe     | On timeout or loss signal, set `ssthresh` to about half the window, reset `cwnd` to one MSS, and restart slow start.                                                                                                                  |
+| Reno      | Uses fast retransmit on three duplicate ACKs and fast recovery. After fast retransmit, it halves the window but avoids returning all the way to the beginning of slow start for that case. Timeout still causes a stronger reduction. |
 
 Also list MIMD and AIAD as alternative increase/decrease styles, but AIMD is the important TCP fairness mechanism.
 
@@ -663,10 +652,10 @@ Also list MIMD and AIAD as alternative increase/decrease styles, but AIMD is the
 
 The topic explicitly names ECN marking and DCTCP. These are additional corrections.
 
-| Mechanism | Meaning |
-| --- | --- |
-| ECN | Explicit Congestion Notification. Routers can mark packets to indicate congestion instead of dropping them, if endpoints negotiated ECN support. The receiver echoes the indication back to the sender, and the sender reduces its rate. |
-| DCTCP | Data Center TCP. A TCP congestion-control scheme for data centers that uses ECN marks to estimate the fraction of bytes that experienced congestion, then scales `cwnd` based on that estimate. It aims for high throughput and low latency in shallow-buffered data-center switches. |
+| Mechanism | Meaning                                                                                                                                                                                                                                                                               |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ECN       | Explicit Congestion Notification. Routers can mark packets to indicate congestion instead of dropping them, if endpoints negotiated ECN support. The receiver echoes the indication back to the sender, and the sender reduces its rate.                                              |
+| DCTCP     | Data Center TCP. A TCP congestion-control scheme for data centers that uses ECN marks to estimate the fraction of bytes that experienced congestion, then scales `cwnd` based on that estimate. It aims for high throughput and low latency in shallow-buffered data-center switches. |
 
 ### Nagle's Algorithm
 
@@ -713,15 +702,15 @@ Emphasize:
 
 required DNS details:
 
-| Concept | Meaning |
-| --- | --- |
-| Before DNS | Early Internet hosts relied on centrally maintained host tables such as `HOSTS.TXT`; this did not scale well. |
-| Name hierarchy | Names are hierarchical, with the root at the top, then top-level domains, domains, subdomains, and host/service names. |
-| Zone | An administratively managed part of the DNS namespace. A zone is served by authoritative name servers. |
-| Zone file | A text representation of the records for a DNS zone, such as SOA, NS, A, AAAA, MX, CNAME, and TXT records. |
-| Resource record | A typed DNS entry. Examples: `A` for IPv4 address, `AAAA` for IPv6 address, `MX` for mail exchanger, `NS` for name server, `CNAME` for alias, `TXT` for text metadata. |
-| Local name server / recursive resolver | The resolver contacted by a host. It either answers from cache or recursively queries the DNS hierarchy on behalf of the client. |
-| Resolution | The process of finding records by following delegation from root to TLD to authoritative servers, or by using cached answers. |
+| Concept                                | Meaning                                                                                                                                                                |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Before DNS                             | Early Internet hosts relied on centrally maintained host tables such as `HOSTS.TXT`; this did not scale well.                                                          |
+| Name hierarchy                         | Names are hierarchical, with the root at the top, then top-level domains, domains, subdomains, and host/service names.                                                 |
+| Zone                                   | An administratively managed part of the DNS namespace. A zone is served by authoritative name servers.                                                                 |
+| Zone file                              | A text representation of the records for a DNS zone, such as SOA, NS, A, AAAA, MX, CNAME, and TXT records.                                                             |
+| Resource record                        | A typed DNS entry. Examples: `A` for IPv4 address, `AAAA` for IPv6 address, `MX` for mail exchanger, `NS` for name server, `CNAME` for alias, `TXT` for text metadata. |
+| Local name server / recursive resolver | The resolver contacted by a host. It either answers from cache or recursively queries the DNS hierarchy on behalf of the client.                                       |
+| Resolution                             | The process of finding records by following delegation from root to TLD to authoritative servers, or by using cached answers.                                          |
 
 DNS resolution can be represented as:
 
@@ -748,14 +737,14 @@ HTTP is an application-layer request-response protocol for distributed hypermedi
 
 The statement that HTTP/2.0 was newest after 2015. That statement is now outdated: HTTP/3 is standardized by RFC 9114. For the exam, the important point is still the protocol model and persistence/cookies.
 
-| HTTP concept | Meaning |
-| --- | --- |
-| Stateless protocol | Each request is independent at the protocol semantics level; state can be added by cookies, authentication, server sessions, or application logic. |
-| Non-persistent HTTP | A separate TCP connection is opened for each object/request. This causes repeated connection setup cost. |
-| Persistent HTTP | Multiple requests/responses reuse one connection, reducing handshake overhead and improving performance. HTTP/1.1 defaults to persistent connections unless closed. |
-| Cookie | HTTP state-management mechanism. The server sends `Set-Cookie`; the user agent returns `Cookie` on later matching requests, enabling sessions over a mostly stateless protocol. |
-| HTTP/2 | Multiplexes streams over a TCP connection and compresses headers. |
-| HTTP/3 | Uses QUIC over UDP as its transport, preserving HTTP semantics while changing the transport behavior. |
+| HTTP concept        | Meaning                                                                                                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Stateless protocol  | Each request is independent at the protocol semantics level; state can be added by cookies, authentication, server sessions, or application logic.                              |
+| Non-persistent HTTP | A separate TCP connection is opened for each object/request. This causes repeated connection setup cost.                                                                        |
+| Persistent HTTP     | Multiple requests/responses reuse one connection, reducing handshake overhead and improving performance. HTTP/1.1 defaults to persistent connections unless closed.             |
+| Cookie              | HTTP state-management mechanism. The server sends `Set-Cookie`; the user agent returns `Cookie` on later matching requests, enabling sessions over a mostly stateless protocol. |
+| HTTP/2              | Multiplexes streams over a TCP connection and compresses headers.                                                                                                               |
+| HTTP/3              | Uses QUIC over UDP as its transport, preserving HTTP semantics while changing the transport behavior.                                                                           |
 
 ```mermaid
 sequenceDiagram
@@ -773,11 +762,11 @@ DHCP automatically provides network configuration to hosts, commonly including I
 
 Three allocation types:
 
-| Allocation type | Meaning |
-| --- | --- |
-| Manual | Address is assigned based on MAC address. |
-| Automatic | Address is assigned from a configured range. |
-| Dynamic | Address is leased from a range and can later be reused. |
+| Allocation type | Meaning                                                 |
+| --------------- | ------------------------------------------------------- |
+| Manual          | Address is assigned based on MAC address.               |
+| Automatic       | Address is assigned from a configured range.            |
+| Dynamic         | Address is leased from a range and can later be reused. |
 
 DHCP is a client-server protocol: clients send requests and servers provide configuration responses.
 

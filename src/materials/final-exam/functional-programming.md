@@ -12,24 +12,24 @@ Functional programming languages are built around evaluating expressions rather 
 
 Core characteristics:
 
-| Concept | Meaning |
-| --- | --- |
-| Pure function | A function whose result depends only on its arguments and which has no side effects. |
-| Referential transparency | An expression can be replaced by its value without changing program behavior. |
-| First-class function | A function can be used as a value. |
-| Higher-order function | A function that receives a function as an argument or returns a function. |
-| Static typing | Types are checked before execution. |
-| Type inference | The compiler derives types without requiring every annotation. |
-| Immutable style | Values are usually not changed in place; new values are produced instead. |
+| Concept                  | Meaning                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| Pure function            | A function whose result depends only on its arguments and which has no side effects. |
+| Referential transparency | An expression can be replaced by its value without changing program behavior.        |
+| First-class function     | A function can be used as a value.                                                   |
+| Higher-order function    | A function that receives a function as an argument or returns a function.            |
+| Static typing            | Types are checked before execution.                                                  |
+| Type inference           | The compiler derives types without requiring every annotation.                       |
+| Immutable style          | Values are usually not changed in place; new values are produced instead.            |
 
 ### Lazy and Eager Evaluation
 
 Distinguish lazy and eager evaluation.
 
-| Strategy | Meaning | Consequence |
-| --- | --- | --- |
-| Eager / strict evaluation | Function arguments are evaluated before the function body is entered. | Predictable evaluation order; may compute unused values. |
-| Lazy evaluation | Arguments are evaluated only when their values are needed. | Can avoid unnecessary work and allows infinite structures, but can make space/time behavior less direct. |
+| Strategy                  | Meaning                                                               | Consequence                                                                                              |
+| ------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Eager / strict evaluation | Function arguments are evaluated before the function body is entered. | Predictable evaluation order; may compute unused values.                                                 |
+| Lazy evaluation           | Arguments are evaluated only when their values are needed.            | Can avoid unnecessary work and allows infinite structures, but can make space/time behavior less direct. |
 
 Example:
 
@@ -106,7 +106,7 @@ Side effects break this property. If a function reads input, writes output, muta
 
 ### Static Typing, Hindley-Milner, and Type Inference
 
- in static type systems, declarations do not always have to be written explicitly, but the compiler must infer the most general type of every expression. It names the Hindley-Milner polymorphic type system.
+in static type systems, declarations do not always have to be written explicitly, but the compiler must infer the most general type of every expression. It names the Hindley-Milner polymorphic type system.
 
 Example:
 
@@ -128,11 +128,11 @@ Type annotations may be omitted, but types are still present and checked. Static
 
 The two main polymorphism forms here are parametric polymorphism and ad-hoc polymorphism.
 
-| Form | Meaning | Example |
-| --- | --- | --- |
-| Parametric polymorphism | Code works uniformly for any type. | `length :: [a] -> Int` |
-| Ad-hoc polymorphism | Same operation name has type-specific implementations. | `(+)` for different numeric types; `show` via type classes |
-| Subtype polymorphism | Values of a subtype can be used where a supertype is expected. | Common in object-oriented languages, not the main Haskell model |
+| Form                    | Meaning                                                        | Example                                                         |
+| ----------------------- | -------------------------------------------------------------- | --------------------------------------------------------------- |
+| Parametric polymorphism | Code works uniformly for any type.                             | `length :: [a] -> Int`                                          |
+| Ad-hoc polymorphism     | Same operation name has type-specific implementations.         | `(+)` for different numeric types; `show` via type classes      |
+| Subtype polymorphism    | Values of a subtype can be used where a supertype is expected. | Common in object-oriented languages, not the main Haskell model |
 
 In Haskell-style functional programming, ad-hoc polymorphism is expressed through type classes.
 
@@ -378,14 +378,14 @@ Basic type material is included here directly.
 
 Common Haskell-style basic types:
 
-| Type | Meaning | Examples |
-| --- | --- | --- |
-| `Bool` | Boolean values | `True`, `False` |
-| `Char` | Character | `'a'`, `'Z'` |
-| `Int` | Fixed-size integer | `42` |
-| `Integer` | Arbitrary-precision integer | `12345678901234567890` |
-| `Float`, `Double` | Floating-point numbers | `3.14` |
-| `String` | List of characters | `"hello"` |
+| Type              | Meaning                     | Examples               |
+| ----------------- | --------------------------- | ---------------------- |
+| `Bool`            | Boolean values              | `True`, `False`        |
+| `Char`            | Character                   | `'a'`, `'Z'`           |
+| `Int`             | Fixed-size integer          | `42`                   |
+| `Integer`         | Arbitrary-precision integer | `12345678901234567890` |
+| `Float`, `Double` | Floating-point numbers      | `3.14`                 |
+| `String`          | List of characters          | `"hello"`              |
 
 `String` is usually a type synonym for `[Char]` in Haskell.
 
@@ -518,14 +518,14 @@ instance Eq Color where
 
 Common type classes:
 
-| Type class | Meaning |
-| --- | --- |
-| `Eq` | Equality comparison. |
-| `Ord` | Ordering. |
-| `Show` | Convert to string. |
-| `Read` | Parse from string. |
-| `Num` | Numeric operations. |
-| `Functor` | Mapping over a context with `fmap`. |
+| Type class | Meaning                             |
+| ---------- | ----------------------------------- |
+| `Eq`       | Equality comparison.                |
+| `Ord`      | Ordering.                           |
+| `Show`     | Convert to string.                  |
+| `Read`     | Parse from string.                  |
+| `Num`      | Numeric operations.                 |
+| `Functor`  | Mapping over a context with `fmap`. |
 
 Type-class constraint example:
 
@@ -582,7 +582,7 @@ Algebraic data types are defined with `data` and consist of constructors. For ex
 
 ## 22.4 Higher-Order Functions
 
- lambda expressions can be passed as parameters and that parameterization by functions helps create general functions. This is the central idea of higher-order functions.
+lambda expressions can be passed as parameters and that parameterization by functions helps create general functions. This is the central idea of higher-order functions.
 
 A higher-order function either:
 
@@ -699,12 +699,12 @@ Here `add 10` returns a function waiting for the second argument.
 
 Higher-order functions capture common traversal and transformation patterns. Instead of writing explicit recursion every time, we can express intent:
 
-| Task | Higher-order expression |
-| --- | --- |
-| Square all numbers | `map (^2) xs` |
-| Keep positives | `filter (>0) xs` |
-| Transform then filter | `filter p (map f xs)` or composed variants |
-| Build a reusable operation | Partial application such as `map (+1)` |
+| Task                       | Higher-order expression                    |
+| -------------------------- | ------------------------------------------ |
+| Square all numbers         | `map (^2) xs`                              |
+| Keep positives             | `filter (>0) xs`                           |
+| Transform then filter      | `filter p (map f xs)` or composed variants |
+| Build a reusable operation | Partial application such as `map (+1)`     |
 
 They are the functional-programming counterpart of many loop patterns: the traversal is abstracted, and the caller supplies only the operation or predicate.
 

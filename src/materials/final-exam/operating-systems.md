@@ -12,10 +12,10 @@ An operating system is the software system that controls the execution of progra
 
 Two standard views make that definition exam-ready:
 
-| View | Meaning | Examples |
-| --- | --- | --- |
-| Virtual machine view | The OS hides raw hardware and exposes convenient abstractions. | Files instead of disk sectors, processes instead of CPU register snapshots, windows instead of display controllers, sockets instead of network cards. |
-| Resource-manager view | The OS decides how scarce hardware and logical resources are shared. | CPU time, memory frames, address spaces, files, storage blocks, devices, terminals, printers, network connections. |
+| View                  | Meaning                                                              | Examples                                                                                                                                              |
+| --------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Virtual machine view  | The OS hides raw hardware and exposes convenient abstractions.       | Files instead of disk sectors, processes instead of CPU register snapshots, windows instead of display controllers, sockets instead of network cards. |
+| Resource-manager view | The OS decides how scarce hardware and logical resources are shared. | CPU time, memory frames, address spaces, files, storage blocks, devices, terminals, printers, network connections.                                    |
 
 An operating system therefore has to do both abstraction and control. It must make the machine convenient, but it must also prevent one program from corrupting another program's memory, monopolizing the CPU, or using devices without coordination.
 
@@ -23,18 +23,18 @@ An operating system therefore has to do both abstraction and control. It must ma
 
 Process-control systems may be foreground-only, cooperative, preemptive, or real-time. The broader operating-system classification also includes batch, multiprogrammed, time-sharing, personal-computer, network/distributed, and embedded systems.
 
-| Class | Main idea | Typical exam point |
-| --- | --- | --- |
-| Batch system | Jobs are collected and processed with little direct user interaction. | Optimizes throughput and CPU utilization, historically important on mainframes. |
-| Multiprogrammed system | Several programs stay in memory, and the CPU switches among them. | If one job waits for I/O, another can use the CPU. |
-| Time-sharing system | Many users or processes receive short CPU intervals. | Gives interactive users the impression of simultaneous service. |
-| Foreground-only context-switching system | Only the foreground application runs. | Simpler model; background responsiveness is poor. |
-| Cooperative multitasking system | A running process voluntarily yields the CPU. | Works only if programs cooperate; one bad program can freeze others. Windows 3.1 is a historical example. |
-| Preemptive multitasking system | The kernel can take the CPU away after a timer interrupt or event. | Basis of modern robust interactive systems. |
-| Real-time system | Correctness depends on meeting deadlines. | Hard real time has strict deadlines; soft real time tolerates small deadline misses with quality degradation. |
-| Personal-computer / GUI system | Provides applications, windows, device drivers, files, and local user interaction. | Became practical with microprocessors and cheap memory. |
-| Network or distributed system | Coordinates resources across multiple machines. | Remote files, servers, distributed computation, network services. |
-| Embedded system | Special-purpose system built into a device or controller. | Often optimized for narrow tasks and predictable behavior. |
+| Class                                    | Main idea                                                                          | Typical exam point                                                                                            |
+| ---------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Batch system                             | Jobs are collected and processed with little direct user interaction.              | Optimizes throughput and CPU utilization, historically important on mainframes.                               |
+| Multiprogrammed system                   | Several programs stay in memory, and the CPU switches among them.                  | If one job waits for I/O, another can use the CPU.                                                            |
+| Time-sharing system                      | Many users or processes receive short CPU intervals.                               | Gives interactive users the impression of simultaneous service.                                               |
+| Foreground-only context-switching system | Only the foreground application runs.                                              | Simpler model; background responsiveness is poor.                                                             |
+| Cooperative multitasking system          | A running process voluntarily yields the CPU.                                      | Works only if programs cooperate; one bad program can freeze others. Windows 3.1 is a historical example.     |
+| Preemptive multitasking system           | The kernel can take the CPU away after a timer interrupt or event.                 | Basis of modern robust interactive systems.                                                                   |
+| Real-time system                         | Correctness depends on meeting deadlines.                                          | Hard real time has strict deadlines; soft real time tolerates small deadline misses with quality degradation. |
+| Personal-computer / GUI system           | Provides applications, windows, device drivers, files, and local user interaction. | Became practical with microprocessors and cheap memory.                                                       |
+| Network or distributed system            | Coordinates resources across multiple machines.                                    | Remote files, servers, distributed computation, network services.                                             |
+| Embedded system                          | Special-purpose system built into a device or controller.                          | Often optimized for narrow tasks and predictable behavior.                                                    |
 
 ### CPU Role in OS Evolution
 
@@ -42,13 +42,13 @@ Describe the system model as one processor, one system memory, and I/O devices u
 
 The historical development of operating systems follows CPU and hardware modernization:
 
-| Period | Hardware / CPU state | OS consequence |
-| --- | --- | --- |
-| Mechanical and earliest electronic systems | Specialized hardware, switching tables, direct operator control. | No real operating system in the modern sense. |
-| First electronic generation, about 1940-1955 | Relays, vacuum tubes, machine code, punched cards. | The CPU was rare and expensive; abstractions were minimal. |
-| Second generation, about 1955-1965 | Transistors made hardware more reliable. | Mainframe computer centers and batch systems became practical. |
-| Third generation, about 1965-1980 | Integrated circuits and compatible computer families, such as IBM System/360. | Multiprogramming, spooling, multitasking, and time sharing appeared to keep the CPU busy and share it among jobs/users. |
-| Fourth generation, from about 1980 | LSI/VLSI, microprocessors, cheaper memory. | Personal computers, graphical interfaces, networking, distributed services, and virtualization became practical. |
+| Period                                       | Hardware / CPU state                                                          | OS consequence                                                                                                          |
+| -------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Mechanical and earliest electronic systems   | Specialized hardware, switching tables, direct operator control.              | No real operating system in the modern sense.                                                                           |
+| First electronic generation, about 1940-1955 | Relays, vacuum tubes, machine code, punched cards.                            | The CPU was rare and expensive; abstractions were minimal.                                                              |
+| Second generation, about 1955-1965           | Transistors made hardware more reliable.                                      | Mainframe computer centers and batch systems became practical.                                                          |
+| Third generation, about 1965-1980            | Integrated circuits and compatible computer families, such as IBM System/360. | Multiprogramming, spooling, multitasking, and time sharing appeared to keep the CPU busy and share it among jobs/users. |
+| Fourth generation, from about 1980           | LSI/VLSI, microprocessors, cheaper memory.                                    | Personal computers, graphical interfaces, networking, distributed services, and virtualization became practical.        |
 
 The CPU is central because it executes instructions, handles traps and interrupts, and enforces privilege levels. Modern operating systems depend on CPU protection:
 
@@ -135,21 +135,21 @@ Processes form a parent-child tree:
 
 Process termination can be:
 
-| Type | Examples |
-| --- | --- |
-| Voluntary normal exit | Returning from the main routine, calling `exit`, completing the assigned task. |
-| Voluntary error exit | A program detects an error and terminates itself. |
-| Involuntary failure | Illegal instruction, division by zero, invalid memory access, fatal runtime error. |
-| Involuntary external termination | Another process or the OS kills the process. |
+| Type                             | Examples                                                                           |
+| -------------------------------- | ---------------------------------------------------------------------------------- |
+| Voluntary normal exit            | Returning from the main routine, calling `exit`, completing the assigned task.     |
+| Voluntary error exit             | A program detects an error and terminates itself.                                  |
+| Involuntary failure              | Illegal instruction, division by zero, invalid memory access, fatal runtime error. |
+| Involuntary external termination | Another process or the OS kills the process.                                       |
 
 ### Process States
 
 The basic states are:
 
-| State | Meaning |
-| --- | --- |
-| Running | The process currently has the CPU. |
-| Ready | The process could run, but it is waiting for the scheduler to give it CPU time. |
+| State   | Meaning                                                                                                                                       |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Running | The process currently has the CPU.                                                                                                            |
+| Ready   | The process could run, but it is waiting for the scheduler to give it CPU time.                                                               |
 | Blocked | The process cannot continue until an event occurs, such as I/O completion, a semaphore becoming available, or another process producing data. |
 
 The state-transition diagram is represented as:
@@ -201,10 +201,10 @@ Frequent switching has overhead. Registers can be saved and restored, but cache 
 
 Processes can be classified by behavior:
 
-| Process type | Behavior | Scheduling consequence |
-| --- | --- | --- |
-| CPU-bound | Long computation bursts, little waiting for I/O. | Benefits from longer CPU intervals; can hurt interactivity if favored too much. |
-| I/O-bound | Short computation bursts followed by I/O waits. | Needs quick response when I/O completes; otherwise devices and users wait. |
+| Process type | Behavior                                         | Scheduling consequence                                                          |
+| ------------ | ------------------------------------------------ | ------------------------------------------------------------------------------- |
+| CPU-bound    | Long computation bursts, little waiting for I/O. | Benefits from longer CPU intervals; can hurt interactivity if favored too much. |
+| I/O-bound    | Short computation bursts followed by I/O waits.  | Needs quick response when I/O completes; otherwise devices and users wait.      |
 
 A good scheduler balances both. It should keep the CPU busy, avoid bad response time, and prevent any ready process from being ignored forever.
 
@@ -212,36 +212,36 @@ A good scheduler balances both. It should keep the CPU busy, avoid bad response 
 
 Scheduling goals differ by system type:
 
-| System type | Main goals |
-| --- | --- |
-| All systems | Fairness, same principles for comparable processes, access to CPU for everyone, balanced load. |
-| Batch systems | Throughput, turnaround time, CPU utilization. |
-| Interactive systems | Response time and meeting user expectations. |
-| Real-time systems | Deadline compliance, avoiding data loss and quality degradation. |
+| System type         | Main goals                                                                                     |
+| ------------------- | ---------------------------------------------------------------------------------------------- |
+| All systems         | Fairness, same principles for comparable processes, access to CPU for everyone, balanced load. |
+| Batch systems       | Throughput, turnaround time, CPU utilization.                                                  |
+| Interactive systems | Response time and meeting user expectations.                                                   |
+| Real-time systems   | Deadline compliance, avoiding data loss and quality degradation.                               |
 
 Process switches are definitely needed when a process terminates or blocks. They usually also occur when a new process is created, an I/O interrupt wakes a blocked process, or a timer interrupt enforces preemptive scheduling.
 
 ### Batch Scheduling Algorithms
 
-| Algorithm | Main idea | Strengths | Weaknesses |
-| --- | --- | --- | --- |
-| First Come First Served (FCFS) | Non-preemptive; first ready job runs until it finishes or blocks. | Simple, unbiased by arrival order. | I/O-heavy and short jobs can wait behind long CPU-bound jobs. |
-| Shortest Job First (SJF) | Non-preemptive; choose the job with shortest total running time. | Optimal average waiting time if all jobs are available and lengths are known. | Job lengths are usually unknown; long jobs may suffer. |
-| Shortest Remaining Time Next | Preemptive; when a new job arrives, choose the job with shortest remaining time. | Improves response for short jobs. | Long jobs may starve if short jobs keep arriving. |
-| Three-level scheduling | Admission scheduler chooses jobs into memory; disk scheduler swaps jobs when memory is tight; CPU scheduler chooses among ready jobs. | Separates long-term admission, medium-term swapping, and short-term CPU decisions. | More complex and depends on good estimates. |
+| Algorithm                      | Main idea                                                                                                                             | Strengths                                                                          | Weaknesses                                                    |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| First Come First Served (FCFS) | Non-preemptive; first ready job runs until it finishes or blocks.                                                                     | Simple, unbiased by arrival order.                                                 | I/O-heavy and short jobs can wait behind long CPU-bound jobs. |
+| Shortest Job First (SJF)       | Non-preemptive; choose the job with shortest total running time.                                                                      | Optimal average waiting time if all jobs are available and lengths are known.      | Job lengths are usually unknown; long jobs may suffer.        |
+| Shortest Remaining Time Next   | Preemptive; when a new job arrives, choose the job with shortest remaining time.                                                      | Improves response for short jobs.                                                  | Long jobs may starve if short jobs keep arriving.             |
+| Three-level scheduling         | Admission scheduler chooses jobs into memory; disk scheduler swaps jobs when memory is tight; CPU scheduler chooses among ready jobs. | Separates long-term admission, medium-term swapping, and short-term CPU decisions. | More complex and depends on good estimates.                   |
 
 ### Interactive Scheduling Algorithms
 
-| Algorithm | Key scheduling idea | Starvation/fairness point |
-| --- | --- | --- |
-| Round robin | Every process receives a time slice; after its quantum or blocking it goes to the end of the circular list. | Fair and simple, but quantum length matters. Too small wastes CPU on switching; too large makes keyboard/window response slow. |
-| Priority scheduling | Highest-priority ready process runs. Note UNIX-like ranges with kernel/non-interruptible priority above user priority. | Needs dynamic priority changes; otherwise low-priority processes can starve. |
-| Priority classes with round robin | Round robin inside a class; priorities can be re-evaluated periodically, often lowering high priorities that consumed CPU. | Gives responsiveness while preventing permanent priority domination. |
-| Multiple queues | Highest level gives 1 time slice, next gives 2, then 4, 8, 16, 32, 64, etc.; processes may move down after using their time. | Useful for separating short/interactive tasks from longer tasks; promotion/aging is needed to prevent starvation. |
-| Shortest process first | Estimate future CPU burst from previous bursts using weighted averages. | Good response for short bursts, but estimates can be wrong. |
-| Guaranteed scheduling | Track how much CPU time a process has received and prefer one that received proportionally less. | Explicitly fairness-oriented. |
-| Lottery scheduling | Distribute tickets; the process with the drawn ticket gets CPU. More tickets mean more expected CPU share. | Proportional allocation is simple and useful for services such as video servers. |
-| Proportional/fair-share scheduling | Like guaranteed scheduling, but considers users as well as processes. | Prevents one user with many processes from unfairly dominating CPU time. |
+| Algorithm                          | Key scheduling idea                                                                                                          | Starvation/fairness point                                                                                                      |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Round robin                        | Every process receives a time slice; after its quantum or blocking it goes to the end of the circular list.                  | Fair and simple, but quantum length matters. Too small wastes CPU on switching; too large makes keyboard/window response slow. |
+| Priority scheduling                | Highest-priority ready process runs. Note UNIX-like ranges with kernel/non-interruptible priority above user priority.       | Needs dynamic priority changes; otherwise low-priority processes can starve.                                                   |
+| Priority classes with round robin  | Round robin inside a class; priorities can be re-evaluated periodically, often lowering high priorities that consumed CPU.   | Gives responsiveness while preventing permanent priority domination.                                                           |
+| Multiple queues                    | Highest level gives 1 time slice, next gives 2, then 4, 8, 16, 32, 64, etc.; processes may move down after using their time. | Useful for separating short/interactive tasks from longer tasks; promotion/aging is needed to prevent starvation.              |
+| Shortest process first             | Estimate future CPU burst from previous bursts using weighted averages.                                                      | Good response for short bursts, but estimates can be wrong.                                                                    |
+| Guaranteed scheduling              | Track how much CPU time a process has received and prefer one that received proportionally less.                             | Explicitly fairness-oriented.                                                                                                  |
+| Lottery scheduling                 | Distribute tickets; the process with the drawn ticket gets CPU. More tickets mean more expected CPU share.                   | Proportional allocation is simple and useful for services such as video servers.                                               |
+| Proportional/fair-share scheduling | Like guaranteed scheduling, but considers users as well as processes.                                                        | Prevents one user with many processes from unfairly dominating CPU time.                                                       |
 
 The weighted average formula for estimated CPU burst is:
 
@@ -256,12 +256,12 @@ Recent bursts receive larger weight than older bursts.
 
 In real-time systems, time is part of correctness.
 
-| Type | Meaning |
-| --- | --- |
-| Hard real time | Deadlines are strict and cannot be missed. |
+| Type           | Meaning                                                                |
+| -------------- | ---------------------------------------------------------------------- |
+| Hard real time | Deadlines are strict and cannot be missed.                             |
 | Soft real time | Deadlines matter, but small misses may be tolerated with quality loss. |
 
-The usual schedulability idea: if the sum of required CPU response times for events per unit time is not greater than the available CPU time, the workload can in principle be scheduled. In formula form, if each event type `i` occurs $f_i$ times per unit time and needs CPU time $c_i$, then the utilization sum $\sum(f_i \cdot c_i)$ should be $\le 1$ for one CPU under simplified assumptions.
+The usual schedulability idea: if the sum of required CPU response times for events per unit time is not greater than the available CPU time, the workload can in principle be scheduled. In formula form, if each event type $i$ occurs $f_i$ times per unit time and needs CPU time $c_i$, then the utilization sum $\sum(f_i \cdot c_i)$ should be $\le 1$ for one CPU under simplified assumptions.
 
 Parent and child processes may need different priorities. A kernel may provide system calls so a parent can set a child's priority, while the kernel still enforces scheduling, often by priority plus round robin.
 
@@ -316,31 +316,31 @@ The statement that the scheduler creates the feeling of parallel execution by qu
 
 **Parallelism** means more than one instruction stream actually executes at the same instant. It requires multiple CPU cores, multiple processors, or distributed machines.
 
-| Concept | Meaning | Example |
-| --- | --- | --- |
-| Concurrency | Activities overlap in time; they may interleave on one CPU. | A single-core OS switches among editor, browser, and terminal. |
-| Parallelism | Activities execute at the same time on separate hardware. | Two threads run on two CPU cores. |
-| Multiprocessor system | More processors in one machine; performance can be higher. | SMP server with several CPUs/cores. |
-| Cluster | Multiple machines coordinated together; reliability or scalability is often primary. | Service cluster where another node can take over. |
+| Concept               | Meaning                                                                              | Example                                                        |
+| --------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| Concurrency           | Activities overlap in time; they may interleave on one CPU.                          | A single-core OS switches among editor, browser, and terminal. |
+| Parallelism           | Activities execute at the same time on separate hardware.                            | Two threads run on two CPU cores.                              |
+| Multiprocessor system | More processors in one machine; performance can be higher.                           | SMP server with several CPUs/cores.                            |
+| Cluster               | Multiple machines coordinated together; reliability or scalability is often primary. | Service cluster where another node can take over.              |
 
- multiprocessor systems increase performance, but reliability is not automatically increased. Clusters are more directly associated with increasing reliability because work can be moved or replicated across machines.
+multiprocessor systems increase performance, but reliability is not automatically increased. Clusters are more directly associated with increasing reliability because work can be moved or replicated across machines.
 
 ### Processes Versus Threads
 
 A thread is an independently operating instruction sequence inside a process. A single-threaded process has one instruction sequence. A multithreaded process has several execution queues inside one process. Threads are often called lightweight processes.
 
-| Feature | Process | Thread |
-| --- | --- | --- |
-| Address space | Own address space. | Shares process address space with sibling threads. |
-| Global variables | Own process-level globals. | Shares globals with threads in same process. |
-| Open files/file descriptors | Process owns them. | Threads share them. |
-| Child processes | Belong to process. | Threads do not have separate child-process trees. |
-| Signal handlers and alarms | Process-level resources. | Shared or coordinated within the process, depending on OS. |
-| Program counter | Has one for each execution stream. | Each thread has its own. |
-| Registers | Saved/restored per execution stream. | Each thread has its own register state. |
-| Stack | A process has at least one stack; each thread needs its own stack. | Each thread has its own stack. |
-| Communication cost | Inter-process communication is more explicit and often costlier. | Threads communicate cheaply through shared memory, but need synchronization. |
-| Failure isolation | Better isolation; one process cannot directly overwrite another address space. | Weaker isolation; one thread can corrupt shared process memory. |
+| Feature                     | Process                                                                        | Thread                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| Address space               | Own address space.                                                             | Shares process address space with sibling threads.                           |
+| Global variables            | Own process-level globals.                                                     | Shares globals with threads in same process.                                 |
+| Open files/file descriptors | Process owns them.                                                             | Threads share them.                                                          |
+| Child processes             | Belong to process.                                                             | Threads do not have separate child-process trees.                            |
+| Signal handlers and alarms  | Process-level resources.                                                       | Shared or coordinated within the process, depending on OS.                   |
+| Program counter             | Has one for each execution stream.                                             | Each thread has its own.                                                     |
+| Registers                   | Saved/restored per execution stream.                                           | Each thread has its own register state.                                      |
+| Stack                       | A process has at least one stack; each thread needs its own stack.             | Each thread has its own stack.                                               |
+| Communication cost          | Inter-process communication is more explicit and often costlier.               | Threads communicate cheaply through shared memory, but need synchronization. |
+| Failure isolation           | Better isolation; one process cannot directly overwrite another address space. | Weaker isolation; one thread can corrupt shared process memory.              |
 
 Because threads share memory, they are efficient for parallel work inside one application, but shared-memory bugs such as races are easier to create.
 
@@ -348,31 +348,31 @@ Because threads share memory, they are efficient for parallel work inside one ap
 
 Distinguish user-level and kernel-level threads:
 
-| Thread type | Kernel awareness | Advantages | Disadvantages |
-| --- | --- | --- | --- |
-| User-level threads | Kernel only sees the process. A user-space thread library chooses internal threads. | Very fast switching; application-specific scheduling. | If one thread makes a blocking system call, the whole process may block because the kernel does not know the internal threads. True parallel execution may be limited. |
-| Kernel-level threads | Kernel knows and schedules threads. | One thread can block while another in the same process runs; true multicore parallelism is possible. | Switching needs kernel involvement and is slower. |
+| Thread type          | Kernel awareness                                                                    | Advantages                                                                                           | Disadvantages                                                                                                                                                          |
+| -------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User-level threads   | Kernel only sees the process. A user-space thread library chooses internal threads. | Very fast switching; application-specific scheduling.                                                | If one thread makes a blocking system call, the whole process may block because the kernel does not know the internal threads. True parallel execution may be limited. |
+| Kernel-level threads | Kernel knows and schedules threads.                                                 | One thread can block while another in the same process runs; true multicore parallelism is possible. | Switching needs kernel involvement and is slower.                                                                                                                      |
 
- in user-level threading the process receives a CPU time slice and the thread scheduler inside the process decides which thread runs. In kernel-level threading, the kernel chooses both process and thread.
+in user-level threading the process receives a CPU time slice and the thread scheduler inside the process decides which thread runs. In kernel-level threading, the kernel chooses both process and thread.
 
 ### Inter-Process Communication
 
 Processes need IPC because they have separate address spaces but still must coordinate. Discuss shared memory and message passing; additional material adds pipes and signals as common examples.
 
-| IPC mechanism | Main idea | Strengths | Risks / costs |
-| --- | --- | --- | --- |
-| Shared memory | Map the same memory region into multiple processes or threads. | Very fast after setup; useful for large data exchange. | Requires synchronization, otherwise races occur. |
-| Distributed shared memory | Present memory shared across networked machines as if it were shared memory. | Useful abstraction for distributed systems. | Latency and consistency are harder. |
-| Message passing | Use `Send(destination, message)` and `Receive(source, message)` primitives. | Clear boundaries and good for distributed systems. | Copying, buffering, blocking, and duplicate messages must be handled. |
-| Mailbox/temporary storage | Sender and receiver communicate through a buffer or mailbox. | Sender and receiver need not meet exactly at the same time. | Buffer management and overflow. |
-| Rendezvous strategy | If receive happens before send, receiver blocks; if send happens before receive, sender blocks. | Simple synchronization; Minix 3 style fixed messages are a classic example. | Can block both sides if protocol is wrong. |
-| Pipe | Byte stream between processes; no message boundaries. | Simple UNIX-style streaming, e.g. command pipelines. | Receiver must parse boundaries if needed. |
-| Signals/events | Asynchronous notification. | Lightweight control communication. | Carries little data and can be hard to reason about. |
-| MPI-style message passing | Library/model for parallel systems. | Scales to distributed parallel computation. | Programmer must manage communication pattern carefully. |
+| IPC mechanism             | Main idea                                                                                       | Strengths                                                                   | Risks / costs                                                         |
+| ------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Shared memory             | Map the same memory region into multiple processes or threads.                                  | Very fast after setup; useful for large data exchange.                      | Requires synchronization, otherwise races occur.                      |
+| Distributed shared memory | Present memory shared across networked machines as if it were shared memory.                    | Useful abstraction for distributed systems.                                 | Latency and consistency are harder.                                   |
+| Message passing           | Use `Send(destination, message)` and `Receive(source, message)` primitives.                     | Clear boundaries and good for distributed systems.                          | Copying, buffering, blocking, and duplicate messages must be handled. |
+| Mailbox/temporary storage | Sender and receiver communicate through a buffer or mailbox.                                    | Sender and receiver need not meet exactly at the same time.                 | Buffer management and overflow.                                       |
+| Rendezvous strategy       | If receive happens before send, receiver blocks; if send happens before receive, sender blocks. | Simple synchronization; Minix 3 style fixed messages are a classic example. | Can block both sides if protocol is wrong.                            |
+| Pipe                      | Byte stream between processes; no message boundaries.                                           | Simple UNIX-style streaming, e.g. command pipelines.                        | Receiver must parse boundaries if needed.                             |
+| Signals/events            | Asynchronous notification.                                                                      | Lightweight control communication.                                          | Carries little data and can be hard to reason about.                  |
+| MPI-style message passing | Library/model for parallel systems.                                                             | Scales to distributed parallel computation.                                 | Programmer must manage communication pattern carefully.               |
 
 ### Message Reliability
 
- if sender and receiver are not on the same machine, acknowledgements and sequence numbers are needed:
+if sender and receiver are not on the same machine, acknowledgements and sequence numbers are needed:
 
 1. Sender transmits a message.
 2. Receiver sends confirmation/acknowledgement.
@@ -423,27 +423,27 @@ The goal is to ensure that shared data is used by only one process/thread at a t
 
 The standard mutual-exclusion requirements are:
 
-| Requirement | Meaning |
-| --- | --- |
-| Mutual exclusion | No two processes are inside the critical section at the same time. |
-| No speed or CPU dependency | Correctness cannot depend on relative process speed or a specific number of CPUs. |
+| Requirement                      | Meaning                                                                                  |
+| -------------------------------- | ---------------------------------------------------------------------------------------- |
+| Mutual exclusion                 | No two processes are inside the critical section at the same time.                       |
+| No speed or CPU dependency       | Correctness cannot depend on relative process speed or a specific number of CPUs.        |
 | No blocking by outside processes | A process outside the critical section should not prevent another process from entering. |
-| No indefinite waiting | A process should not wait forever to enter the critical section. |
+| No indefinite waiting            | A process should not wait forever to enter the critical section.                         |
 
 These requirements are the basis for evaluating each implementation.
 
 ### Implementation Attempts and Their Problems
 
-| Method | Idea | Problem / use |
-| --- | --- | --- |
-| Disable interrupts | Disable interrupts before entering a critical section and enable them on exit. | Useful inside the kernel for short sections on one CPU; dangerous for user processes and insufficient alone on multiprocessors. |
-| Shared lock variable | A variable says whether someone is in the critical section. | Broken if two processes test the variable before either sets it. |
-| Strict alternation | A `turn` variable forces process 0, then process 1, then process 0, etc. | Gives mutual exclusion but violates progress: a process in its non-critical section can block the other process. |
-| Peterson's algorithm | Uses intent flags and a turn variable for two processes. | Correct under its assumptions for two processes; not a general multiprocessor primitive for all modern memory models without care. |
-| Test-and-set lock (TSL) | Hardware atomically reads and sets a lock. | Correct atomic primitive, but simple use produces busy waiting. |
-| Sleep/wakeup | Block a process instead of spinning. | Avoids CPU waste, but naive designs can lose wakeups. |
-| Semaphore | Kernel-supported integer with atomic `down/P` and `up/V`. | General mechanism for mutual exclusion and synchronization. |
-| Monitor | Higher-level language construct containing shared data and procedures; only one process active inside at a time. | Easier to structure but language/runtime support is needed. |
+| Method                  | Idea                                                                                                             | Problem / use                                                                                                                      |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Disable interrupts      | Disable interrupts before entering a critical section and enable them on exit.                                   | Useful inside the kernel for short sections on one CPU; dangerous for user processes and insufficient alone on multiprocessors.    |
+| Shared lock variable    | A variable says whether someone is in the critical section.                                                      | Broken if two processes test the variable before either sets it.                                                                   |
+| Strict alternation      | A `turn` variable forces process 0, then process 1, then process 0, etc.                                         | Gives mutual exclusion but violates progress: a process in its non-critical section can block the other process.                   |
+| Peterson's algorithm    | Uses intent flags and a turn variable for two processes.                                                         | Correct under its assumptions for two processes; not a general multiprocessor primitive for all modern memory models without care. |
+| Test-and-set lock (TSL) | Hardware atomically reads and sets a lock.                                                                       | Correct atomic primitive, but simple use produces busy waiting.                                                                    |
+| Sleep/wakeup            | Block a process instead of spinning.                                                                             | Avoids CPU waste, but naive designs can lose wakeups.                                                                              |
+| Semaphore               | Kernel-supported integer with atomic `down/P` and `up/V`.                                                        | General mechanism for mutual exclusion and synchronization.                                                                        |
+| Monitor                 | Higher-level language construct containing shared data and procedures; only one process active inside at a time. | Easier to structure but language/runtime support is needed.                                                                        |
 
 ### Strict Alternation
 
@@ -488,7 +488,7 @@ leave(i):
   want[i] = false
 ```
 
-Process `i` announces that it wants to enter and gives priority to the other process. It waits only if the other process also wants to enter and it is the other's turn. Under the classic assumptions of atomic reads/writes and sequential consistency, Peterson's algorithm provides mutual exclusion, progress, and bounded waiting for two processes.
+Process $i$ announces that it wants to enter and gives priority to the other process. It waits only if the other process also wants to enter and it is the other's turn. Under the classic assumptions of atomic reads/writes and sequential consistency, Peterson's algorithm provides mutual exclusion, progress, and bounded waiting for two processes.
 
 Include a warning image and text about a "Peterson correction" causing both processes to enter. That is best treated as a warning about incorrect variants or mistranslated pseudocode: if the ordering, variables, or atomicity assumptions are wrong, a Peterson-like solution can fail. The standard Peterson algorithm above is the corrected form to use in the exam answer.
 
@@ -550,11 +550,11 @@ The important property is atomicity: checking the semaphore, changing it, and sl
 
 The standard bounded-buffer semaphore solution is:
 
-| Semaphore | Initial value | Meaning |
-| --- | --- | --- |
-| `mutex` / `free` | `1` | Exclusive access to the buffer/shelf. |
-| `empty` | `N` | Number of empty slots. Producer waits if `0`. |
-| `full` | `0` | Number of filled slots. Consumer waits if `0`. |
+| Semaphore        | Initial value | Meaning                                        |
+| ---------------- | ------------- | ---------------------------------------------- |
+| `mutex` / `free` | `1`           | Exclusive access to the buffer/shelf.          |
+| `empty`          | $N$           | Number of empty slots. Producer waits if `0`.  |
+| `full`           | `0`           | Number of filled slots. Consumer waits if `0`. |
 
 ```text
 producer:
@@ -651,11 +651,11 @@ Shared memory is fast but must be synchronized. Message passing uses send and re
 
 I/O devices can be classified as:
 
-| Device type | Meaning | Examples |
-| --- | --- | --- |
-| Block devices | Store information in fixed-size blocks, commonly 512 bytes to 32768 bytes. Blocks can be addressed and read/written independently. | HDD, SSD block abstraction, tape in some contexts. |
-| Character devices | Provide a stream of bytes/characters and are not addressed as independent blocks. | Keyboard, serial port, terminal-like devices. |
-| Timer | Special case: neither normal block nor character device. | Generates time interrupts for scheduling/accounting. |
+| Device type       | Meaning                                                                                                                            | Examples                                             |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Block devices     | Store information in fixed-size blocks, commonly 512 bytes to 32768 bytes. Blocks can be addressed and read/written independently. | HDD, SSD block abstraction, tape in some contexts.   |
+| Character devices | Provide a stream of bytes/characters and are not addressed as independent blocks.                                                  | Keyboard, serial port, terminal-like devices.        |
+| Timer             | Special case: neither normal block nor character device.                                                                           | Generates time interrupts for scheduling/accounting. |
 
 The OS uses device controllers and drivers so applications do not directly manipulate hardware details.
 
@@ -690,13 +690,13 @@ Discuss I/O device types, interrupts, and DMA; additional material supplies the 
 
 Disk scheduling matters mainly for seek-based devices such as HDDs, where moving the head is expensive. It also remains useful conceptually for block I/O queueing and fairness.
 
-| Policy | Main idea | Strength | Starvation risk |
-| --- | --- | --- | --- |
-| FCFS | Serve requests in arrival order. | Fair and simple. | Low starvation risk, but poor average seek time. |
-| SSTF (Shortest Seek Time First) | Serve the request closest to the current head position. | Reduces seek time locally. | High risk: far-away requests can wait indefinitely. |
-| SCAN / LOOK | Move the head in one direction serving requests, then reverse. LOOK reverses at the last request rather than disk edge. | Elevator-like fairness and better throughput. | Lower starvation risk than SSTF. |
-| C-SCAN / C-LOOK | Serve in one direction only, then jump back and continue. | More uniform waiting time than SCAN. | Lower starvation risk; still needs queue policy. |
-| Deadline / aging variants | Associate maximum waiting time or age with requests. | Prevents old requests from being passed forever. | Used to control starvation explicitly. |
+| Policy                          | Main idea                                                                                                               | Strength                                         | Starvation risk                                     |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------- |
+| FCFS                            | Serve requests in arrival order.                                                                                        | Fair and simple.                                 | Low starvation risk, but poor average seek time.    |
+| SSTF (Shortest Seek Time First) | Serve the request closest to the current head position.                                                                 | Reduces seek time locally.                       | High risk: far-away requests can wait indefinitely. |
+| SCAN / LOOK                     | Move the head in one direction serving requests, then reverse. LOOK reverses at the last request rather than disk edge. | Elevator-like fairness and better throughput.    | Lower starvation risk than SSTF.                    |
+| C-SCAN / C-LOOK                 | Serve in one direction only, then jump back and continue.                                                               | More uniform waiting time than SCAN.             | Lower starvation risk; still needs queue policy.    |
+| Deadline / aging variants       | Associate maximum waiting time or age with requests.                                                                    | Prevents old requests from being passed forever. | Used to control starvation explicitly.              |
 
 For SSDs, seek time is not mechanical, but queue scheduling still matters for fairness, latency, batching, priorities, and wear-aware behavior.
 
@@ -710,18 +710,18 @@ Deadlock is not only an I/O problem. It can happen with locks, files, memory buf
 
 According to Coffman, four conditions are necessary for deadlock:
 
-| Condition | Meaning |
-| --- | --- |
-| Mutual exclusion | A resource is either free or assigned to exactly one process. |
-| Hold and wait | A process holds a resource while requesting another. |
-| No preemption | The system cannot forcibly take the resource; only the owner releases it. |
-| Circular wait | There is a cycle of processes, each waiting for a resource held by the next. |
+| Condition        | Meaning                                                                      |
+| ---------------- | ---------------------------------------------------------------------------- |
+| Mutual exclusion | A resource is either free or assigned to exactly one process.                |
+| Hold and wait    | A process holds a resource while requesting another.                         |
+| No preemption    | The system cannot forcibly take the resource; only the owner releases it.    |
+| Circular wait    | There is a cycle of processes, each waiting for a resource held by the next. |
 
 If all four can hold at once, deadlock is possible. If the system prevents any one of them, deadlock is impossible.
 
 ### Resource-Allocation Graph
 
- processes and resources can be modeled with a directed graph. A cycle indicates a deadlock risk, and in simple single-instance resources, a cycle means deadlock.
+processes and resources can be modeled with a directed graph. A cycle indicates a deadlock risk, and in simple single-instance resources, a cycle means deadlock.
 
 ```mermaid
 flowchart LR
@@ -731,7 +731,7 @@ flowchart LR
     R1 --> P1
 ```
 
-In this graph, `P1` waits for `R2`, which is held by `P2`; `P2` waits for `R1`, which is held by `P1`.
+In this graph, $P_1$ waits for $R_2$, which is held by $P_2$; $P_2$ waits for $R_1$, which is held by $P_1$.
 
 ### Deadlock Handling Strategies
 
@@ -739,7 +739,7 @@ Four major strategies.
 
 #### 1. Ignore the Problem
 
-This is often called the ostrich algorithm. The OS assumes deadlock is rare enough that the cost of prevention is not worth it.  UNIX and Windows often use this style for many general resources because the expected benefit of stronger handling may be lower than the complexity and performance cost.
+This is often called the ostrich algorithm. The OS assumes deadlock is rare enough that the cost of prevention is not worth it. UNIX and Windows often use this style for many general resources because the expected benefit of stronger handling may be lower than the complexity and performance cost.
 
 #### 2. Detection and Recovery
 
@@ -757,12 +757,12 @@ Recovery can terminate one or more processes, roll back work if possible, or pre
 
 Prevention breaks at least one Coffman condition:
 
-| Condition prevented | Method | Tradeoff |
-| --- | --- | --- |
-| Mutual exclusion | Make resources shareable where possible, e.g. spooling print output through a daemon. | Not all resources are shareable; buffers can still deadlock. |
-| Hold and wait | Require a process to request all resources at once or release held resources before requesting new ones. | Needs advance knowledge; reduces utilization. |
-| No preemption | Take resources away when needed. | Not safe for resources such as printers during printing. |
-| Circular wait | Number resource types and require requests in increasing order; or allow only one resource at a time. | Correct ordering can be difficult and restrictive. |
+| Condition prevented | Method                                                                                                   | Tradeoff                                                     |
+| ------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Mutual exclusion    | Make resources shareable where possible, e.g. spooling print output through a daemon.                    | Not all resources are shareable; buffers can still deadlock. |
+| Hold and wait       | Require a process to request all resources at once or release held resources before requesting new ones. | Needs advance knowledge; reduces utilization.                |
+| No preemption       | Take resources away when needed.                                                                         | Not safe for resources such as printers during printing.     |
+| Circular wait       | Number resource types and require requests in increasing order; or allow only one resource at a time.    | Correct ordering can be difficult and restrictive.           |
 
 #### 4. Dynamic Avoidance
 
@@ -777,13 +777,13 @@ Avoidance is elegant but often impractical because it needs exact maximum resour
 
 ### Starvation Versus Deadlock
 
-| Aspect | Starvation | Deadlock |
-| --- | --- | --- |
-| Basic condition | A process waits indefinitely because policy keeps serving others. | A set of processes waits in a cycle; none can make progress. |
-| Process state | The process may be ready or waiting but is repeatedly bypassed. | Processes are blocked waiting for events only others in the set can cause. |
-| Cause | Unfair scheduling/resource allocation, priority dominance, SSTF-like locality, reader/writer preference. | Circular dependency plus Coffman conditions. |
-| Solution style | Aging, fairness, deadlines, priority boosts, quotas, proportional service. | Prevention, avoidance, detection/recovery, or ignoring if acceptable. |
-| Example | A low-priority process never receives CPU. | P1 holds printer and waits for scanner; P2 holds scanner and waits for printer. |
+| Aspect          | Starvation                                                                                               | Deadlock                                                                        |
+| --------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Basic condition | A process waits indefinitely because policy keeps serving others.                                        | A set of processes waits in a cycle; none can make progress.                    |
+| Process state   | The process may be ready or waiting but is repeatedly bypassed.                                          | Processes are blocked waiting for events only others in the set can cause.      |
+| Cause           | Unfair scheduling/resource allocation, priority dominance, SSTF-like locality, reader/writer preference. | Circular dependency plus Coffman conditions.                                    |
+| Solution style  | Aging, fairness, deadlines, priority boosts, quotas, proportional service.                               | Prevention, avoidance, detection/recovery, or ignoring if acceptable.           |
+| Example         | A low-priority process never receives CPU.                                                               | P1 holds printer and waits for scanner; P2 holds scanner and waits for printer. |
 
 ### What to Emphasize in an Oral Answer
 
@@ -832,10 +832,10 @@ The memory manager is usually part of the kernel. Its tasks:
 
 Two broad algorithm groups:
 
-| Group | Meaning |
-| --- | --- |
+| Group              | Meaning                                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------------------- |
 | No swapping needed | Enough memory exists for active processes, so memory placement and protection are the main issues. |
-| Swapping needed | Processes or pages must move between RAM and disk to make room. |
+| Swapping needed    | Processes or pages must move between RAM and disk to make room.                                    |
 
 ### Fixed Partitions, Relocation, and Protection
 
@@ -863,23 +863,23 @@ Dynamic allocation allows a process's code, data, and stack areas to grow and sh
 
 Memory registration can use:
 
-| Method | Idea | Tradeoff |
-| --- | --- | --- |
-| Bitmap | Divide memory into allocation units; one bit marks each unit free/used. | Small units reduce waste but increase bitmap size. |
-| Linked list | Keep a list of free holes and process areas. | Easy to merge adjacent holes; allocation search can cost time. |
-| Separate free and used lists | Track holes and processes separately. | Faster for some operations but more bookkeeping. |
+| Method                       | Idea                                                                    | Tradeoff                                                       |
+| ---------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Bitmap                       | Divide memory into allocation units; one bit marks each unit free/used. | Small units reduce waste but increase bitmap size.             |
+| Linked list                  | Keep a list of free holes and process areas.                            | Easy to merge adjacent holes; allocation search can cost time. |
+| Separate free and used lists | Track holes and processes separately.                                   | Faster for some operations but more bookkeeping.               |
 
 ### Dynamic Memory Allocation Strategies
 
 The list includes these placement algorithms:
 
-| Strategy | Meaning | Tradeoff |
-| --- | --- | --- |
-| First fit | Use the first hole large enough. | Fast and simple; often effective. |
-| Next fit | Continue searching from the last allocation point. | Avoids always starting at beginning; often less efficient than first fit. |
-| Best fit | Use the smallest hole large enough. | Slow; tends to create many tiny holes. |
-| Worst fit | Use the largest hole. | Tries to avoid tiny leftovers, but usually ineffective. |
-| Quick fit | Keep lists of holes by common sizes. | Fast allocation for common sizes; expensive to merge holes. |
+| Strategy  | Meaning                                            | Tradeoff                                                                  |
+| --------- | -------------------------------------------------- | ------------------------------------------------------------------------- |
+| First fit | Use the first hole large enough.                   | Fast and simple; often effective.                                         |
+| Next fit  | Continue searching from the last allocation point. | Avoids always starting at beginning; often less efficient than first fit. |
+| Best fit  | Use the smallest hole large enough.                | Slow; tends to create many tiny holes.                                    |
+| Worst fit | Use the largest hole.                              | Tries to avoid tiny leftovers, but usually ineffective.                   |
+| Quick fit | Keep lists of holes by common sizes.               | Fast allocation for common sizes; expensive to merge holes.               |
 
 ### Virtual Memory and MMU
 
@@ -918,24 +918,24 @@ Paging design includes several issues:
 
 #### Working-Set Model
 
-The working set is the set of pages a process is actively using over a recent time window. The OS should keep the working set in physical memory if possible. If a page has not been referenced in the last `N` time units, it is a candidate for removal. WSClock combines clock-style page replacement with working-set age checks.
+The working set is the set of pages a process is actively using over a recent time window. The OS should keep the working set in physical memory if possible. If a page has not been referenced in the last $N$ time units, it is a candidate for removal. WSClock combines clock-style page replacement with working-set age checks.
 
 #### Local and Global Replacement
 
-| Replacement scope | Meaning | Tradeoff |
-| --- | --- | --- |
-| Local | A process replaces only its own pages. | Protects processes from each other, but may underuse memory. |
-| Global | A page fault can choose a victim from all frames. | Better global utilization, but processes can interfere. |
+| Replacement scope | Meaning                                           | Tradeoff                                                     |
+| ----------------- | ------------------------------------------------- | ------------------------------------------------------------ |
+| Local             | A process replaces only its own pages.            | Protects processes from each other, but may underuse memory. |
+| Global            | A page fault can choose a victim from all frames. | Better global utilization, but processes can interfere.      |
 
 Also note Page Fault Frequency (PFF): if a process has too many page faults per second, increase its resident pages; if memory pressure is too high, transfer an entire process to disk.
 
 #### Page Size
 
-| Small pages | Large pages |
-| --- | --- |
-| Less internal fragmentation ("page loss"). | Smaller page tables. |
-| More page-table entries and bookkeeping. | More internal fragmentation. |
-| Can match fine-grained locality. | Can reduce TLB pressure for large sequential regions. |
+| Small pages                                | Large pages                                           |
+| ------------------------------------------ | ----------------------------------------------------- |
+| Less internal fragmentation ("page loss"). | Smaller page tables.                                  |
+| More page-table entries and bookkeeping.   | More internal fragmentation.                          |
+| Can match fine-grained locality.           | Can reduce TLB pressure for large sequential regions. |
 
 Note common page sizes such as $n \cdot 512$ bytes and mentions 4 KB for XP/Linux and 8 KB in some server contexts.
 
@@ -1004,12 +1004,12 @@ Disadvantages:
 
 Paging and segmentation solve different problems:
 
-| Paging | Segmentation |
-| --- | --- |
-| Fixed-size pages/frames. | Variable-size logical segments. |
-| Good for physical memory allocation and virtual memory. | Good for logical program organization and protection. |
-| Internal fragmentation possible. | External fragmentation possible. |
-| Page tables map virtual pages to frames. | Segment tables map segment numbers to base/limit/protection. |
+| Paging                                                  | Segmentation                                                 |
+| ------------------------------------------------------- | ------------------------------------------------------------ |
+| Fixed-size pages/frames.                                | Variable-size logical segments.                              |
+| Good for physical memory allocation and virtual memory. | Good for logical program organization and protection.        |
+| Internal fragmentation possible.                        | External fragmentation possible.                             |
+| Page tables map virtual pages to frames.                | Segment tables map segment numbers to base/limit/protection. |
 
 Some systems combine them: segmentation produces a linear address, then paging translates that address to a physical frame.
 
@@ -1017,19 +1017,19 @@ Some systems combine them: segmentation produces a linear address, then paging t
 
 If a referenced page is not in memory and no free frame exists, the OS must evict some page. These are page replacement, or swap, algorithms.
 
-| Algorithm | Key detail | Notes |
-| --- | --- | --- |
-| Optimal | Label each page by how many CPU instructions will execute before it is referenced; remove the one needed farthest in the future. | Cannot be implemented because the future is unknown; useful as a benchmark. The standard optimal rule is farthest future reference. |
-| NRU (Not Recently Used) | Use referenced and modified bits; periodically clear reference bits. Classes: not referenced/not modified; not referenced/modified; referenced/not modified; referenced/modified. Choose from the lowest non-empty class. | Simple and decent; modified pages cost more to evict. |
-| FIFO | Remove the oldest loaded page. | Simple but may remove heavily used pages. |
-| Second chance | FIFO, but if the oldest page has reference bit `1`, clear it and move/give it another chance. | Avoids evicting recently referenced pages. |
-| Clock | Arrange pages in a circle with a pointer; clear reference bits until finding a page with reference bit `0`. | Efficient implementation of second chance. |
-| LRU | Remove the least recently used page. | Good locality behavior; exact implementation is expensive. |
-| LRU counter hardware | A counter increments on each memory reference; page table entry records the latest counter for that page. | Exact-ish but costly. |
-| LRU bit matrix | For `n` pages, keep an `n x n` matrix; on reference to page `k`, set row `k` to 1 and column `k` to 0. The smallest row value is oldest. | Hardware-expensive. |
-| NFU (Not Frequently Used) | Keep a counter per page and add the reference bit at each clock interrupt. | Does not forget old heavy use. |
-| Aging | Shift counters right and insert the reference bit at the left. | Approximates LRU with finite history. |
-| Working set / WSClock | Prefer pages outside the recent working set. | Reduces thrashing by respecting locality. |
+| Algorithm                 | Key detail                                                                                                                                                                                                                | Notes                                                                                                                               |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Optimal                   | Label each page by how many CPU instructions will execute before it is referenced; remove the one needed farthest in the future.                                                                                          | Cannot be implemented because the future is unknown; useful as a benchmark. The standard optimal rule is farthest future reference. |
+| NRU (Not Recently Used)   | Use referenced and modified bits; periodically clear reference bits. Classes: not referenced/not modified; not referenced/modified; referenced/not modified; referenced/modified. Choose from the lowest non-empty class. | Simple and decent; modified pages cost more to evict.                                                                               |
+| FIFO                      | Remove the oldest loaded page.                                                                                                                                                                                            | Simple but may remove heavily used pages.                                                                                           |
+| Second chance             | FIFO, but if the oldest page has reference bit `1`, clear it and move/give it another chance.                                                                                                                             | Avoids evicting recently referenced pages.                                                                                          |
+| Clock                     | Arrange pages in a circle with a pointer; clear reference bits until finding a page with reference bit `0`.                                                                                                               | Efficient implementation of second chance.                                                                                          |
+| LRU                       | Remove the least recently used page.                                                                                                                                                                                      | Good locality behavior; exact implementation is expensive.                                                                          |
+| LRU counter hardware      | A counter increments on each memory reference; page table entry records the latest counter for that page.                                                                                                                 | Exact-ish but costly.                                                                                                               |
+| LRU bit matrix            | For $n$ pages, keep an $n \times n$ matrix; on reference to page $k$, set row $k$ to 1 and column $k$ to 0. The smallest row value is oldest.                                                                             | Hardware-expensive.                                                                                                                 |
+| NFU (Not Frequently Used) | Keep a counter per page and add the reference bit at each clock interrupt.                                                                                                                                                | Does not forget old heavy use.                                                                                                      |
+| Aging                     | Shift counters right and insert the reference bit at the left.                                                                                                                                                            | Approximates LRU with finite history.                                                                                               |
+| Working set / WSClock     | Prefer pages outside the recent working set.                                                                                                                                                                              | Reduces thrashing by respecting locality.                                                                                           |
 
 ### Thrashing and Load Control
 
@@ -1070,14 +1070,14 @@ When a page fault occurs and no free frame exists, the OS needs page replacement
 
 Storage devices provide persistent or semi-persistent data below the file-system layer.
 
-| Storage type | Typical use | Characteristics |
-| --- | --- | --- |
-| Magnetic tape | Backup and archival storage. | Sequential access, cheap per capacity, slow random access. |
-| Magnetic disk (HDD) | General persistent storage. | Tracks, sectors, cylinders, moving head, seek/rotational delay. |
-| Optical media | Distribution, archives, read-mostly media. | CD/DVD/BD style formats such as CDFS or UDF. |
-| Semiconductor storage | SSD, flash drive, memory card. | No moving head, block-like OS abstraction, wear considerations. |
-| RAM disk | Temporary memory-backed storage. | Fast but volatile unless backed by persistence. |
-| Network storage | Remote storage exposed locally. | NFS, SMB, distributed file systems. |
+| Storage type          | Typical use                                | Characteristics                                                 |
+| --------------------- | ------------------------------------------ | --------------------------------------------------------------- |
+| Magnetic tape         | Backup and archival storage.               | Sequential access, cheap per capacity, slow random access.      |
+| Magnetic disk (HDD)   | General persistent storage.                | Tracks, sectors, cylinders, moving head, seek/rotational delay. |
+| Optical media         | Distribution, archives, read-mostly media. | CD/DVD/BD style formats such as CDFS or UDF.                    |
+| Semiconductor storage | SSD, flash drive, memory card.             | No moving head, block-like OS abstraction, wear considerations. |
+| RAM disk              | Temporary memory-backed storage.           | Fast but volatile unless backed by persistence.                 |
+| Network storage       | Remote storage exposed locally.            | NFS, SMB, distributed file systems.                             |
 
 Important disk organization terms:
 
@@ -1099,17 +1099,17 @@ RAID may be:
 - **Software RAID:** provided by the operating system.
 - **Hardware RAID:** provided by an intelligent controller or external disk system.
 
-| RAID level | Key detail | Capacity / fault tolerance |
-| --- | --- | --- |
-| RAID 0 (striping) | Blocks of the logical drive are striped across disks, so one file may be written to several disks. Faster I/O. Not actually redundant. | Capacity is sum of disks; any disk failure can lose data. |
-| RAID 1 (mirroring) | Two independent disks store the same data in parallel. | Usable capacity is about half; one disk can fail without data loss. |
-| RAID 1+0 | Multiple mirrored pairs are striped. | Good performance and redundancy; more expensive. |
-| RAID 0+1 | Two striped groups are mirrored. | Also combines striping and mirroring, but failure behavior differs from 1+0. |
-| RAID 2 | Data bits plus error-correction bits, e.g. correction disks for data disks. | Historically interesting; rarely used today. |
-| RAID 3 | Uses one extra parity disk for $n+1$ disks. | Rare today. |
-| RAID 4 | RAID 0 style striping with a dedicated parity disk. | Dedicated parity can bottleneck; rare today. |
-| RAID 5 | Distributed parity; no single parity disk. One disk can fail and missing data can be reconstructed from parity and remaining data. | At least 3 disks; usable capacity about $N-1$ disks; two simultaneous failures lose data. |
-| RAID 6 | Like RAID 5 with additional error-correction/parity information. | Usable capacity about $N-2$ disks; two disk failures can be tolerated. |
+| RAID level         | Key detail                                                                                                                             | Capacity / fault tolerance                                                                |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| RAID 0 (striping)  | Blocks of the logical drive are striped across disks, so one file may be written to several disks. Faster I/O. Not actually redundant. | Capacity is sum of disks; any disk failure can lose data.                                 |
+| RAID 1 (mirroring) | Two independent disks store the same data in parallel.                                                                                 | Usable capacity is about half; one disk can fail without data loss.                       |
+| RAID 1+0           | Multiple mirrored pairs are striped.                                                                                                   | Good performance and redundancy; more expensive.                                          |
+| RAID 0+1           | Two striped groups are mirrored.                                                                                                       | Also combines striping and mirroring, but failure behavior differs from 1+0.              |
+| RAID 2             | Data bits plus error-correction bits, e.g. correction disks for data disks.                                                            | Historically interesting; rarely used today.                                              |
+| RAID 3             | Uses one extra parity disk for $n+1$ disks.                                                                                            | Rare today.                                                                               |
+| RAID 4             | RAID 0 style striping with a dedicated parity disk.                                                                                    | Dedicated parity can bottleneck; rare today.                                              |
+| RAID 5             | Distributed parity; no single parity disk. One disk can fail and missing data can be reconstructed from parity and remaining data.     | At least 3 disks; usable capacity about $N-1$ disks; two simultaneous failures lose data. |
+| RAID 6             | Like RAID 5 with additional error-correction/parity information.                                                                       | Usable capacity about $N-2$ disks; two disk failures can be tolerated.                    |
 
 Several historical and detailed notes are useful:
 
@@ -1129,11 +1129,11 @@ Definitions:
 
 Three file types usually found on disk:
 
-| File type | Meaning |
-| --- | --- |
-| Regular user file | Ordinary user/application data. |
-| Temporary file | Short-lived file used during computation or application operation. |
-| Administrative file | Metadata or system file required for operation, often hidden. |
+| File type           | Meaning                                                            |
+| ------------------- | ------------------------------------------------------------------ |
+| Regular user file   | Ordinary user/application data.                                    |
+| Temporary file      | Short-lived file used during computation or application operation. |
+| Administrative file | Metadata or system file required for operation, often hidden.      |
 
 Typical metadata:
 
@@ -1159,11 +1159,11 @@ FAT16 historically places directory information before file data in a fixed form
 
 Allocation strategies:
 
-| Strategy | Key detail | Strengths and weaknesses |
-| --- | --- | --- |
-| Contiguous allocation | Store a file in consecutive blocks. First fit, best fit, or worst fit can choose the free extent. | Fast sequential and random access, but wasteful and difficult to grow; causes external fragmentation. |
-| Chained allocation | File blocks form a linked chain; free/used sectors recorded in a table such as FAT. | No external fragmentation beyond block-size waste; random access to the nth block is slow unless FAT is cached. |
-| Indexed allocation | Directory/catalog points to a small table or inode belonging to the file. | Direct and indirect pointers support random access and large files. |
+| Strategy              | Key detail                                                                                        | Strengths and weaknesses                                                                                        |
+| --------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Contiguous allocation | Store a file in consecutive blocks. First fit, best fit, or worst fit can choose the free extent. | Fast sequential and random access, but wasteful and difficult to grow; causes external fragmentation.           |
+| Chained allocation    | File blocks form a linked chain; free/used sectors recorded in a table such as FAT.               | No external fragmentation beyond block-size waste; random access to the nth block is slow unless FAT is cached. |
+| Indexed allocation    | Directory/catalog points to a small table or inode belonging to the file.                         | Direct and indirect pointers support random access and large files.                                             |
 
 ### File-System Services
 
@@ -1194,15 +1194,15 @@ Internal services:
 
 The list includes file-system categories:
 
-| Category | Examples / notes |
-| --- | --- |
-| Hard disk file systems | FAT, NTFS, EXT2FS, XFS, etc. |
-| Tape systems | Table of contents followed by sequential contents, mainly backups. |
-| Optical disc systems | CDFS and UDF for CD/DVD/magneto-optical media. |
-| RAM disks | Memory-backed file systems, now less common for ordinary use. |
-| Flash memory drives | Often FAT32 for compatibility. |
-| Network drives | NFS and similar remote-file systems. |
-| Pseudo/archive file systems | zip, tar.gz, ISO-style views or archive formats. |
+| Category                    | Examples / notes                                                   |
+| --------------------------- | ------------------------------------------------------------------ |
+| Hard disk file systems      | FAT, NTFS, EXT2FS, XFS, etc.                                       |
+| Tape systems                | Table of contents followed by sequential contents, mainly backups. |
+| Optical disc systems        | CDFS and UDF for CD/DVD/magneto-optical media.                     |
+| RAM disks                   | Memory-backed file systems, now less common for ordinary use.      |
+| Flash memory drives         | Often FAT32 for compatibility.                                     |
+| Network drives              | NFS and similar remote-file systems.                               |
+| Pseudo/archive file systems | zip, tar.gz, ISO-style views or archive formats.                   |
 
 Modern operating systems support many file-system types. Note Linux 2.6 supported more than 50.
 
@@ -1214,7 +1214,7 @@ Journaled or log-structured file systems address inconsistency after power failu
 2. Apply the update to main file-system structures.
 3. After a crash, use the log to replay completed operations or roll back incomplete ones.
 
-Journaling needs extra writes and resources, but improves reliability.  the log is ideally on another disk or partition.
+Journaling needs extra writes and resources, but improves reliability. the log is ideally on another disk or partition.
 
 Mounting makes file-system contents available:
 
@@ -1241,11 +1241,11 @@ Detailed FAT characteristics:
 
 Historical FAT limits:
 
-| Variant | Details |
-| --- | --- |
-| FAT12 | Used on floppy disks; 12-bit cluster descriptors. |
-| FAT16 | 16-bit cluster descriptor; maximum partition size around 4 GB at 64 KB cluster size, commonly 2 GB; maximum file size around 4 GB; fixed root directory limitations in older layouts. |
-| FAT32 | Available since 1996; 28-bit cluster descriptor; partition size up to about 2 TB with basic sector assumptions; cluster size can grow up to 64 KB. |
+| Variant | Details                                                                                                                                                                               |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FAT12   | Used on floppy disks; 12-bit cluster descriptors.                                                                                                                                     |
+| FAT16   | 16-bit cluster descriptor; maximum partition size around 4 GB at 64 KB cluster size, commonly 2 GB; maximum file size around 4 GB; fixed root directory limitations in older layouts. |
+| FAT32   | Available since 1996; 28-bit cluster descriptor; partition size up to about 2 TB with basic sector assumptions; cluster size can grow up to 64 KB.                                    |
 
 ### NTFS
 

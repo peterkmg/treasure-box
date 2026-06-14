@@ -16,27 +16,27 @@ $$
 
 For words, Also define:
 
-| Concept | Meaning |
-| --- | --- |
-| Subword | $u$ is a subword of $v$ if $v=xuy$ for some words $x,y$. |
-| Proper subword | $u$ is a subword and $xy\ne\varepsilon$. |
-| Prefix | $u$ is a prefix of $v$ if $v=uy$. |
-| Suffix | $u$ is a suffix of $v$ if $v=xu$. |
-| Mirror image | The word obtained by reversing symbol order. |
+| Concept        | Meaning                                                  |
+| -------------- | -------------------------------------------------------- |
+| Subword        | $u$ is a subword of $v$ if $v=xuy$ for some words $x,y$. |
+| Proper subword | $u$ is a subword and $xy\ne\varepsilon$.                 |
+| Prefix         | $u$ is a prefix of $v$ if $v=uy$.                        |
+| Suffix         | $u$ is a suffix of $v$ if $v=xu$.                        |
+| Mirror image   | The word obtained by reversing symbol order.             |
 
 A **language** over $V$ is any subset $L\subseteq V^*$. The empty language is $\emptyset$. A language may be finite or infinite.
 
 Operations on languages:
 
-| Operation | Definition |
-| --- | --- |
-| Union | $L_1\cup L_2=\{u:u\in L_1$ or $u\in L_2\}$ |
-| Intersection | $L_1\cap L_2=\{u:u\in L_1$ and $u\in L_2\}$ |
-| Difference | $L_1-L_2=\{u:u\in L_1,\ u\notin L_2\}$ |
-| Complement | $\overline L=V^*-L$ |
-| Concatenation | $L_1L_2=\{uv:u\in L_1,\ v\in L_2\}$ |
-| Iteration | $L^0=\{\varepsilon\}$, $L^i=LL^{i-1}$ |
-| Kleene star | $L^*=\bigcup_{i\ge 0}L^i$ |
+| Operation     | Definition                                  |
+| ------------- | ------------------------------------------- |
+| Union         | $L_1\cup L_2=\{u:u\in L_1$ or $u\in L_2\}$  |
+| Intersection  | $L_1\cap L_2=\{u:u\in L_1$ and $u\in L_2\}$ |
+| Difference    | $L_1-L_2=\{u:u\in L_1,\ u\notin L_2\}$      |
+| Complement    | $\overline L=V^*-L$                         |
+| Concatenation | $L_1L_2=\{uv:u\in L_1,\ v\in L_2\}$         |
+| Iteration     | $L^0=\{\varepsilon\}$, $L^i=LL^{i-1}$       |
+| Kleene star   | $L^*=\bigcup_{i\ge 0}L^i$                   |
 
 Call union, concatenation, and iterative closure the **regular operations**.
 
@@ -48,12 +48,12 @@ $$
 
 where:
 
-| Component | Meaning |
-| --- | --- |
-| $N$ | Nonterminal alphabet. |
-| $T$ | Terminal alphabet, disjoint from $N$. |
-| $S\in N$ | Start symbol. |
-| $P$ | Production rules $x\to y$, where $x,y\in(N\cup T)^*$ and $x$ contains at least one nonterminal. |
+| Component | Meaning                                                                                         |
+| --------- | ----------------------------------------------------------------------------------------------- |
+| $N$       | Nonterminal alphabet.                                                                           |
+| $T$       | Terminal alphabet, disjoint from $N$.                                                           |
+| $S\in N$  | Start symbol.                                                                                   |
+| $P$       | Production rules $x\to y$, where $x,y\in(N\cup T)^*$ and $x$ contains at least one nonterminal. |
 
 A word $v$ is **directly derivable** from $u$ if one occurrence of a rule's left side in $u$ is replaced by the rule's right side:
 
@@ -69,12 +69,12 @@ $$
 
 The **Chomsky hierarchy** classifies grammars by rule restrictions:
 
-| Type | Name | Rule shape | Language class |
-| --- | --- | --- | --- |
-| 0 | Phrase-structure / unrestricted | No restriction except left side contains a nonterminal. | Recursively enumerable languages. |
-| 1 | Context-sensitive | $u_1Au_2\to u_1vu_2$, $v\ne\varepsilon$; optionally $S\to\varepsilon$ under the usual start-symbol restriction. | Context-sensitive languages. |
-| 2 | Context-free | $A\to v$, where $A\in N$. | Context-free languages. |
-| 3 | Regular | $A\to vB$ or $A\to v$, where $v\in T^*$. | Regular languages. |
+| Type | Name                            | Rule shape                                                                                                      | Language class                    |
+| ---- | ------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| 0    | Phrase-structure / unrestricted | No restriction except left side contains a nonterminal.                                                         | Recursively enumerable languages. |
+| 1    | Context-sensitive               | $u_1Au_2\to u_1vu_2$, $v\ne\varepsilon$; optionally $S\to\varepsilon$ under the usual start-symbol restriction. | Context-sensitive languages.      |
+| 2    | Context-free                    | $A\to v$, where $A\in N$.                                                                                       | Context-free languages.           |
+| 3    | Regular                         | $A\to vB$ or $A\to v$, where $v\in T^*$.                                                                        | Regular languages.                |
 
 The hierarchy is strict:
 
@@ -110,10 +110,10 @@ The Chomsky hierarchy classifies grammars by how restricted their rules are. Typ
 
 A **normal form** is an equivalent grammar shape with simpler syntactic restrictions. Normal forms are useful because they preserve the generated language while making proofs and algorithms easier.
 
-For **type-3 grammars**,  every regular language can be generated by a grammar with only rules of the form:
+For **type-3 grammars**, every regular language can be generated by a grammar with only rules of the form:
 
 $$
-X\to aY,\qquad X\to\varepsilon,
+X\to aY,\quad X\to\varepsilon,
 $$
 
 where $X,Y\in N$ and $a\in T$. This is a strict right-linear normal form.
@@ -137,7 +137,7 @@ $$
 Second, a grammar is in **Chomsky normal form** if every production has one of these forms:
 
 $$
-X\to a,\qquad X\to YZ,
+X\to a,\quad X\to YZ,
 $$
 
 where $X,Y,Z\in N$ and $a\in T$. For every $\varepsilon$-free context-free grammar, an equivalent grammar in Chomsky normal form can be constructed.
@@ -146,14 +146,14 @@ Chomsky normal form matters because derivations have a tree-like binary structur
 
 Third, a context-free grammar can be **reduced** by removing useless nonterminals.
 
-| Concept | Meaning |
-| --- | --- |
-| Active nonterminal | Some terminal word can be derived from it. |
-| Inactive nonterminal | No terminal word can be derived from it. |
-| Reachable nonterminal | Appears in some sentential form derived from the start symbol. |
-| Unreachable nonterminal | Cannot be reached from the start symbol. |
-| Useless nonterminal | Inactive or unreachable. |
-| Reduced grammar | Every nonterminal is active and reachable. |
+| Concept                 | Meaning                                                        |
+| ----------------------- | -------------------------------------------------------------- |
+| Active nonterminal      | Some terminal word can be derived from it.                     |
+| Inactive nonterminal    | No terminal word can be derived from it.                       |
+| Reachable nonterminal   | Appears in some sentential form derived from the start symbol. |
+| Unreachable nonterminal | Cannot be reached from the start symbol.                       |
+| Useless nonterminal     | Inactive or unreachable.                                       |
+| Reduced grammar         | Every nonterminal is active and reachable.                     |
 
 It is decidable whether a nonterminal is active or reachable, and every context-free grammar can be transformed into an equivalent reduced grammar.
 
@@ -194,34 +194,32 @@ Let $V$ be the alphabet. Regular expressions over $V$ are generated by:
 
 The usual meanings are:
 
-| Expression | Language denoted |
-| --- | --- |
+| Expression    | Language denoted  |
+| ------------- | ----------------- |
 | $\varepsilon$ | $\{\varepsilon\}$ |
-| $a$ | $\{a\}$ |
-| $Q+R$ | $L(Q)\cup L(R)$ |
-| $Q\cdot R$ | $L(Q)L(R)$ |
-| $R^*$ | $L(R)^*$ |
-| $\emptyset$ | $\emptyset$ |
+| $a$           | $\{a\}$           |
+| $Q+R$         | $L(Q)\cup L(R)$   |
+| $Q\cdot R$    | $L(Q)L(R)$        |
+| $R^*$         | $L(R)^*$          |
+| $\emptyset$   | $\emptyset$       |
 
 The list includes algebraic laws for regular expressions:
 
-| Law | Form |
-| --- | --- |
-| Associativity of union | $P+(Q+R)=(P+Q)+R$ |
-| Associativity of concatenation | $P(QR)=(PQ)R$ |
-| Commutativity of union | $P+Q=Q+P$ |
-| Distributivity | $P(Q+R)=PQ+PR$, $(P+Q)R=PR+QR$ |
-| Identity | $\varepsilon P=P\varepsilon=P$ |
-| Star unfolding | $P^*=\varepsilon+PP^*$ |
-| Star with optional one-step | $P^*=(\varepsilon+P)^*$ |
-| Empty annihilator | $\emptyset P=P\emptyset=\emptyset$ |
+| Law                            | Form                               |
+| ------------------------------ | ---------------------------------- |
+| Associativity of union         | $P+(Q+R)=(P+Q)+R$                  |
+| Associativity of concatenation | $P(QR)=(PQ)R$                      |
+| Commutativity of union         | $P+Q=Q+P$                          |
+| Distributivity                 | $P(Q+R)=PQ+PR$, $(P+Q)R=PR+QR$     |
+| Identity                       | $\varepsilon P=P\varepsilon=P$     |
+| Star unfolding                 | $P^*=\varepsilon+PP^*$             |
+| Star with optional one-step    | $P^*=(\varepsilon+P)^*$            |
+| Empty annihilator              | $\emptyset P=P\emptyset=\emptyset$ |
 
 It also gives an inference rule similar to Arden's lemma:
 
 $$
-P=R+P\cdot Q,\quad \varepsilon\notin Q
-\quad\Longrightarrow\quad
-P=R\cdot Q^*.
+P=R+P\cdot Q,\quad \varepsilon\notin Q \Longrightarrow P=R\cdot Q^*.
 $$
 
 The central theorem is:
@@ -261,13 +259,13 @@ $$
 
 where:
 
-| Component | Meaning |
-| --- | --- |
-| $Q$ | Finite nonempty set of states. |
-| $T$ | Input alphabet. |
-| $\delta:Q\times T\to Q$ | Transition function. |
-| $q_0\in Q$ | Initial state. |
-| $F\subseteq Q$ | Accepting states. |
+| Component               | Meaning                        |
+| ----------------------- | ------------------------------ |
+| $Q$                     | Finite nonempty set of states. |
+| $T$                     | Input alphabet.                |
+| $\delta:Q\times T\to Q$ | Transition function.           |
+| $q_0\in Q$              | Initial state.                 |
+| $F\subseteq Q$          | Accepting states.              |
 
 The automaton reads the input word from left to right. After the last symbol is read, it accepts if the current state is in $F$.
 
@@ -295,11 +293,11 @@ For an NFA with initial-state set $Q_0$, the empty word is accepted exactly when
 
 Core equivalence theorems:
 
-| Theorem | Meaning |
-| --- | --- |
-| NFA to regular grammar | For every NFA $A$, there is a type-3 grammar $G$ with $L(G)=L(A)$. |
+| Theorem                      | Meaning                                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| NFA to regular grammar       | For every NFA $A$, there is a type-3 grammar $G$ with $L(G)=L(A)$.              |
 | Regular grammar to automaton | For every type-3 grammar $G$, there is a finite automaton $A$ with $L(A)=L(G)$. |
-| NFA to DFA | For every NFA there is an equivalent DFA. |
+| NFA to DFA                   | For every NFA there is an equivalent DFA.                                       |
 
 The NFA-to-DFA construction is the **subset construction**. DFA states are subsets of NFA states. On symbol $a$, a subset $R\subseteq Q$ moves to
 
@@ -341,15 +339,15 @@ $$
 
 where:
 
-| Component | Meaning |
-| --- | --- |
-| $Z$ | Finite stack alphabet. |
-| $Q$ | Finite set of states. |
-| $T$ | Input alphabet. |
-| $\delta:Z\times Q\times(T\cup\{\varepsilon\})\to 2^{Z^*\times Q}$ | Transition function. |
-| $z_0\in Z$ | Initial stack symbol. |
-| $q_0\in Q$ | Initial state. |
-| $F\subseteq Q$ | Accepting states. |
+| Component                                                         | Meaning                |
+| ----------------------------------------------------------------- | ---------------------- |
+| $Z$                                                               | Finite stack alphabet. |
+| $Q$                                                               | Finite set of states.  |
+| $T$                                                               | Input alphabet.        |
+| $\delta:Z\times Q\times(T\cup\{\varepsilon\})\to 2^{Z^*\times Q}$ | Transition function.   |
+| $z_0\in Z$                                                        | Initial stack symbol.  |
+| $q_0\in Q$                                                        | Initial state.         |
+| $F\subseteq Q$                                                    | Accepting states.      |
 
 A configuration records the stack content, current state, and unread input. One compact notation combines stack and state into words such as $z_0q_0w$.
 
@@ -375,8 +373,8 @@ $$
 
 State two equivalence theorems:
 
-| Theorem | Meaning |
-| --- | --- |
+| Theorem    | Meaning                                                                  |
+| ---------- | ------------------------------------------------------------------------ |
 | CFG to PDA | For every context-free grammar $G$, there is a PDA $A$ with $L(A)=L(G)$. |
 | PDA to CFG | For every PDA $A$, there is a context-free grammar $G$ with $L(G)=N(A)$. |
 
@@ -409,37 +407,37 @@ The key theorem is that pushdown automata recognize exactly the context-free lan
 
 Closure properties state whether applying an operation to languages in a class always produces another language in the same class.
 
- every Chomsky class $\mathcal L_i$ is closed under the **regular operations**: union, concatenation, and iterative closure. It is useful to separate the regular and context-free cases because their closure properties differ in important ways.
+every Chomsky class $\mathcal L_i$ is closed under the **regular operations**: union, concatenation, and iterative closure. It is useful to separate the regular and context-free cases because their closure properties differ in important ways.
 
 Regular languages are closed under:
 
-| Operation | Reason or construction |
-| --- | --- |
-| Union | Product construction or NFA branching. |
+| Operation     | Reason or construction                                                       |
+| ------------- | ---------------------------------------------------------------------------- |
+| Union         | Product construction or NFA branching.                                       |
 | Concatenation | NFA connects final states of the first automaton to the start of the second. |
-| Kleene star | NFA loops from accepting states back to the start and allows $\varepsilon$. |
-| Intersection | Product automaton tracks both input automata. |
-| Complement | Complete a DFA and swap accepting/nonaccepting states. |
-| Difference | $L_1-L_2=L_1\cap\overline{L_2}$. |
-| Reversal | Reverse automaton edges and swap start/final roles using an NFA. |
+| Kleene star   | NFA loops from accepting states back to the start and allows $\varepsilon$.  |
+| Intersection  | Product automaton tracks both input automata.                                |
+| Complement    | Complete a DFA and swap accepting/nonaccepting states.                       |
+| Difference    | $L_1-L_2=L_1\cap\overline{L_2}$.                                             |
+| Reversal      | Reverse automaton edges and swap start/final roles using an NFA.             |
 
 Context-free languages are closed under:
 
-| Operation | Status |
-| --- | --- |
-| Union | Closed. Add a new start symbol with alternatives to the two grammars. |
-| Concatenation | Closed. Add a start rule combining the two start symbols. |
-| Kleene star | Closed. Add recursive start rules for repeated copies. |
-| Reversal | Closed. Reverse right-hand sides of grammar rules. |
-| Intersection with regular language | Closed. Combine a PDA with a finite automaton. |
+| Operation                          | Status                                                                |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| Union                              | Closed. Add a new start symbol with alternatives to the two grammars. |
+| Concatenation                      | Closed. Add a start rule combining the two start symbols.             |
+| Kleene star                        | Closed. Add recursive start rules for repeated copies.                |
+| Reversal                           | Closed. Reverse right-hand sides of grammar rules.                    |
+| Intersection with regular language | Closed. Combine a PDA with a finite automaton.                        |
 
 Context-free languages are **not** closed under:
 
-| Operation | Caution |
-| --- | --- |
-| General intersection | Two CFLs can intersect to a non-CFL. |
-| Complement | If CFLs were closed under complement, closure under union would imply closure under intersection by De Morgan, which is false. |
-| Difference | Difference with an arbitrary CFL would imply complement. |
+| Operation            | Caution                                                                                                                        |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| General intersection | Two CFLs can intersect to a non-CFL.                                                                                           |
+| Complement           | If CFLs were closed under complement, closure under union would imply closure under intersection by De Morgan, which is false. |
+| Difference           | Difference with an arbitrary CFL would imply complement.                                                                       |
 
 The broader Chomsky hierarchy has additional closure facts, but for the subject the most important practical contrast is: regular languages have robust Boolean closure; context-free languages are closed under the grammar-building operations but not under arbitrary Boolean operations.
 
@@ -471,21 +469,21 @@ An **algorithmic problem** asks whether there is an effective procedure deciding
 
 For **regular languages**, many central problems are decidable because finite automata have finitely many states and can be analyzed as finite graphs.
 
-| Problem | Regular-language method |
-| --- | --- |
-| Membership | Run the DFA or simulate the NFA on the word. |
-| Emptiness | Check whether an accepting state is reachable from an initial state. |
-| Finiteness | Check whether a cycle lies on some path from the initial state to an accepting state. |
-| Equivalence | Minimize DFAs or test emptiness of the symmetric difference. |
-| Inclusion | Test emptiness of $L(A)\setminus L(B)$. |
+| Problem     | Regular-language method                                                               |
+| ----------- | ------------------------------------------------------------------------------------- |
+| Membership  | Run the DFA or simulate the NFA on the word.                                          |
+| Emptiness   | Check whether an accepting state is reachable from an initial state.                  |
+| Finiteness  | Check whether a cycle lies on some path from the initial state to an accepting state. |
+| Equivalence | Minimize DFAs or test emptiness of the symmetric difference.                          |
+| Inclusion   | Test emptiness of $L(A)\setminus L(B)$.                                               |
 
 For **context-free languages**, the main decidability results are:
 
-| Problem | Context-free-language method or theorem |
-| --- | --- |
-| Membership | Decidable; Chomsky normal form supports parsing algorithms such as CYK. |
-| Emptiness | Decidable; remove inactive/unreachable nonterminals or test whether the start symbol can derive a terminal word. |
-| Finiteness/infiniteness | Decidable; use grammar graph/cycle analysis after reduction. |
+| Problem                 | Context-free-language method or theorem                                                                          |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Membership              | Decidable; Chomsky normal form supports parsing algorithms such as CYK.                                          |
+| Emptiness               | Decidable; remove inactive/unreachable nonterminals or test whether the start symbol can derive a terminal word. |
+| Finiteness/infiniteness | Decidable; use grammar graph/cycle analysis after reduction.                                                     |
 
 Also include the **Bar-Hillel lemma**, a pumping lemma for context-free languages. For every context-free language $L$, there are natural numbers $p$ and $q$ such that every word in $L$ longer than $p$ can be written in the form
 
@@ -496,7 +494,7 @@ $$
 with
 
 $$
-|xwy|\le q,\qquad xy\ne\varepsilon,
+|xwy|\le q,\quad xy\ne\varepsilon,
 $$
 
 and
@@ -511,12 +509,12 @@ This lemma is mainly a proof tool for showing that some languages are not contex
 
 Important cautions for context-free languages:
 
-| Problem | Status |
-| --- | --- |
+| Problem                       | Status       |
+| ----------------------------- | ------------ |
 | Equivalence of arbitrary CFGs | Undecidable. |
-| Inclusion of arbitrary CFGs | Undecidable. |
-| Ambiguity of arbitrary CFGs | Undecidable. |
-| Universality of CFGs | Undecidable. |
+| Inclusion of arbitrary CFGs   | Undecidable. |
+| Ambiguity of arbitrary CFGs   | Undecidable. |
+| Universality of CFGs          | Undecidable. |
 
 These negative results explain why normal forms and decidable subproblems are important: context-free grammars are useful and analyzable in some ways, but not all natural questions about them have algorithms.
 

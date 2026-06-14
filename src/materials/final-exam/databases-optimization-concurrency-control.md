@@ -12,10 +12,10 @@ Start with the purpose and components of a database management system. A **DBMS*
 
 Database language activity is divided into:
 
-| Language class | Purpose |
-| --- | --- |
-| DML, Data Manipulation Language | Query and modify data. |
-| DDL, Data Definition Language | Create or modify database structures and metadata. |
+| Language class                  | Purpose                                            |
+| ------------------------------- | -------------------------------------------------- |
+| DML, Data Manipulation Language | Query and modify data.                             |
+| DDL, Data Definition Language   | Create or modify database structures and metadata. |
 
 ### DBMS Components
 
@@ -35,27 +35,27 @@ flowchart TD
   Resource --> Catalog["Metadata, statistics, indexes"]
 ```
 
-| Component | Role |
-| --- | --- |
-| Query compiler | Parses and optimizes a query, then produces a query execution plan. |
-| Execution engine | Executes the plan and sends requests for records/pages to lower managers. |
-| Resource manager | Knows data files, record formats and sizes, and index files; translates logical requests into page requests. |
-| Buffer manager | Brings required disk pages into main-memory buffers and decides which pages stay in memory. |
-| Storage manager | Reads and writes secondary storage; may use OS commands or direct disk-manager commands. |
-| Transaction manager | Executes transactions and provides logging, recovery, and concurrency control. |
+| Component           | Role                                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Query compiler      | Parses and optimizes a query, then produces a query execution plan.                                          |
+| Execution engine    | Executes the plan and sends requests for records/pages to lower managers.                                    |
+| Resource manager    | Knows data files, record formats and sizes, and index files; translates logical requests into page requests. |
+| Buffer manager      | Brings required disk pages into main-memory buffers and decides which pages stay in memory.                  |
+| Storage manager     | Reads and writes secondary storage; may use OS commands or direct disk-manager commands.                     |
+| Transaction manager | Executes transactions and provides logging, recovery, and concurrency control.                               |
 
 ### Secondary Storage, Blocks, Pages, Files, and Records
 
 Storage details are included here because they are needed for understanding DBMS storage and buffer management.
 
-| Concept | Meaning |
-| --- | --- |
-| Secondary storage | Persistent storage, traditionally disks or SSDs, where the database normally resides. |
-| Page / block | Fixed-size unit of transfer between disk and memory. Database texts often use "page" and "block" nearly interchangeably. |
-| Buffer frame | A page-sized region in main memory that can hold a copy of one disk page. |
-| File | A collection of pages containing records of a relation, index pages, metadata, or log pages. |
-| Record / tuple | A row stored inside a page. Records may be fixed-length or variable-length. |
-| Page directory / slot table | Metadata that helps find records inside a page, especially when records are variable length or can be moved. |
+| Concept                     | Meaning                                                                                                                  |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Secondary storage           | Persistent storage, traditionally disks or SSDs, where the database normally resides.                                    |
+| Page / block                | Fixed-size unit of transfer between disk and memory. Database texts often use "page" and "block" nearly interchangeably. |
+| Buffer frame                | A page-sized region in main memory that can hold a copy of one disk page.                                                |
+| File                        | A collection of pages containing records of a relation, index pages, metadata, or log pages.                             |
+| Record / tuple              | A row stored inside a page. Records may be fixed-length or variable-length.                                              |
+| Page directory / slot table | Metadata that helps find records inside a page, especially when records are variable length or can be moved.             |
 
 The main cost model is usually **number of disk page reads/writes**, because reading one tuple normally requires reading its whole page. If the page is already in the buffer pool, access is much cheaper.
 
@@ -72,34 +72,34 @@ The buffer manager partitions available memory into buffer frames. When an opera
 
 The buffer manager handles more than base data:
 
-| Page type | Why it is buffered |
-| --- | --- |
-| Data pages | Store table rows. |
-| Metadata pages | Store schema and constraints. |
-| Log pages | Support recovery and durability. |
-| Statistics pages | Support optimization decisions. |
-| Index pages | Support efficient access paths. |
+| Page type        | Why it is buffered               |
+| ---------------- | -------------------------------- |
+| Data pages       | Store table rows.                |
+| Metadata pages   | Store schema and constraints.    |
+| Log pages        | Support recovery and durability. |
+| Statistics pages | Support optimization decisions.  |
+| Index pages      | Support efficient access paths.  |
 
 ### Page Replacement Algorithms
 
 When no free frame exists, a replacement policy chooses an unpinned victim.
 
-| Policy | Idea | Strength / weakness |
-| --- | --- | --- |
-| LRU | Evict the least recently used unpinned page. | Simple and intuitive; can perform poorly on scans that flood the cache. |
-| Clock | Approximation of LRU using reference bits and a clock hand. | Lower overhead than exact LRU. |
-| MRU | Evict most recently used page. | Can help in some sequential or nested-loop patterns, but is not a general default. |
-| LRU-K | Use the time of the K-th most recent reference to distinguish frequently reused pages. | Better estimates reuse, with more metadata. |
+| Policy | Idea                                                                                   | Strength / weakness                                                                |
+| ------ | -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| LRU    | Evict the least recently used unpinned page.                                           | Simple and intuitive; can perform poorly on scans that flood the cache.            |
+| Clock  | Approximation of LRU using reference bits and a clock hand.                            | Lower overhead than exact LRU.                                                     |
+| MRU    | Evict most recently used page.                                                         | Can help in some sequential or nested-loop patterns, but is not a general default. |
+| LRU-K  | Use the time of the K-th most recent reference to distinguish frequently reused pages. | Better estimates reuse, with more metadata.                                        |
 
 The key correctness rule is that pinned pages cannot be evicted.
 
 ### File Organization
 
-| Organization | Meaning | Search cost | Insert/delete behavior |
-| --- | --- | --- | --- |
-| Heap / unsorted file | Records are placed wherever there is space. | Search usually scans pages unless an index exists. | Insert is easy; deletion may leave free slots. |
-| Sorted file | Records are physically ordered by a search key. | Binary search or range scans can be efficient on the ordering key. | Insert/delete may require shifting records, overflow pages, or periodic reorganization. |
-| Clustered organization | Records with similar key values are stored close together. | Helps range queries and non-key indexes with many matching rows. | Maintaining clustering can be expensive. |
+| Organization           | Meaning                                                    | Search cost                                                        | Insert/delete behavior                                                                  |
+| ---------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| Heap / unsorted file   | Records are placed wherever there is space.                | Search usually scans pages unless an index exists.                 | Insert is easy; deletion may leave free slots.                                          |
+| Sorted file            | Records are physically ordered by a search key.            | Binary search or range scans can be efficient on the ordering key. | Insert/delete may require shifting records, overflow pages, or periodic reorganization. |
+| Clustered organization | Records with similar key values are stored close together. | Helps range queries and non-key indexes with many matching rows.   | Maintaining clustering can be expensive.                                                |
 
 ### What to Emphasize in an Oral Answer
 
@@ -129,10 +129,10 @@ indexes is auxiliary structures that speed up searches. Index records have the f
 
 ### Primary and Secondary Indexes
 
-| Index type | Main file order | Density | Main facts |
-| --- | --- | --- | --- |
-| Primary index | Main file is sorted by the index field. | Usually sparse: one index record per data block. | Only one primary index can exist because the file can be sorted in only one primary order. |
-| Secondary index | Main file is unordered or not sorted by the index field. | Usually dense: one index record per record. | Many secondary indexes can exist, but search may touch more data pages. |
+| Index type      | Main file order                                          | Density                                          | Main facts                                                                                 |
+| --------------- | -------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| Primary index   | Main file is sorted by the index field.                  | Usually sparse: one index record per data block. | Only one primary index can exist because the file can be sorted in only one primary order. |
+| Secondary index | Main file is unordered or not sorted by the index field. | Usually dense: one index record per record.      | Many secondary indexes can exist, but search may touch more data pages.                    |
 
 With a primary index, search uses the largest index value less than or equal to the target, then reads the pointed data block. With a secondary index, the index may identify exact record pointers, but many pointers may point to different pages.
 
@@ -143,11 +143,11 @@ A bitmap index is useful for low-cardinality columns or analytic workloads. For 
 Example:
 
 | Row | Color |
-| --- | --- |
-| 1 | red |
-| 2 | blue |
-| 3 | red |
-| 4 | green |
+| --- | ----- |
+| 1   | red   |
+| 2   | blue  |
+| 3   | red   |
+| 4   | green |
 
 Bitmap for `red`:
 
@@ -157,10 +157,10 @@ Bitmap for `red`:
 
 Queries combine bitmaps with logical operations:
 
-| Predicate | Bitmap operation |
-| --- | --- |
+| Predicate                      | Bitmap operation     |
+| ------------------------------ | -------------------- |
 | `color = red AND size = large` | AND the two bitmaps. |
-| `color = red OR color = blue` | OR the two bitmaps. |
+| `color = red OR color = blue`  | OR the two bitmaps.  |
 
 Run-length compression is often effective because real bitmap indexes can contain long runs of zeros or ones.
 
@@ -168,15 +168,15 @@ Run-length compression is often effective because real bitmap indexes can contai
 
 An index file is itself a sorted file, so it can be indexed. A level-`t` index means several index levels point downward until the data file is reached. If the top level fits in one block, search needs roughly $t + 1$ block reads. This is why multilevel indexes are faster than binary searching a large flat sorted file.
 
-### B-Trees, B+ Trees, and B* Trees
+### B-Trees, B+ Trees, and B\* Trees
 
 Describe tree-structured indexes through B-trees and B+ trees.
 
-| Structure | Meaning |
-| --- | --- |
-| B-tree | Balanced multiway search tree; nodes contain multiple keys and child pointers. |
-| B+ tree | Data-file addresses or record pointers are kept at the leaf level; internal nodes guide search. Leaves are linked for sequential/range access. Nodes are at least about 50% full. |
-| B* tree | Variant with higher minimum occupancy, about 66%, usually by redistributing before splitting. |
+| Structure | Meaning                                                                                                                                                                           |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| B-tree    | Balanced multiway search tree; nodes contain multiple keys and child pointers.                                                                                                    |
+| B+ tree   | Data-file addresses or record pointers are kept at the leaf level; internal nodes guide search. Leaves are linked for sequential/range access. Nodes are at least about 50% full. |
+| B\* tree  | Variant with higher minimum occupancy, about 66%, usually by redistributing before splitting.                                                                                     |
 
 Why B+ trees are central:
 
@@ -203,10 +203,10 @@ flowchart TD
 
 Describe hash indexes as partitioning records into buckets by a hash function on the index field. Hashing is excellent for equality search but not for range search.
 
-| Hashing type | Bucket structure | Main tradeoff |
-| --- | --- | --- |
-| Static hashing | Number of buckets `K` is fixed. `h(x)` maps keys into `1..K`. | Simple; performance degrades if data grows or distribution changes because buckets overflow. |
-| Dynamic hashing | Directory or bucket structure can grow and split as data grows, such as extendible hashing or linear hashing. | More complex; avoids long overflow chains by adapting bucket count. |
+| Hashing type    | Bucket structure                                                                                              | Main tradeoff                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Static hashing  | Number of buckets $K$ is fixed. $h(x)$ maps keys into $1,\ldots,K$.                                           | Simple; performance degrades if data grows or distribution changes because buckets overflow. |
+| Dynamic hashing | Directory or bucket structure can grow and split as data grows, such as extendible hashing or linear hashing. | More complex; avoids long overflow chains by adapting bucket count.                          |
 
 For static hashing, if data is uniformly distributed, each bucket has about $B/K$ blocks and equality search is accelerated by a factor near $K$. If $K$ is too large, many buckets may be mostly empty; if too small, overflow chains become long.
 
@@ -214,8 +214,8 @@ For static hashing, if data is uniformly distributed, each bucket has about $B/K
 
 Indexes are not free.
 
-| Benefit | Cost |
-| --- | --- |
+| Benefit                                                            | Cost                                                                                   |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
 | Faster equality search, range search, joins, and query predicates. | Extra storage, extra reads/writes on insert/delete/update, and maintenance complexity. |
 
 An index is most useful when:
@@ -230,7 +230,7 @@ An index is most useful when:
 - Define an index as an auxiliary access path of key/value entries plus pointers, and state the read/write tradeoff.
 - Distinguish primary and secondary indexes: primary follows the main file order and is often sparse; secondary is independent of file order and is often dense.
 - Explain multilevel indexes: index pages are themselves indexed, so search follows a short path of pages instead of scanning a large flat index.
-- Present B+ trees as the central ordered dynamic index: balanced, high fanout, internal routing keys, data pointers at linked leaves, efficient equality/range access, and higher B* occupancy as a variant.
+- Present B+ trees as the central ordered dynamic index: balanced, high fanout, internal routing keys, data pointers at linked leaves, efficient equality/range access, and higher B\* occupancy as a variant.
 - Explain hash indexes: static hashing is simple but can overflow as data grows; dynamic hashing splits/grows buckets to avoid long chains.
 - State the key distinction: hash indexes are good for equality predicates, B+ trees are good for equality and range predicates.
 - Explain bitmap indexes for low-cardinality/analytic columns, using AND/OR operations and compression.
@@ -271,22 +271,22 @@ Output-size estimation follows directly from query optimization.
 
 Optimizers estimate cardinality using statistics:
 
-| Statistic | Use |
-| --- | --- |
-| Number of tuples $T(R)$ | Base size of relation. |
-| Number of pages $B(R)$ | I/O cost estimate. |
+| Statistic                          | Use                                                    |
+| ---------------------------------- | ------------------------------------------------------ |
+| Number of tuples $T(R)$            | Base size of relation.                                 |
+| Number of pages $B(R)$             | I/O cost estimate.                                     |
 | Number of distinct values $V(R,A)$ | Selectivity estimates for predicates on attribute $A$. |
-| Histograms | Better estimates for skewed values and ranges. |
-| Min/max values | Range predicate estimation. |
+| Histograms                         | Better estimates for skewed values and ranges.         |
+| Min/max values                     | Range predicate estimation.                            |
 
 Typical simplified estimates:
 
-| Operation | Rough estimate |
-| --- | --- |
-| Equality selection $A = c$ | $T(R) / V(R,A)$ if values are uniform. |
-| Range selection | Fraction of range times $T(R)$, adjusted by histogram if available. |
-| Join $R.A = S.B$ | Approximately $T(R) \cdot T(S) / \max(V(R,A), V(S,B))$ under uniformity. |
-| Projection with duplicate elimination | At most $T(R)$, often estimated by distinct-value statistics. |
+| Operation                             | Rough estimate                                                           |
+| ------------------------------------- | ------------------------------------------------------------------------ |
+| Equality selection $A = c$            | $T(R) / V(R,A)$ if values are uniform.                                   |
+| Range selection                       | Fraction of range times $T(R)$, adjusted by histogram if available.      |
+| Join $R.A = S.B$                      | Approximately $T(R) \cdot T(S) / \max(V(R,A), V(S,B))$ under uniformity. |
+| Projection with duplicate elimination | At most $T(R)$, often estimated by distinct-value statistics.            |
 
 Bad estimates can produce bad plans, especially when joins create large intermediate results.
 
@@ -294,19 +294,19 @@ Bad estimates can produce bad plans, especially when joins create large intermed
 
 The list includes these selection implementations:
 
-| Method | When usable | Cost idea |
-| --- | --- | --- |
-| Linear search | Always usable. | Read all pages; if equality on key and no index, average can be about half a file scan if search stops after finding the unique row. |
-| Binary search | Field is sorted. | Logarithmic page search plus matching pages. |
-| Primary index | Predicate uses primary indexed field. | Traverse sparse/primary index, then read target block(s). |
-| Secondary index | Predicate uses secondary indexed field. | Traverse dense/secondary index, then fetch matching records/pages. |
+| Method          | When usable                             | Cost idea                                                                                                                            |
+| --------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Linear search   | Always usable.                          | Read all pages; if equality on key and no index, average can be about half a file scan if search stops after finding the unique row. |
+| Binary search   | Field is sorted.                        | Logarithmic page search plus matching pages.                                                                                         |
+| Primary index   | Predicate uses primary indexed field.   | Traverse sparse/primary index, then read target block(s).                                                                            |
+| Secondary index | Predicate uses secondary indexed field. | Traverse dense/secondary index, then fetch matching records/pages.                                                                   |
 
 Composite selection:
 
-| Predicate | Implementation |
-| --- | --- |
-| `theta1 AND ... AND thetan` | Choose the cheapest simple selection first, then filter by remaining conditions; or intersect row-id sets if all relevant fields have indexes. |
-| `theta1 OR ... OR thetan` | Linear scan, or union row-id sets if all relevant fields have indexes. |
+| Predicate                              | Implementation                                                                                                                                 |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| $\theta_1 \land \cdots \land \theta_n$ | Choose the cheapest simple selection first, then filter by remaining conditions; or intersect row-id sets if all relevant fields have indexes. |
+| $\theta_1 \lor \cdots \lor \theta_n$   | Linear scan, or union row-id sets if all relevant fields have indexes.                                                                         |
 
 ### Projection and Set Operations
 
@@ -324,12 +324,12 @@ The cost is the initial scan plus sorting and duplicate elimination. Hash-based 
 
 Also cover three join families.
 
-| Join | Algorithm | Cost intuition |
-| --- | --- | --- |
-| Tuple nested-loop join | For each tuple of outer relation, scan inner relation. | Very expensive if inner relation cannot stay in memory. |
-| Block nested-loop join | Read a block group of outer relation into memory, build a search structure, scan inner pages. | Better than tuple nested-loop because it amortizes inner scans over many outer tuples. |
-| Merge join | Sort both inputs by join keys, then scan and merge matching groups. | Good if inputs are already sorted or sorting is not too costly. |
-| Hash join | Partition both inputs on join key; join corresponding buckets, often with an in-memory hash table. | Good for equality joins when buckets fit in memory. |
+| Join                   | Algorithm                                                                                          | Cost intuition                                                                         |
+| ---------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Tuple nested-loop join | For each tuple of outer relation, scan inner relation.                                             | Very expensive if inner relation cannot stay in memory.                                |
+| Block nested-loop join | Read a block group of outer relation into memory, build a search structure, scan inner pages.      | Better than tuple nested-loop because it amortizes inner scans over many outer tuples. |
+| Merge join             | Sort both inputs by join keys, then scan and merge matching groups.                                | Good if inputs are already sorted or sorting is not too costly.                        |
+| Hash join              | Partition both inputs on join key; join corresponding buckets, often with an in-memory hash table. | Good for equality joins when buckets fit in memory.                                    |
 
 For multi-table joins, join order is often more important than the local join algorithm. A poor join order can produce huge intermediate relations.
 
@@ -385,15 +385,15 @@ Describe algebraic optimization as applying equivalent transformations so that i
 
 Important equivalences and heuristics:
 
-| Rule | Why it helps |
-| --- | --- |
-| Selection cascade: split `sigma(A AND B)` into $\sigma(A)$ then $\sigma(B)$. | Lets selections move independently. |
-| Selection pushdown | Apply filters as early as possible to reduce tuple counts. |
-| Projection pushdown | Drop unused attributes early to reduce tuple width. |
-| Join from product + selection | Replace $\sigma(\bowtie-condition)(R \times S)$ with a join. |
-| Join commutativity and associativity | Reorder joins to reduce intermediate results. |
-| Combine consecutive selections/projections | Avoid unnecessary operator layers. |
-| Common subexpression reuse | Compute shared subplans once. |
+| Rule                                                                            | Why it helps                                                 |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Selection cascade: split $\sigma(A \land B)$ into $\sigma(A)$ then $\sigma(B)$. | Lets selections move independently.                          |
+| Selection pushdown                                                              | Apply filters as early as possible to reduce tuple counts.   |
+| Projection pushdown                                                             | Drop unused attributes early to reduce tuple width.          |
+| Join from product + selection                                                   | Replace $\sigma(\bowtie-condition)(R \times S)$ with a join. |
+| Join commutativity and associativity                                            | Reorder joins to reduce intermediate results.                |
+| Combine consecutive selections/projections                                      | Avoid unnecessary operator layers.                           |
+| Common subexpression reuse                                                      | Compute shared subplans once.                                |
 
 Emphasize that this is often heuristic: the result is equivalent, and usually better, but not guaranteed unique because rule order matters.
 
@@ -411,11 +411,11 @@ Rule-based optimization is fast and conceptually simple, but it can miss cases w
 
 ### Multi-Table Query Optimization
 
- joins are commutative and associative, so the result does not depend on join order, but efficiency can depend heavily on it.
+joins are commutative and associative, so the result does not depend on join order, but efficiency can depend heavily on it.
 
-For a set `S` of relations, one dynamic-programming approach is:
+For a set $S$ of relations, one dynamic-programming approach is:
 
-1. Consider plans of the form $S1 \bowtie (S - S1)$ for every nonempty subset `S1`.
+1. Consider plans of the form $S_1 \bowtie (S - S_1)$ for every nonempty subset $S_1$.
 2. Recursively compute cheapest plans for subsets.
 3. Store best plans for subsets and reuse them.
 4. Choose the cheapest full plan.
@@ -459,23 +459,23 @@ A **consistent database** is a database satisfying all specified constraints. A 
 
 Consistency may be violated by:
 
-| Failure type | Meaning |
-| --- | --- |
-| Transaction failure | Incorrectly written, badly scheduled, aborted, or interrupted transaction. |
-| DBMS failure | A DBMS component fails or performs incorrectly. |
-| Hardware failure | Stored data is lost or corrupted. |
-| Data-sharing failure | Concurrent access creates inconsistency. |
+| Failure type         | Meaning                                                                    |
+| -------------------- | -------------------------------------------------------------------------- |
+| Transaction failure  | Incorrectly written, badly scheduled, aborted, or interrupted transaction. |
+| DBMS failure         | A DBMS component fails or performs incorrectly.                            |
+| Hardware failure     | Stored data is lost or corrupted.                                          |
+| Data-sharing failure | Concurrent access creates inconsistency.                                   |
 
 ### ACID
 
-| Property | Meaning |
-| --- | --- |
-| Atomicity | All-or-nothing execution. |
-| Consistency | A transaction preserves database constraints. |
-| Isolation | Concurrent transactions appear to run without interfering. |
-| Durability | Once a transaction commits, its effects are not lost. |
+| Property    | Meaning                                                    |
+| ----------- | ---------------------------------------------------------- |
+| Atomicity   | All-or-nothing execution.                                  |
+| Consistency | A transaction preserves database constraints.              |
+| Isolation   | Concurrent transactions appear to run without interfering. |
+| Durability  | Once a transaction commits, its effects are not lost.      |
 
- consistency is treated as a property of correct transactions and constraints; the DBMS mainly enforces atomicity, isolation, and durability.
+consistency is treated as a property of correct transactions and constraints; the DBMS mainly enforces atomicity, isolation, and durability.
 
 ### Transaction Data Movement
 
@@ -487,12 +487,12 @@ Distinguish three places:
 
 Basic operations:
 
-| Operation | Meaning |
-| --- | --- |
-| `INPUT(X)` | Copy disk block containing database element `X` into a buffer. |
-| `READ(X,t)` | Copy `X` from buffer into transaction variable `t`; includes `INPUT` if needed. |
-| `WRITE(X,t)` | Copy transaction variable `t` into the buffer containing `X`; includes `INPUT` if needed. |
-| `OUTPUT(X)` | Write the block containing `X` from buffer to disk. |
+| Operation           | Meaning                                                                                          |
+| ------------------- | ------------------------------------------------------------------------------------------------ |
+| $\text{INPUT}(X)$   | Copy disk block containing database element $X$ into a buffer.                                   |
+| $\text{READ}(X,t)$  | Copy $X$ from buffer into transaction variable $t$; includes $\text{INPUT}$ if needed.           |
+| $\text{WRITE}(X,t)$ | Copy transaction variable $t$ into the buffer containing $X$; includes $\text{INPUT}$ if needed. |
+| $\text{OUTPUT}(X)$  | Write the block containing $X$ from buffer to disk.                                              |
 
 The buffer manager decides when dirty buffers are written to disk, so logging is needed to recover correctly after failure. The common discipline is **write-ahead logging**: the necessary log information must reach stable storage before the corresponding database page update is allowed to reach stable storage.
 
@@ -500,14 +500,14 @@ The buffer manager decides when dirty buffers are written to disk, so logging is
 
 The log is append-only and records important transaction events.
 
-| Log record | Meaning |
-| --- | --- |
-| `<START T>` | Transaction `T` begins. |
-| `<COMMIT T>` | Transaction `T` completed normally. |
-| `<ABORT T>` | Transaction `T` aborted. |
-| `<T, X, v>` in undo logging | `T` changed `X`; old value was `v`. |
-| `<T, X, v>` in redo logging | `T` changed `X` to new value `v`. |
-| `<T, X, v, w>` in undo/redo logging | `T` changed `X` from old value `v` to new value `w`. |
+| Log record                                       | Meaning                                              |
+| ------------------------------------------------ | ---------------------------------------------------- |
+| $\langle \text{START } T\rangle$                 | Transaction $T$ begins.                              |
+| $\langle \text{COMMIT } T\rangle$                | Transaction $T$ completed normally.                  |
+| $\langle \text{ABORT } T\rangle$                 | Transaction $T$ aborted.                             |
+| $\langle T, X, v\rangle$ in undo logging         | $T$ changed $X$; old value was $v$.                  |
+| $\langle T, X, v\rangle$ in redo logging         | $T$ changed $X$ to new value $v$.                    |
+| $\langle T, X, v, w\rangle$ in undo/redo logging | $T$ changed $X$ from old value $v$ to new value $w$. |
 
 ### Undo Logging
 
@@ -515,14 +515,14 @@ Undo logging rolls back incomplete transactions.
 
 Rules:
 
-1. If `T` modifies `X`, the log record `<T, X, old-value>` must reach disk before the new value of `X` reaches disk.
-2. `<COMMIT T>` may reach disk only after all modifications of `T` have reached disk.
+1. If $T$ modifies $X$, the log record $\langle T, X, \text{old-value}\rangle$ must reach disk before the new value of $X$ reaches disk.
+2. $\langle \text{COMMIT } T\rangle$ may reach disk only after all modifications of $T$ have reached disk.
 
 Recovery without checkpoint:
 
 1. Scan log backward.
-2. If `<T, X, v>` is found and `T` has no commit record, restore `X` to `v`.
-3. Write `<ABORT T>` for incomplete transactions and force the log to disk.
+2. If $\langle T, X, v\rangle$ is found and $T$ has no commit record, restore $X$ to $v$.
+3. Write $\langle \text{ABORT } T\rangle$ for incomplete transactions and force the log to disk.
 
 ### Checkpointing for Undo Logging
 
@@ -531,14 +531,14 @@ Simple checkpoint:
 1. Stop new transactions.
 2. Wait for active transactions to finish and write commit/abort records.
 3. Force the log to disk.
-4. Write `<CKPT>` and force it.
+4. Write $\langle \text{CKPT}\rangle$ and force it.
 5. Resume new transactions.
 
 Because simple checkpointing stops the system, DBMSs also use checkpointing while running:
 
-1. Write `<START CKPT(T1,...,Tk)>` for active transactions and force the log.
+1. Write $\langle \text{START CKPT}(T_1,\ldots,T_k)\rangle$ for active transactions and force the log.
 2. Let those transactions finish while new transactions may start.
-3. When the original active transactions finish, write `<END CKPT>` and force it.
+3. When the original active transactions finish, write $\langle \text{END CKPT}\rangle$ and force it.
 
 Recovery only needs to scan far enough back to cover transactions active at the checkpoint.
 
@@ -548,15 +548,15 @@ Redo logging repeats committed changes that may not have reached disk.
 
 Differences from undo:
 
-| Undo logging | Redo logging |
-| --- | --- |
-| Stores old values. | Stores new values. |
-| Undoes incomplete transactions. | Redoes completed transactions. |
+| Undo logging                                     | Redo logging                                     |
+| ------------------------------------------------ | ------------------------------------------------ |
+| Stores old values.                               | Stores new values.                               |
+| Undoes incomplete transactions.                  | Redoes completed transactions.                   |
 | Data pages must reach disk before commit record. | Commit record must reach disk before data pages. |
 
 Redo rule:
 
-Before modifying `X` on disk, both `<T, X, new-value>` and `<COMMIT T>` must be on disk. This is another form of the write-ahead logging rule.
+Before modifying $X$ on disk, both $\langle T, X, \text{new-value}\rangle$ and $\langle \text{COMMIT } T\rangle$ must be on disk. This is another form of the write-ahead logging rule.
 
 Recovery:
 
@@ -569,20 +569,20 @@ Redo checkpointing writes completed dirty data pages and records checkpoint boun
 
 ### Undo/Redo Logging
 
-Undo/redo logging stores both old and new values in `<T, X, v, w>`.
+Undo/redo logging stores both old and new values in $\langle T, X, v, w\rangle$.
 
 Rule:
 
-- Before modifying `X` on disk, the corresponding undo/redo log record must be on disk.
+- Before modifying $X$ on disk, the corresponding undo/redo log record must be on disk.
 
-`<COMMIT T>` may be written before or after data pages, because recovery has enough information to both undo incomplete and redo complete transactions.
+$\langle \text{COMMIT } T\rangle$ may be written before or after data pages, because recovery has enough information to both undo incomplete and redo complete transactions.
 
 Recovery principles:
 
 1. Redo completed transactions from earliest to latest.
 2. Undo incomplete transactions from latest to earliest.
 
-Checkpointing for undo/redo writes `<START CKPT(T1,...,Tk)>`, flushes dirty buffers, then writes `<END CKPT>`.
+Checkpointing for undo/redo writes $\langle \text{START CKPT}(T_1,\ldots,T_k)\rangle$, flushes dirty buffers, then writes $\langle \text{END CKPT}\rangle$.
 
 ### What to Emphasize in an Oral Answer
 
@@ -619,18 +619,18 @@ The correctness principle:
 
 ### Schedules
 
-| Concept | Meaning |
-| --- | --- |
-| Schedule | Chronological sequence of essential operations of one or more transactions. For serializability, usually only reads and writes are considered. |
-| Serial schedule | Transactions do not interleave; one completes before another starts. |
-| Serializable schedule | Has the same effect as some serial schedule, independently of the initial state. |
+| Concept               | Meaning                                                                                                                                        |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Schedule              | Chronological sequence of essential operations of one or more transactions. For serializability, usually only reads and writes are considered. |
+| Serial schedule       | Transactions do not interleave; one completes before another starts.                                                                           |
+| Serializable schedule | Has the same effect as some serial schedule, independently of the initial state.                                                               |
 
 Notation:
 
-| Notation | Meaning |
-| --- | --- |
-| $r_i(X)$ | Transaction $T_i$ reads database element `X`. |
-| $w_i(X)$ | Transaction $T_i$ writes database element `X`. |
+| Notation | Meaning                                        |
+| -------- | ---------------------------------------------- |
+| $r_i(X)$ | Transaction $T_i$ reads database element $X$.  |
+| $w_i(X)$ | Transaction $T_i$ writes database element $X$. |
 
 ### Conflicts
 
@@ -650,10 +650,10 @@ Operations inside the same transaction are also treated as non-swappable because
 
 ### Conflict Equivalence and Conflict Serializability
 
-| Concept | Meaning |
-| --- | --- |
-| Conflict-equivalent schedules | One can be transformed into the other by swapping adjacent nonconflicting operations. |
-| Conflict-serializable schedule | Conflict-equivalent to some serial schedule. |
+| Concept                        | Meaning                                                                               |
+| ------------------------------ | ------------------------------------------------------------------------------------- |
+| Conflict-equivalent schedules  | One can be transformed into the other by swapping adjacent nonconflicting operations. |
+| Conflict-serializable schedule | Conflict-equivalent to some serial schedule.                                          |
 
 Conflict serializability is sufficient but not necessary for true serializability. Commercial systems usually target conflict serializability because it is checkable and enforceable.
 
@@ -672,10 +672,10 @@ flowchart LR
 
 Rule:
 
-| Graph property | Schedule property |
-| --- | --- |
-| Acyclic precedence graph | Conflict-serializable; any topological order gives an equivalent serial order. |
-| Cycle in precedence graph | Not conflict-serializable. |
+| Graph property            | Schedule property                                                              |
+| ------------------------- | ------------------------------------------------------------------------------ |
+| Acyclic precedence graph  | Conflict-serializable; any topological order gives an equivalent serial order. |
+| Cycle in precedence graph | Not conflict-serializable.                                                     |
 
 ### What to Emphasize in an Oral Answer
 
@@ -703,17 +703,17 @@ Locks are a mechanism for enforcing conflict serializability. Transactions reque
 
 Two correctness requirements:
 
-| Requirement | Meaning |
-| --- | --- |
+| Requirement             | Meaning                                                                                               |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- |
 | Transaction consistency | A transaction may read/write an element only after locking it, and every lock must later be released. |
-| Legality of schedules | The scheduler grants locks only when doing so respects lock compatibility. |
+| Legality of schedules   | The scheduler grants locks only when doing so respects lock compatibility.                            |
 
 Notation:
 
-| Notation | Meaning |
-| --- | --- |
-| $l_i(X)$ | Transaction $T_i$ requests/gets a lock on `X`. |
-| $u_i(X)$ | Transaction $T_i$ releases its lock on `X`. |
+| Notation | Meaning                                        |
+| -------- | ---------------------------------------------- |
+| $l_i(X)$ | Transaction $T_i$ requests/gets a lock on $X$. |
+| $u_i(X)$ | Transaction $T_i$ releases its lock on $X$.    |
 
 ### Lock Scheduler and Lock Table
 
@@ -726,25 +726,25 @@ The lock scheduler grants a lock request only if the request is compatible with 
 
 ### Shared and Exclusive Locks
 
-| Lock mode | Purpose |
-| --- | --- |
-| Shared (`S`) | Read lock. Several transactions may hold shared locks on the same element. |
-| Exclusive (`X`) | Write lock. Only one transaction may hold it, and it excludes shared locks by others. |
+| Lock mode       | Purpose                                                                               |
+| --------------- | ------------------------------------------------------------------------------------- |
+| Shared ($S$)    | Read lock. Several transactions may hold shared locks on the same element.            |
+| Exclusive ($X$) | Write lock. Only one transaction may hold it, and it excludes shared locks by others. |
 
 Compatibility matrix:
 
-| Held by another transaction | Request `S` | Request `X` |
-| --- | --- | --- |
-| `S` | Yes | No |
-| `X` | No | No |
+| Held by another transaction | Request $S$ | Request $X$ |
+| --------------------------- | ----------- | ----------- |
+| $S$                         | Yes         | No          |
+| $X$                         | No          | No          |
 
 ### Two-Phase Locking
 
 A transaction follows **two-phase locking** if all lock operations occur before all unlock operations.
 
-| Phase | Meaning |
-| --- | --- |
-| Growing phase | Transaction may acquire locks but not release them. |
+| Phase           | Meaning                                                  |
+| --------------- | -------------------------------------------------------- |
+| Growing phase   | Transaction may acquire locks but not release them.      |
 | Shrinking phase | Transaction may release locks but not acquire new locks. |
 
 Every legal schedule of consistent 2PL transactions is conflict-serializable. However, 2PL does not prevent deadlocks.
@@ -761,11 +761,11 @@ flowchart LR
 
 The topic explicitly requires a **wait-for graph**:
 
-| Wait-for graph element | Meaning |
-| --- | --- |
-| Node | Transaction. |
-| Edge $T_i \to T_j$ | $T_i$ is waiting for a lock held by $T_j$. |
-| Cycle | Deadlock exists. |
+| Wait-for graph element | Meaning                                    |
+| ---------------------- | ------------------------------------------ |
+| Node                   | Transaction.                               |
+| Edge $T_i \to T_j$     | $T_i$ is waiting for a lock held by $T_j$. |
+| Cycle                  | Deadlock exists.                           |
 
 Deadlock handling options:
 
@@ -794,28 +794,28 @@ Locking a coarse object, such as a whole table, implicitly affects its descendan
 
 Common modes:
 
-| Mode | Meaning |
-| --- | --- |
-| `IS` | Intention shared: transaction intends to acquire shared locks below this node. |
-| `IX` | Intention exclusive: transaction intends to acquire exclusive locks below this node. |
-| `S` | Shared lock on this node and, implicitly, its descendants for reading. |
-| `SIX` | Shared on this node plus intention exclusive below; read the whole subtree and update some descendants. |
-| `X` | Exclusive lock on this node and descendants. |
+| Mode           | Meaning                                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------------------- |
+| $\mathrm{IS}$  | Intention shared: transaction intends to acquire shared locks below this node.                          |
+| $\mathrm{IX}$  | Intention exclusive: transaction intends to acquire exclusive locks below this node.                    |
+| $S$            | Shared lock on this node and, implicitly, its descendants for reading.                                  |
+| $\mathrm{SIX}$ | Shared on this node plus intention exclusive below; read the whole subtree and update some descendants. |
+| $X$            | Exclusive lock on this node and descendants.                                                            |
 
 Simplified compatibility matrix:
 
-| Held \ Requested | IS | IX | S | SIX | X |
-| --- | --- | --- | --- | --- | --- |
-| IS | Yes | Yes | Yes | Yes | No |
-| IX | Yes | Yes | No | No | No |
-| S | Yes | No | Yes | No | No |
-| SIX | Yes | No | No | No | No |
-| X | No | No | No | No | No |
+| Held \ Requested | IS  | IX  | S   | SIX | X   |
+| ---------------- | --- | --- | --- | --- | --- |
+| IS               | Yes | Yes | Yes | Yes | No  |
+| IX               | Yes | Yes | No  | No  | No  |
+| S                | Yes | No  | Yes | No  | No  |
+| SIX              | Yes | No  | No  | No  | No  |
+| X                | No  | No  | No  | No  | No  |
 
 Protocol:
 
-1. To lock a node in `S`, first acquire `IS` on all ancestors.
-2. To lock a node in `X`, first acquire `IX` on all ancestors.
+1. To lock a node in $S$, first acquire $\mathrm{IS}$ on all ancestors.
+2. To lock a node in $X$, first acquire $\mathrm{IX}$ on all ancestors.
 3. Release locks from lower levels upward, preserving two-phase behavior if required.
 
 This supports mixed workloads: one transaction can lock a whole table for reading while another cannot quietly take a row-exclusive lock under it without making that intention visible at ancestors.
@@ -834,12 +834,12 @@ Rules:
 
 Properties:
 
-| Property | Meaning |
-| --- | --- |
-| Conflict-serializable | The access discipline imposes an order compatible with serial execution. |
-| Deadlock-free | Transactions move downward in the tree and cannot create cyclic waits in the same way arbitrary lock acquisition can. |
-| More concurrency than strict 2PL in some cases | Nodes can be released earlier. |
-| Not automatically recoverable/cascadeless | Extra discipline may be needed if recoverability is required. |
+| Property                                       | Meaning                                                                                                               |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Conflict-serializable                          | The access discipline imposes an order compatible with serial execution.                                              |
+| Deadlock-free                                  | Transactions move downward in the tree and cannot create cyclic waits in the same way arbitrary lock acquisition can. |
+| More concurrency than strict 2PL in some cases | Nodes can be released earlier.                                                                                        |
+| Not automatically recoverable/cascadeless      | Extra discipline may be needed if recoverability is required.                                                         |
 
 ### What to Emphasize in an Oral Answer
 
@@ -848,7 +848,7 @@ Properties:
 - Define two-phase locking with growing and shrinking phases, and state its theorem: legal schedules of consistent 2PL transactions are conflict-serializable.
 - Mention the limitation: 2PL can deadlock, so wait-for graph cycles, detection/recovery, prevention, or timeouts matter.
 - Explain hierarchical locking as mixed granularity locking over database/table/page/row trees, with intention locks marking ancestors.
-- Name intention modes and purpose: `IS`, `IX`, `S`, `SIX`, and `X`, especially how row-level exclusive intentions block incompatible table-level locks.
+- Name intention modes and purpose: $\mathrm{IS}$, $\mathrm{IX}$, $S$, $\mathrm{SIX}$, and $X$, especially how row-level exclusive intentions block incompatible table-level locks.
 - Explain the tree protocol rules: first exclusive lock anywhere, later lock only children while holding the parent, unlock anytime, and never relock an unlocked node.
 - State tree protocol properties and tradeoffs: conflict-serializable and deadlock-free, but not automatically recoverable/cascadeless.
 
@@ -856,9 +856,9 @@ Properties:
 
 Locks enforce safe interleavings by making transactions request permission before accessing data. A shared lock is enough for reading and is compatible with other shared locks. An exclusive lock is required for writing and is incompatible with locks held by other transactions. The lock scheduler uses a lock table and a compatibility matrix to decide whether to grant or delay a request.
 
-Two-phase locking requires every transaction to acquire all needed locks before releasing any lock. Its growing phase acquires locks, and its shrinking phase releases them. Legal schedules of consistent two-phase-locking transactions are conflict-serializable, but 2PL can deadlock. Deadlock is represented with a wait-for graph: if `T1` waits for a lock held by `T2`, draw $T1 \to T2$. A cycle means deadlock, so the system must prevent it, detect it and abort a victim, or use timeouts.
+Two-phase locking requires every transaction to acquire all needed locks before releasing any lock. Its growing phase acquires locks, and its shrinking phase releases them. Legal schedules of consistent two-phase-locking transactions are conflict-serializable, but 2PL can deadlock. Deadlock is represented with a wait-for graph: if $T_1$ waits for a lock held by $T_2$, draw $T_1 \to T_2$. A cycle means deadlock, so the system must prevent it, detect it and abort a victim, or use timeouts.
 
-Hierarchical locking handles different granularities such as database, table, page, and row. Intention locks mark ancestors to show that a transaction intends to lock descendants. `IS` means shared locks below, `IX` means exclusive locks below, `SIX` means shared on the node plus exclusive intentions below. This lets table-level and row-level locks coexist safely.
+Hierarchical locking handles different granularities such as database, table, page, and row. Intention locks mark ancestors to show that a transaction intends to lock descendants. $\mathrm{IS}$ means shared locks below, $\mathrm{IX}$ means exclusive locks below, $\mathrm{SIX}$ means shared on the node plus exclusive intentions below. This lets table-level and row-level locks coexist safely.
 
 The tree protocol is another locking discipline. A transaction's first exclusive lock may be anywhere, but later it may lock a node only while holding the parent. Nodes may be unlocked early, and unlocked nodes cannot be relocked. This protocol is conflict-serializable and deadlock-free, though it does not by itself guarantee recoverability.
 

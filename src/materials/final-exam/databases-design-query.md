@@ -14,16 +14,16 @@ The relational data model is a model that manages a collection of data. The cent
 
 Important terms:
 
-| Concept | Meaning |
-| --- | --- |
-| Data model | A high-level representation of real-world concepts, relationships, and activities; a notation for describing data. |
-| Relation | A table-like collection of tuples/rows. |
-| Relation schema | A relation name with attributes, written like `R(A1, ..., An)`. |
-| Occurrence / instance | A finite set of rows matching the schema. |
-| Attribute | A named component of the row type, with values drawn from a domain/type. |
-| Tuple / row | One occurrence of values for the attributes of a relation. |
-| Database schema | A set of relation schemas, often denoted as a collection ${R1, ..., Rk}$. |
-| Database occurrence | The actual relation instances belonging to the schemas at a given time. |
+| Concept               | Meaning                                                                                                            |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Data model            | A high-level representation of real-world concepts, relationships, and activities; a notation for describing data. |
+| Relation              | A table-like collection of tuples/rows.                                                                            |
+| Relation schema       | A relation name with attributes, written like $R(A_1,\ldots,A_n)$.                                                 |
+| Occurrence / instance | A finite set of rows matching the schema.                                                                          |
+| Attribute             | A named component of the row type, with values drawn from a domain/type.                                           |
+| Tuple / row           | One occurrence of values for the attributes of a relation.                                                         |
+| Database schema       | A set of relation schemas, often denoted as a collection $\{R_1,\ldots,R_k\}$.                                     |
+| Database occurrence   | The actual relation instances belonging to the schemas at a given time.                                            |
 
 A data model has three parts:
 
@@ -71,32 +71,30 @@ Relational algebra is important because:
 
 Relational algebra has six basic operations that form a minimal set: omitting one makes some expressions inexpressible.
 
-| Operation | Notation | Meaning |
-| --- | --- | --- |
-| Union | `R union S` | Rows in either relation; schemas must be compatible. |
-| Difference | $R - S$ | Rows in `R` that are not in `S`; schemas must be compatible. |
-| Projection | $\pi_{\text{list}}(R)$ | Keep selected attributes; under set semantics duplicates are removed. |
-| Selection | $\sigma_{\text{condition}}(R)$ | Keep rows satisfying the condition. |
-| Natural join | `R join S` | Combine rows that agree on same-named attributes, keeping one copy of common attributes. |
-| Rename | $\rho_{\text{T(B1,...,Bk)}}(R)$ | Rename relation and/or attributes to avoid ambiguity or align schemas. |
+| Operation    | Notation                        | Meaning                                                                                  |
+| ------------ | ------------------------------- | ---------------------------------------------------------------------------------------- |
+| Union        | $R \cup S$                      | Rows in either relation; schemas must be compatible.                                     |
+| Difference   | $R - S$                         | Rows in $R$ that are not in $S$; schemas must be compatible.                             |
+| Projection   | $\pi_{\text{list}}(R)$          | Keep selected attributes; under set semantics duplicates are removed.                    |
+| Selection    | $\sigma_{\text{condition}}(R)$  | Keep rows satisfying the condition.                                                      |
+| Natural join | $R \bowtie S$                   | Combine rows that agree on same-named attributes, keeping one copy of common attributes. |
+| Rename       | $\rho_{\text{T(B1,...,Bk)}}(R)$ | Rename relation and/or attributes to avoid ambiguity or align schemas.                   |
 
 Intersection is derivable:
 
-```text
-R intersect S = R - (R - S)
-```
+$$
+R \cap S = R - (R - S)
+$$
 
 Cartesian product is also central:
 
-```text
-R x S
-```
+$R \times S$
 
-It concatenates every row of `R` with every row of `S`. If attributes have the same name, renaming is needed. A theta join is a product followed by a selection:
+It concatenates every row of $R$ with every row of $S$. If attributes have the same name, renaming is needed. A theta join is a product followed by a selection:
 
-```text
-R join_condition S = sigma_condition(R x S)
-```
+$$
+R \bowtie_{\text{condition}} S = \sigma_{\text{condition}}(R \times S)
+$$
 
 Natural join is convenient, but it can be dangerous when same-named attributes are matched accidentally.
 
@@ -119,25 +117,22 @@ Division supports "for all" queries.
 
 If:
 
-- `R(A, B)` records which `A` values are associated with which `B` values;
-- `S(B)` is the required set of `B` values;
+- $R(A, B)$ records which $A$ values are associated with which $B$ values;
+- $S(B)$ is the required set of $B$ values;
 
 then:
 
-```text
-R div S
-```
+$R \div S$
 
-returns those `A` values that are associated with every `B` in `S`.
+returns those $A$ values that are associated with every $B$ in $S$.
 
 Division can be expressed using projection, product, and difference:
 
-```text
-R(A,B) div S(B)
-= pi_A(R) - pi_A((pi_A(R) x S) - R)
-```
+$$
+R(A,B) \div S(B) = \pi_A(R) - \pi_A((\pi_A(R) \times S) - R)
+$$
 
-Intuition: start with all candidate `A` values, generate every required `(A,B)` pair, subtract the pairs that actually exist, and remove any `A` that is missing some required pair.
+Intuition: start with all candidate $A$ values, generate every required $(A,B)$ pair, subtract the pairs that actually exist, and remove any $A$ that is missing some required pair.
 
 ### Expression Trees
 
@@ -171,11 +166,11 @@ SQL usually uses **bag** or **multiset semantics**:
 
 Bag versions of set operations count multiplicities:
 
-| Operation | Multiplicity of tuple in result |
-| --- | --- |
-| Bag union | $n + m$ |
-| Bag intersection | `min(n, m)` |
-| Bag difference | $\max(0, n - m)$ |
+| Operation        | Multiplicity of tuple in result |
+| ---------------- | ------------------------------- |
+| Bag union        | $n + m$                         |
+| Bag intersection | $\min(n, m)$                    |
+| Bag difference   | $\max(0, n - m)$                |
 
 SQL set operators normally remove duplicates unless `ALL` is used, for example `UNION ALL`.
 
@@ -183,13 +178,13 @@ SQL set operators normally remove duplicates unless `ALL` is used, for example `
 
 Practical query languages need operators beyond the minimal algebra:
 
-| Extension | SQL counterpart | Meaning |
-| --- | --- | --- |
-| Duplicate elimination $\delta$ | `SELECT DISTINCT` | Convert a multiset to a set. |
-| Grouping and aggregation $\gamma$ | `GROUP BY`, aggregates | Partition rows into groups and compute `SUM`, `COUNT`, `MIN`, `MAX`, `AVG`. |
-| Extended projection | `SELECT expression AS name` | Compute new attributes and rename attributes. |
-| Sorting `tau` | `ORDER BY` | Sort rows by attributes; result is ordered, so it is not a pure relation/multiset. |
-| Outer join | `LEFT`, `RIGHT`, `FULL OUTER JOIN` | Preserve dangling rows and pad missing side with `NULL`. |
+| Extension                         | SQL counterpart                    | Meaning                                                                            |
+| --------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------- |
+| Duplicate elimination $\delta$    | `SELECT DISTINCT`                  | Convert a multiset to a set.                                                       |
+| Grouping and aggregation $\gamma$ | `GROUP BY`, aggregates             | Partition rows into groups and compute `SUM`, `COUNT`, `MIN`, `MAX`, `AVG`.        |
+| Extended projection               | `SELECT expression AS name`        | Compute new attributes and rename attributes.                                      |
+| Sorting $\tau$                    | `ORDER BY`                         | Sort rows by attributes; result is ordered, so it is not a pure relation/multiset. |
+| Outer join                        | `LEFT`, `RIGHT`, `FULL OUTER JOIN` | Preserve dangling rows and pad missing side with `NULL`.                           |
 
 Grouping result rule: each group produces one output row containing the grouping attributes and the aggregate results for that group.
 
@@ -234,18 +229,18 @@ The ER model is not primarily a query language. It is a modeling notation for da
 
 ### Entity Sets, Attributes, Relationships
 
-| ER concept | Meaning |
-| --- | --- |
-| Entity | A concrete object or thing in the modeled reality. |
-| Entity set | A set of similar entities, comparable to a class. |
-| Attribute | Observable property of an entity set or relationship. |
-| Entity-set schema | Written like `E(A1, ..., An)`, where `E` is the name and attributes have domains. |
-| Entity-set occurrence | A set of concrete entities with values for the attributes. |
-| Relationship | Association between entity sets. |
-| Relationship set | A set of tuples of participating entities. |
+| ER concept             | Meaning                                                                                         |
+| ---------------------- | ----------------------------------------------------------------------------------------------- |
+| Entity                 | A concrete object or thing in the modeled reality.                                              |
+| Entity set             | A set of similar entities, comparable to a class.                                               |
+| Attribute              | Observable property of an entity set or relationship.                                           |
+| Entity-set schema      | Written like $E(A_1,\ldots,A_n)$, where $E$ is the name and attributes have domains.            |
+| Entity-set occurrence  | A set of concrete entities with values for the attributes.                                      |
+| Relationship           | Association between entity sets.                                                                |
+| Relationship set       | A set of tuples of participating entities.                                                      |
 | Relationship attribute | An attribute that belongs to the relationship itself, not to either participating entity alone. |
 
-Example: `teach(teacher, subject)` connects teachers and subjects. A relationship such as `sells(bar, beer)` may have an attribute `price`, because the price belongs to the pair, not to the bar or beer separately.
+Example: $\text{teach}(\text{teacher}, \text{subject})$ connects teachers and subjects. A relationship such as $\text{sells}(\text{bar}, \text{beer})$ may have an attribute $\text{price}$, because the price belongs to the pair, not to the bar or beer separately.
 
 ### Keys, Superkeys, Roles, and Relationship Types
 
@@ -253,20 +248,20 @@ In an entity set, all attributes together are always a superkey, because two dis
 
 A **role** is needed when an entity set relates to itself. For example, an employee can supervise another employee. Both participants come from the same entity set, so roles such as `supervisor` and `subordinate` make the two positions clear. This replaces the role image.
 
-For a binary relationship `K(E1, E2)`:
+For a binary relationship $K(E_1, E_2)$:
 
-| Multiplicity | Constraint | Example |
-| --- | --- | --- |
-| Many-to-one | Each `E1` entity is associated with at most one `E2` entity. | `born(person, country)` |
-| One-to-many | Symmetric view: each `E2` may have many `E1`, each `E1` at most one `E2`. | country of birth |
-| One-to-one | Each side has at most one partner. | `couple(male, female)` in the example |
-| Many-to-many | No uniqueness constraint on either side. | `learn(student, language)` |
+| Multiplicity | Constraint                                                                    | Example                                                    |
+| ------------ | ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Many-to-one  | Each $E_1$ entity is associated with at most one $E_2$ entity.                | $\text{born}(\text{person}, \text{country})$               |
+| One-to-many  | Symmetric view: each $E_2$ may have many $E_1$, each $E_1$ at most one $E_2$. | country of birth                                           |
+| One-to-one   | Each side has at most one partner.                                            | $\text{couple}(\text{male}, \text{female})$ in the example |
+| Many-to-many | No uniqueness constraint on either side.                                      | $\text{learn}(\text{student}, \text{language})$            |
 
-A **multiway relationship** has more than two participating entity sets, for example `K(E1, E2, E3)`.  multiway relationships can be rewritten into binary relationships, but this can lose meaning if the ternary association is not equivalent to independent binary associations. The relational transformation often creates a relation for the multiway relationship.
+A **multiway relationship** has more than two participating entity sets, for example $K(E_1, E_2, E_3)$. multiway relationships can be rewritten into binary relationships, but this can lose meaning if the ternary association is not equivalent to independent binary associations. The relational transformation often creates a relation for the multiway relationship.
 
 ### Subclasses and Isa Relationships
 
-A subclass represents an **is-a** relationship: each entity in the subclass is also an entity in the superclass. Describe it as a special one-to-one relationship. Example: `boss isa worker`.
+A subclass represents an **is-a** relationship: each entity in the subclass is also an entity in the superclass. Describe it as a special one-to-one relationship. Example: $\text{boss}\ \operatorname{isa}\ \text{worker}$.
 
 Important points:
 
@@ -286,35 +281,35 @@ A **weak entity set** cannot be identified clearly by its own attributes. It dep
 
 Example pattern:
 
-| ER element | Relational result |
-| --- | --- |
-| Strong owner entity `Owner(ownerId, ...)` | `Owner(ownerId, ...)` |
-| Weak entity `Dependent(name, ...)` owned by `Owner` | `Dependent(ownerId, name, ...)` |
-| Identifying relationship | Usually represented by the foreign key from weak entity to owner |
+| ER element                                                                 | Relational result                                                |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Strong owner entity $\text{Owner}(\text{ownerId},\ldots)$                  | $\text{Owner}(\text{ownerId},\ldots)$                            |
+| Weak entity $\text{Dependent}(\text{name},\ldots)$ owned by $\text{Owner}$ | $\text{Dependent}(\text{ownerId}, \text{name},\ldots)$           |
+| Identifying relationship                                                   | Usually represented by the foreign key from weak entity to owner |
 
 ### ER Design Principles
 
 ER design principles:
 
-| Principle | Meaning |
-| --- | --- |
-| Realistic modeling | Put properties where they naturally belong. A teacher's name should not be stored as a student property. |
-| Avoid redundancy | Do not repeat the same fact unnecessarily. Split `index(etrCode, address, subject, date, grade)` into `student(etrCode, address)` and `exam(etrCode, subject, date, grade)`. |
-| Simplicity | Do not add entity classes unnecessarily. If a date property is enough, do not create `calendar(year, month, day)` without reason. |
-| Attribute versus entity set | Use an attribute for simple values unless the thing needs its own identity, relationships, or attributes. |
+| Principle                   | Meaning                                                                                                                                                                                                                                                                        |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Realistic modeling          | Put properties where they naturally belong. A teacher's name should not be stored as a student property.                                                                                                                                                                       |
+| Avoid redundancy            | Do not repeat the same fact unnecessarily. Split $\text{index}(\text{etrCode}, \text{address}, \text{subject}, \text{date}, \text{grade})$ into $\text{student}(\text{etrCode}, \text{address})$ and $\text{exam}(\text{etrCode}, \text{subject}, \text{date}, \text{grade})$. |
+| Simplicity                  | Do not add entity classes unnecessarily. If a date property is enough, do not create $\text{calendar}(\text{year}, \text{month}, \text{day})$ without reason.                                                                                                                  |
+| Attribute versus entity set | Use an attribute for simple values unless the thing needs its own identity, relationships, or attributes.                                                                                                                                                                      |
 
 ### Transforming ER to Relations
 
 Basic transformation rules:
 
-| ER construct | Relational construct |
-| --- | --- |
-| Entity set schema | Relation schema |
-| Entity attribute | Relation attribute |
-| Entity occurrence | Row |
-| Entity key/superkey | Relation key/superkey |
-| Relationship `R(E1,...,Ep,A1,...,Aq)` | Relation containing the keys of participating entity sets plus relationship attributes |
-| Referential integrity | Foreign key constraint |
+| ER construct                                    | Relational construct                                                                   |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Entity set schema                               | Relation schema                                                                        |
+| Entity attribute                                | Relation attribute                                                                     |
+| Entity occurrence                               | Row                                                                                    |
+| Entity key/superkey                             | Relation key/superkey                                                                  |
+| Relationship $R(E_1,\ldots,E_p,A_1,\ldots,A_q)$ | Relation containing the keys of participating entity sets plus relationship attributes |
+| Referential integrity                           | Foreign key constraint                                                                 |
 
 If the same entity set appears twice in a relationship, role names or renaming are needed to distinguish the two key copies.
 
@@ -324,21 +319,21 @@ Composite attributes are flattened. For example, address `(city, street, houseNu
 
 Multivalued attributes have several mapping options:
 
-| Option | Meaning | Problem / use |
-| --- | --- | --- |
-| Store as one value | Put all authors of a book into one field. | Bad for searching, constraints, and length limits. |
-| Duplicate rows | Create one book row per author. | Causes redundancy. |
-| New relation | `Book(bookNo, title)` and `Author(bookNo, author)`. | Normal relational solution. |
-| Add sequence number | `Author(bookNo, position, author)`. | Use when order matters. |
+| Option              | Meaning                                             | Problem / use                                      |
+| ------------------- | --------------------------------------------------- | -------------------------------------------------- |
+| Store as one value  | Put all authors of a book into one field.           | Bad for searching, constraints, and length limits. |
+| Duplicate rows      | Create one book row per author.                     | Causes redundancy.                                 |
+| New relation        | `Book(bookNo, title)` and `Author(bookNo, author)`. | Normal relational solution.                        |
+| Add sequence number | `Author(bookNo, position, author)`.                 | Use when order matters.                            |
 
 ### Mapping Relationships
 
-| Relationship type | Mapping rule |
-| --- | --- |
-| One-to-one | Can merge relationship attributes into either side, usually the side chosen by participation/NULL considerations, because the key of either side can identify the relationship. |
-| Many-to-one | Merge into the "many" side by adding a foreign key and relationship attributes. |
-| Many-to-many | Create a new relation containing participating keys and relationship attributes. |
-| Multiway | Usually create a new relation containing keys of all participating entity sets and relationship attributes. |
+| Relationship type | Mapping rule                                                                                                                                                                    |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| One-to-one        | Can merge relationship attributes into either side, usually the side chosen by participation/NULL considerations, because the key of either side can identify the relationship. |
+| Many-to-one       | Merge into the "many" side by adding a foreign key and relationship attributes.                                                                                                 |
+| Many-to-many      | Create a new relation containing participating keys and relationship attributes.                                                                                                |
+| Multiway          | Usually create a new relation containing keys of all participating entity sets and relationship attributes.                                                                     |
 
 Example:
 
@@ -366,11 +361,11 @@ primary key Weak(ownerKey, partialKey)
 
 Three subtype mapping strategies.
 
-| Strategy | Relations | Advantages | Disadvantages |
-| --- | --- | --- | --- |
-| ER style / class-table inheritance | One relation for superclass and one for each subclass; subclass table stores superclass key plus subclass attributes. | Avoids NULLs; supports entities appearing in multiple subclasses. | Queries often require joins across several tables. |
-| Null-valued single-table style | One relation contains superclass and all subclass attributes; absent subclass values are `NULL`. | Simple queries over one table. | Many NULLs; type information can be lost if NULL has another meaning. |
-| Object-oriented / concrete-table style | One relation for each subclass, each containing inherited and own attributes. | Each entity appears in one subtype table. | Common superclass queries need unions; combined subtypes may require new tables. |
+| Strategy                               | Relations                                                                                                             | Advantages                                                        | Disadvantages                                                                    |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| ER style / class-table inheritance     | One relation for superclass and one for each subclass; subclass table stores superclass key plus subclass attributes. | Avoids NULLs; supports entities appearing in multiple subclasses. | Queries often require joins across several tables.                               |
+| Null-valued single-table style         | One relation contains superclass and all subclass attributes; absent subclass values are `NULL`.                      | Simple queries over one table.                                    | Many NULLs; type information can be lost if NULL has another meaning.            |
+| Object-oriented / concrete-table style | One relation for each subclass, each containing inherited and own attributes.                                         | Each entity appears in one subtype table.                         | Common superclass queries need unions; combined subtypes may require new tables. |
 
 The correct choice depends on overlap/disjointness, total/partial coverage, query patterns, and tolerance for NULLs.
 
@@ -405,13 +400,13 @@ Subclasses have several relational mappings. In ER style, the superclass has a t
 
 SQL divides into several parts:
 
-| Component | Commands / role |
-| --- | --- |
-| DDL, Data Definition Language | `CREATE`, `ALTER`, `DROP` |
+| Component                       | Commands / role                        |
+| ------------------------------- | -------------------------------------- |
+| DDL, Data Definition Language   | `CREATE`, `ALTER`, `DROP`              |
 | DML, Data Manipulation Language | `INSERT`, `UPDATE`, `DELETE`, `SELECT` |
-| DCL, Data Control Language | `GRANT`, `REVOKE` |
-| Transaction management | `COMMIT`, `ROLLBACK`, `SAVEPOINT` |
-| Procedural extensions | PL/SQL, SQL/PSM |
+| DCL, Data Control Language      | `GRANT`, `REVOKE`                      |
+| Transaction management          | `COMMIT`, `ROLLBACK`, `SAVEPOINT`      |
+| Procedural extensions           | PL/SQL, SQL/PSM                        |
 
 Subject 20 focuses on query and design. Transaction implementation, logging, locking, and recovery belong mainly to subject 21, but transaction commands appear in SQL and are therefore summarized here.
 
@@ -425,14 +420,14 @@ SQL relations can be:
 
 Common SQL data-type families:
 
-| Family | Examples |
-| --- | --- |
-| Exact numeric | `INTEGER`, `SMALLINT`, `BIGINT`, `NUMERIC(p,s)`, `DECIMAL(p,s)` |
-| Approximate numeric | `REAL`, `FLOAT`, `DOUBLE PRECISION` |
-| Character strings | `CHAR(n)`, `VARCHAR(n)` |
-| Dates and times | `DATE`, `TIME`, `TIMESTAMP`, intervals where supported |
-| Boolean | `BOOLEAN` where supported |
-| Binary / large objects | `BLOB`, `CLOB`, vendor-specific large types |
+| Family                 | Examples                                                        |
+| ---------------------- | --------------------------------------------------------------- |
+| Exact numeric          | `INTEGER`, `SMALLINT`, `BIGINT`, `NUMERIC(p,s)`, `DECIMAL(p,s)` |
+| Approximate numeric    | `REAL`, `FLOAT`, `DOUBLE PRECISION`                             |
+| Character strings      | `CHAR(n)`, `VARCHAR(n)`                                         |
+| Dates and times        | `DATE`, `TIME`, `TIMESTAMP`, intervals where supported          |
+| Boolean                | `BOOLEAN` where supported                                       |
+| Binary / large objects | `BLOB`, `CLOB`, vendor-specific large types                     |
 
 `CREATE TABLE` defines schema and constraints:
 
@@ -480,14 +475,14 @@ FROM R JOIN S ON R.id = S.r_id;
 
 ### Joins in SQL
 
-| SQL form | Meaning |
-| --- | --- |
-| `R CROSS JOIN S` or `R, S` | Cartesian product. |
-| `R NATURAL JOIN S` | Natural join on same-named attributes. |
-| `R JOIN S ON condition` | Theta/equi join using explicit condition. |
-| `R LEFT OUTER JOIN S ON condition` | Preserve unmatched rows from `R`. |
-| `R RIGHT OUTER JOIN S ON condition` | Preserve unmatched rows from `S`. |
-| `R FULL OUTER JOIN S ON condition` | Preserve unmatched rows from both sides. |
+| SQL form                            | Meaning                                   |
+| ----------------------------------- | ----------------------------------------- |
+| `R CROSS JOIN S` or `R, S`          | Cartesian product.                        |
+| `R NATURAL JOIN S`                  | Natural join on same-named attributes.    |
+| `R JOIN S ON condition`             | Theta/equi join using explicit condition. |
+| `R LEFT OUTER JOIN S ON condition`  | Preserve unmatched rows from $R$.         |
+| `R RIGHT OUTER JOIN S ON condition` | Preserve unmatched rows from $S$.         |
+| `R FULL OUTER JOIN S ON condition`  | Preserve unmatched rows from both sides.  |
 
 Natural join is concise but risky because schema changes or accidental same names can change query meaning.
 
@@ -552,16 +547,16 @@ SQL conditions include ordinary comparisons plus:
 
 `NULL` represents missing, unknown, or inapplicable information. Because of `NULL`, SQL uses three-valued logic, often written as **3-valued logic**:
 
-| Expression | Result |
-| --- | --- |
-| `5 = NULL` | `UNKNOWN`, not true |
-| `NULL = NULL` | `UNKNOWN`, not true |
-| `x IS NULL` | `TRUE` if `x` is NULL |
-| `TRUE AND UNKNOWN` | `UNKNOWN` |
-| `FALSE AND UNKNOWN` | `FALSE` |
-| `TRUE OR UNKNOWN` | `TRUE` |
-| `FALSE OR UNKNOWN` | `UNKNOWN` |
-| `NOT UNKNOWN` | `UNKNOWN` |
+| Expression          | Result                |
+| ------------------- | --------------------- |
+| `5 = NULL`          | `UNKNOWN`, not true   |
+| `NULL = NULL`       | `UNKNOWN`, not true   |
+| `x IS NULL`         | `TRUE` if `x` is NULL |
+| `TRUE AND UNKNOWN`  | `UNKNOWN`             |
+| `FALSE AND UNKNOWN` | `FALSE`               |
+| `TRUE OR UNKNOWN`   | `TRUE`                |
+| `FALSE OR UNKNOWN`  | `UNKNOWN`             |
+| `NOT UNKNOWN`       | `UNKNOWN`             |
 
 `WHERE` keeps only rows where the condition is `TRUE`; rows where the condition is `FALSE` or `UNKNOWN` are not selected.
 
@@ -578,11 +573,11 @@ FROM (SELECT * FROM Student WHERE active = TRUE) AS x;
 
 In `WHERE`, a subquery result can act as:
 
-| Subquery result | Typical use |
-| --- | --- |
-| Scalar value | `salary > (SELECT AVG(salary) FROM Employee)` |
+| Subquery result               | Typical use                                                         |
+| ----------------------------- | ------------------------------------------------------------------- |
+| Scalar value                  | `salary > (SELECT AVG(salary) FROM Employee)`                       |
 | Set/multiset of scalar values | `x IN (SELECT ...)`, `x > ANY (SELECT ...)`, `x > ALL (SELECT ...)` |
-| Table relation | `EXISTS (SELECT ...)`, tuple comparisons where supported |
+| Table relation                | `EXISTS (SELECT ...)`, tuple comparisons where supported            |
 
 A subquery is **uncorrelated** if it can be evaluated independently of the outer query. It is **correlated** if it refers to an outer tuple variable and may be evaluated for each outer row.
 
@@ -590,11 +585,11 @@ A subquery is **uncorrelated** if it can be evaluated independently of the outer
 
 Modification statements change database contents:
 
-| Statement | Meaning |
-| --- | --- |
-| `INSERT` | Add rows. |
-| `DELETE` | Delete rows satisfying a condition. |
-| `UPDATE` | Change attribute values in rows satisfying a condition. |
+| Statement | Meaning                                                 |
+| --------- | ------------------------------------------------------- |
+| `INSERT`  | Add rows.                                               |
+| `DELETE`  | Delete rows satisfying a condition.                     |
+| `UPDATE`  | Change attribute values in rows satisfying a condition. |
 
 Examples:
 
@@ -615,12 +610,12 @@ WHERE id = 1;
 
 The SQL section includes transactions and ACID:
 
-| ACID property | Meaning |
-| --- | --- |
-| Atomicity | All statements in the transaction happen, or none do. |
-| Consistency | Constraints are preserved. |
-| Isolation | Concurrent transactions appear appropriately separated, ideally serial. |
-| Durability | Committed changes are not lost. |
+| ACID property | Meaning                                                                 |
+| ------------- | ----------------------------------------------------------------------- |
+| Atomicity     | All statements in the transaction happen, or none do.                   |
+| Consistency   | Constraints are preserved.                                              |
+| Isolation     | Concurrent transactions appear appropriately separated, ideally serial. |
+| Durability    | Committed changes are not lost.                                         |
 
 `COMMIT` finalizes a transaction. `ROLLBACK` aborts and undoes its changes.
 
@@ -637,13 +632,13 @@ Detailed concurrency-control mechanisms belong to subject 21, but SQL syntax and
 
 A constraint is a relationship between data elements that the DBMS must maintain.
 
-| Constraint type | Example |
-| --- | --- |
-| Key constraint | `PRIMARY KEY`, `UNIQUE` |
-| Value/domain constraint | `NOT NULL`, type/domain restrictions |
-| Row constraint | `CHECK (salary >= 0)` |
-| Foreign key constraint | `FOREIGN KEY (...) REFERENCES ...` |
-| Assertion | `CREATE ASSERTION ... CHECK (...)`, where supported |
+| Constraint type         | Example                                             |
+| ----------------------- | --------------------------------------------------- |
+| Key constraint          | `PRIMARY KEY`, `UNIQUE`                             |
+| Value/domain constraint | `NOT NULL`, type/domain restrictions                |
+| Row constraint          | `CHECK (salary >= 0)`                               |
+| Foreign key constraint  | `FOREIGN KEY (...) REFERENCES ...`                  |
+| Assertion               | `CREATE ASSERTION ... CHECK (...)`, where supported |
 
 Foreign-key violations can occur:
 
@@ -661,11 +656,11 @@ Common referential actions:
 
 Triggers are event-condition-action rules.
 
-| Part | Meaning |
-| --- | --- |
-| Event | Usually `INSERT`, `DELETE`, or `UPDATE`; may be `BEFORE`, `AFTER`, or `INSTEAD OF`. |
-| Condition | `WHEN` condition, evaluated when the event occurs. |
-| Action | SQL statement, block, or stored procedure executed if condition holds. |
+| Part      | Meaning                                                                             |
+| --------- | ----------------------------------------------------------------------------------- |
+| Event     | Usually `INSERT`, `DELETE`, or `UPDATE`; may be `BEFORE`, `AFTER`, or `INSTEAD OF`. |
+| Condition | `WHEN` condition, evaluated when the event occurs.                                  |
+| Action    | SQL statement, block, or stored procedure executed if condition holds.              |
 
 Trigger vocabulary:
 
@@ -689,9 +684,9 @@ WHERE active = TRUE;
 
 Types:
 
-| View type | Meaning |
-| --- | --- |
-| Virtual view | Stores the query definition, not the result. |
+| View type         | Meaning                                                      |
+| ----------------- | ------------------------------------------------------------ |
+| Virtual view      | Stores the query definition, not the result.                 |
 | Materialized view | Stores the computed result and must be refreshed/maintained. |
 
 Views can be queried like base tables. Some views are updatable if the system can translate the modification to base tables. If not, an `INSTEAD OF` trigger can define what modification should mean.
@@ -735,11 +730,11 @@ Pure SQL is declarative and set-oriented. When SQL is used inside application pr
 
 Three programming approaches:
 
-| Approach | Meaning |
-| --- | --- |
-| Procedural SQL extension | Store procedure/function code in the database schema, e.g. SQL/PSM or Oracle PL/SQL. |
-| Embedded SQL | Put SQL in a host language with special syntax such as `EXEC SQL`; a precompiler translates it. |
-| Call-level interface | Use a library/API from a normal language, e.g. CLI, JDBC, PHP database APIs. |
+| Approach                 | Meaning                                                                                         |
+| ------------------------ | ----------------------------------------------------------------------------------------------- |
+| Procedural SQL extension | Store procedure/function code in the database schema, e.g. SQL/PSM or Oracle PL/SQL.            |
+| Embedded SQL             | Put SQL in a host language with special syntax such as `EXEC SQL`; a precompiler translates it. |
+| Call-level interface     | Use a library/API from a normal language, e.g. CLI, JDBC, PHP database APIs.                    |
 
 ### SQL/PSM
 
@@ -758,10 +753,10 @@ END;
 
 Parameters:
 
-| Mode | Meaning |
-| --- | --- |
-| `IN` | Input parameter. |
-| `OUT` | Output parameter. |
+| Mode    | Meaning                |
+| ------- | ---------------------- |
+| `IN`    | Input parameter.       |
+| `OUT`   | Output parameter.      |
 | `INOUT` | Both input and output. |
 
 Stored functions use input parameters and define a return type/value.
@@ -835,17 +830,17 @@ END;
 
 Differences from PSM:
 
-| Feature | PL/SQL form |
-| --- | --- |
-| Declaration section | Optional `DECLARE` section appears once at the beginning. |
-| Assignment | Uses `:=`. |
-| Parameter order | `name mode type`, with `IN OUT` written in two words. |
-| Types | `NUMBER` can represent integer or real-like numeric data. |
-| Attribute type reference | `R.x%TYPE`. |
-| Row type reference | `R%ROWTYPE`. |
-| Tuple field access | Use field notation such as `rowVar.attribute`. |
-| Else-if | `ELSIF`. |
-| Loop exit | `EXIT WHEN condition`. |
+| Feature                  | PL/SQL form                                               |
+| ------------------------ | --------------------------------------------------------- |
+| Declaration section      | Optional `DECLARE` section appears once at the beginning. |
+| Assignment               | Uses `:=`.                                                |
+| Parameter order          | `name mode type`, with `IN OUT` written in two words.     |
+| Types                    | `NUMBER` can represent integer or real-like numeric data. |
+| Attribute type reference | `R.x%TYPE`.                                               |
+| Row type reference       | `R%ROWTYPE`.                                              |
+| Tuple field access       | Use field notation such as `rowVar.attribute`.            |
+| Else-if                  | `ELSIF`.                                                  |
+| Loop exit                | `EXIT WHEN condition`.                                    |
 
 PL/SQL cursor:
 
@@ -914,33 +909,34 @@ This can repeat a drinker's address across many rows and repeat manufacturer inf
 
 ### Functional Dependencies
 
-A functional dependency $X \to Y$ on relation schema `R(U)` says: if two rows agree on all attributes in `X`, they must also agree on all attributes in `Y`.
+A functional dependency $X \to Y$ on relation schema $R(U)$ says: if two rows agree on all attributes in $X$, they must also agree on all attributes in $Y$.
 
 Formal intuition:
 
-```text
-for all rows t1, t2:
-if t1[X] = t2[X], then t1[Y] = t2[Y]
-```
+$$
+\forall t_1,t_2:\ t_1[X] = t_2[X] \Rightarrow t_1[Y] = t_2[Y]
+$$
 
-This means the value of `X` determines the value of `Y`.
+This means the value of $X$ determines the value of $Y$.
 
 Notation:
 
-- `X`, `Y`, `Z` denote attribute sets;
-- `A`, `B`, `C` denote single attributes;
-- instead of ${A,B,C}$, write `ABC`.
+- $X$, $Y$, $Z$ denote attribute sets;
+- $A$, $B$, $C$ denote single attributes;
+- instead of $\{A,B,C\}$, write $ABC$.
 
 ### Right-Hand Splitting
 
-$X \to A1 A2 ... An$ holds if and only if all single-right-side dependencies hold:
+$X \to A_1 A_2 \ldots A_n$ holds if and only if all single-right-side dependencies hold:
 
-```text
-X -> A1
-X -> A2
-...
-X -> An
-```
+$$
+\begin{aligned}
+X &\to A_1 \\
+X &\to A_2 \\
+&\vdots \\
+X &\to A_n
+\end{aligned}
+$$
 
 There is no corresponding general rule for splitting the left-hand side. $AB \to C$ does not imply $A \to C$ or $B \to C$.
 
@@ -963,11 +959,9 @@ A set of dependencies $F$ implies $X \to Y$, written conceptually as $F \models 
 
 Example:
 
-```text
-A -> B
-B -> C
-therefore A -> C
-```
+$$
+A \to B,\quad B \to C \quad \therefore \quad A \to C
+$$
 
 The goal is to decide which dependencies follow from a given set.
 
@@ -975,21 +969,21 @@ The goal is to decide which dependencies follow from a given set.
 
 Armstrong's axioms are sound and complete for functional dependencies:
 
-| Axiom | Rule |
-| --- | --- |
-| Reflexivity | If `Y subset X`, then $X \to Y$. |
-| Augmentation / extensibility | If $X \to Y$, then $XZ \to YZ$ for any `Z`. |
-| Transitivity | If $X \to Y$ and $Y \to Z$, then $X \to Z$. |
+| Axiom                        | Rule                                        |
+| ---------------------------- | ------------------------------------------- |
+| Reflexivity                  | If $Y \subseteq X$, then $X \to Y$.         |
+| Augmentation / extensibility | If $X \to Y$, then $XZ \to YZ$ for any $Z$. |
+| Transitivity                 | If $X \to Y$ and $Y \to Z$, then $X \to Z$. |
 
 Sound means every derived dependency is actually implied. Complete means every implied dependency can be derived.
 
 Useful derived rules:
 
-| Rule | Meaning |
-| --- | --- |
-| Union / convergence | If $X \to Y$ and $X \to Z$, then $X \to YZ$. |
+| Rule                         | Meaning                                          |
+| ---------------------------- | ------------------------------------------------ |
+| Union / convergence          | If $X \to Y$ and $X \to Z$, then $X \to YZ$.     |
 | Decomposition / separability | If $X \to Y$ and $Z\subseteq Y$, then $X \to Z$. |
-| Pseudotransitivity | If $X \to Y$ and $WY \to Z$, then $XW \to Z$. |
+| Pseudotransitivity           | If $X \to Y$ and $WY \to Z$, then $XW \to Z$.    |
 
 ### Attribute Closure
 
@@ -997,9 +991,9 @@ The closure $X^+$ with respect to $F$ is the set of all attributes $A$ such that
 
 Closure decides implication:
 
-```text
-F derives X -> Y iff Y subset X+
-```
+$$
+F \vdash X \to Y \quad \text{iff} \quad Y \subseteq X^+
+$$
 
 Closure algorithm:
 
@@ -1014,29 +1008,32 @@ until Xplus no longer changes
 
 Uses:
 
-- test whether `X` is a superkey;
-- test whether an FD follows from `F`;
+- test whether $X$ is a superkey;
+- test whether an FD follows from $F$;
 - support normalization algorithms.
 
 ### Projecting Functional Dependencies
 
-When decomposing a relation `R` into a smaller schema `Ri`, we need the dependencies that hold on `Ri`.
+When decomposing a relation $R$ into a smaller schema $R_i$, we need the dependencies that hold on $R_i$.
 
 Projection:
 
-```text
-Pi_Ri(F) = { X -> Y | F derives X -> Y and X union Y subset Ri }
-```
+$$
+\Pi_{R_i}(F) = \{\, X \to Y \mid F \vdash X \to Y \text{ and } X \cup Y \subseteq R_i \,\}
+$$
 
 The example:
 
-```text
-R = ABCD
-F = { AB -> C, C -> D, D -> A }
-decompose into ABC and AD
-```
+$$
+\begin{aligned}
+R &= ABCD \\
+F &= \{AB \to C,\ C \to D,\ D \to A\}
+\end{aligned}
+$$
 
-On `ABC`, not only $AB \to C$ holds; $C \to A$ also holds because $C \to D$ and $D \to A$.
+Decompose into $ABC$ and $AD$.
+
+On $ABC$, not only $AB \to C$ holds; $C \to A$ also holds because $C \to D$ and $D \to A$.
 
 ### Redundancy and Anomalies
 
@@ -1044,25 +1041,25 @@ Functional dependencies can reveal redundancy. If $name \to address$, then repea
 
 Anomalies:
 
-| Anomaly | Meaning |
-| --- | --- |
+| Anomaly              | Meaning                                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------------------ |
 | Modification anomaly | Updating one occurrence of a repeated fact but missing another occurrence creates inconsistency. |
-| Deletion anomaly | Deleting a row also deletes a fact that should have been preserved. |
-| Insertion anomaly | A fact cannot be inserted unless unrelated data is also present. |
+| Deletion anomaly     | Deleting a row also deletes a fact that should have been preserved.                              |
+| Insertion anomaly    | A fact cannot be inserted unless unrelated data is also present.                                 |
 
 BeerDrinkers example:
 
-| Problem | Example |
-| --- | --- |
-| Modification | If Janeway changes address/name, every repeated row must be updated. |
-| Deletion | If no one likes a beer anymore, deleting rows may lose who manufactures that beer. |
-| Insertion | Adding a manufacturer may be impossible without also adding a drinker/favorite row. |
+| Problem      | Example                                                                             |
+| ------------ | ----------------------------------------------------------------------------------- |
+| Modification | If Janeway changes address/name, every repeated row must be updated.                |
+| Deletion     | If no one likes a beer anymore, deleting rows may lose who manufactures that beer.  |
+| Insertion    | Adding a manufacturer may be impossible without also adding a drinker/favorite row. |
 
 ### Multivalued Dependencies
 
 Multivalued dependencies (MVDs) are also useful for understanding 4NF and decomposition.
 
-$X \twoheadrightarrow Y$ means that for each `X` value, the set of `Y` values is independent of the remaining attributes $Z = R - X - Y$.
+$X \twoheadrightarrow Y$ means that for each $X$ value, the set of $Y$ values is independent of the remaining attributes $Z = R - X - Y$.
 
 Example:
 
@@ -1075,16 +1072,16 @@ If a drinker's phone numbers are independent of the beers they like, then every 
 Rules:
 
 - every FD is also an MVD;
-- complementation: if $X \twoheadrightarrow Y$, then $X \twoheadrightarrow Z$ for the remaining attributes `Z`;
+- complementation: if $X \twoheadrightarrow Y$, then $X \twoheadrightarrow Z$ for the remaining attributes $Z$;
 - right-hand sides of MVDs cannot generally be split;
 - MVDs are not transitive in the same way as FDs.
 
 ### What to Emphasize in an Oral Answer
 
 - Frame schema design as reducing redundancy and modification/deletion/insertion anomalies while preserving information and constraints.
-- Define a functional dependency $X \to Y$ precisely: rows agreeing on `X` must agree on `Y`.
+- Define a functional dependency $X \to Y$ precisely: rows agreeing on $X$ must agree on $Y$.
 - Mention right-hand splitting and the common trap that left-hand sides cannot generally be split.
-- Define superkey and key using FDs: `K` is a superkey if `K` determines all attributes, and a key is a minimal superkey.
+- Define superkey and key using FDs: $K$ is a superkey if $K$ determines all attributes, and a key is a minimal superkey.
 - State Armstrong's axioms: reflexivity, augmentation, and transitivity; mention soundness/completeness and derived union, decomposition, and pseudotransitivity.
 - Explain attribute closure $X^+$ and how it tests implication and superkeys.
 - Explain FD projection during decomposition: dependencies over a smaller schema must be derived from the original set, not merely copied.
@@ -1092,9 +1089,9 @@ Rules:
 
 ::: details Suggested answer
 
-Relational schema design tries to avoid redundancy and anomalies while preserving information and constraints. The main formal tool is the functional dependency. A functional dependency $X \to Y$ says that if two rows agree on all attributes of `X`, they must also agree on all attributes of `Y`. In other words, `X` determines `Y`.
+Relational schema design tries to avoid redundancy and anomalies while preserving information and constraints. The main formal tool is the functional dependency. A functional dependency $X \to Y$ says that if two rows agree on all attributes of $X$, they must also agree on all attributes of $Y$. In other words, $X$ determines $Y$.
 
-Keys can be defined through functional dependencies. A set of attributes `K` is a superkey if `K` determines all attributes of the relation. It is a key if it is a minimal superkey. Functional dependencies also show redundancy: if $name \to address$, then storing the same address in many rows for the same name repeats one fact unnecessarily.
+Keys can be defined through functional dependencies. A set of attributes $K$ is a superkey if $K$ determines all attributes of the relation. It is a key if it is a minimal superkey. Functional dependencies also show redundancy: if $name \to address$, then storing the same address in many rows for the same name repeats one fact unnecessarily.
 
 Armstrong's axioms are the inference rules for dependencies. Reflexivity says that a set determines its own subsets. Augmentation says we may add the same attributes to both sides. Transitivity says that if $X \to Y$ and $Y \to Z$, then $X \to Z$. These rules are sound and complete. Useful derived rules include union, decomposition, and pseudotransitivity.
 
@@ -1102,7 +1099,7 @@ The closure of an attribute set $X$, written $X^+$, is the set of all attributes
 
 When relations are decomposed, dependencies must be projected to the smaller schemas. Projection means collecting all dependencies over the smaller attribute set that follow from the original dependencies. This matters because decomposition can lose dependencies. Poor schema design causes modification, deletion, and insertion anomalies; normalization uses dependencies to decompose schemas into better ones.
 
-Multivalued dependencies describe a different kind of redundancy. If, for a fixed `X`, the `Y` values are independent of the remaining attributes, the relation may repeat every combination of those independent values. Every functional dependency is also a multivalued dependency, but MVDs are not handled by the same transitivity and left/right splitting rules as ordinary FDs.
+Multivalued dependencies describe a different kind of redundancy. If, for a fixed $X$, the $Y$ values are independent of the remaining attributes, the relation may repeat every combination of those independent values. Every functional dependency is also a multivalued dependency, but MVDs are not handled by the same transitivity and left/right splitting rules as ordinary FDs.
 
 :::
 
@@ -1110,17 +1107,17 @@ Multivalued dependencies describe a different kind of redundancy. If, for a fixe
 
 ### Decomposition
 
-A decomposition of relation schema `R` is a set of schemas:
+A decomposition of relation schema $R$ is a set of schemas:
 
-```text
-d = {R1, ..., Rk}
-```
+$$
+d = \{R_1,\ldots,R_k\}
+$$
 
 such that no attribute is lost:
 
-```text
-R1 union ... union Rk = R
-```
+$$
+R_1 \cup \cdots \cup R_k = R
+$$
 
 The actual table is decomposed by projection.
 
@@ -1134,21 +1131,21 @@ Emphasize that losslessness and dependency preservation do not imply each other.
 
 ### Lossless-Join Property
 
-For decomposition ${R1, ..., Rk}$, lossless join means:
+For decomposition $\{R_1,\ldots,R_k\}$, lossless join means:
 
-```text
-r = pi_R1(r) join ... join pi_Rk(r)
-```
+$$
+r = \pi_{R_1}(r) \bowtie \cdots \bowtie \pi_{R_k}(r)
+$$
 
-for every legal relation `r` of schema `R`.
+for every legal relation $r$ of schema $R$.
 
-For a binary decomposition ${R1, R2}$, a common FD-based condition is:
+For a binary decomposition $\{R_1, R_2\}$, a common FD-based condition is:
 
-```text
-(R1 intersect R2) -> R1
-or
-(R1 intersect R2) -> R2
-```
+$$
+(R_1 \cap R_2) \to R_1
+\quad \text{or} \quad
+(R_1 \cap R_2) \to R_2
+$$
 
 with respect to the dependencies. Intuitively, the shared attributes must identify one side so the join does not create spurious combinations.
 
@@ -1167,23 +1164,21 @@ The chase can be summarized as a test for whether joining projected components c
 
 A decomposition is dependency-preserving if all original dependencies can be derived from the projected dependencies:
 
-```text
-Pi_R1(F) union ... union Pi_Rk(F) derives every FD in F
-```
+$$
+\Pi_{R_1}(F) \cup \cdots \cup \Pi_{R_k}(F) \vdash F
+$$
 
 Dependency preservation is practical because constraints can then be checked locally on decomposed relations. If dependencies are not preserved, enforcing the original constraints may require joins.
 
 ### Boyce-Codd Normal Form
 
-A relation schema `R` is in BCNF if for every nontrivial FD:
+A relation schema $R$ is in BCNF if for every nontrivial FD:
 
-```text
-X -> Y
-```
+$X \to Y$
 
-the left-hand side `X` is a superkey.
+the left-hand side $X$ is a superkey.
 
-Nontrivial means `Y` is not already contained in `X`.
+Nontrivial means $Y$ is not already contained in $X$.
 
 To test BCNF:
 
@@ -1193,10 +1188,12 @@ To test BCNF:
 
 If a schema violates BCNF because of $X \to Y$, a standard decomposition is:
 
-```text
-R1 = X union Y
-R2 = R - (Y - X)
-```
+$$
+\begin{aligned}
+R_1 &= X \cup Y \\
+R_2 &= R - (Y - X)
+\end{aligned}
+$$
 
 This decomposition is lossless, but BCNF decomposition may lose dependency preservation.
 
@@ -1208,8 +1205,8 @@ An attribute is **prime** if it belongs to at least one key.
 
 For a dependency $X \to A$, it violates 3NF only if:
 
-- `X` is not a superkey; and
-- `A` is not prime.
+- $X$ is not a superkey; and
+- $A$ is not prime.
 
 Thus, 3NF allows some dependencies that BCNF would reject, specifically when the dependent attribute is part of a key. This can preserve dependencies while still reducing many redundancies.
 
@@ -1234,7 +1231,7 @@ A **minimal basis** / minimal cover is a simplified equivalent set, typically sa
 Minimal bases are used in 3NF synthesis:
 
 1. compute a minimal cover;
-2. create a relation for each FD group $X \to A1...An$;
+2. create a relation for each FD group $X \to A_1\ldots A_n$;
 3. ensure some relation contains a key of the original schema;
 4. remove redundant contained relations.
 
@@ -1244,13 +1241,11 @@ Also include 4NF. It is based on multivalued dependencies:
 
 A relation is in 4NF if for every nontrivial MVD:
 
-```text
-X ->> Y
-```
+$X \twoheadrightarrow Y$
 
-`X` is a superkey.
+$X$ is a superkey.
 
-Every 4NF relation is also in BCNF, but MVD redundancy is not necessarily removed by BCNF.  there is not always a dependency-preserving and lossless 4NF decomposition.
+Every 4NF relation is also in BCNF, but MVD redundancy is not necessarily removed by BCNF. there is not always a dependency-preserving and lossless 4NF decomposition.
 
 4NF is beyond the explicit topic clause, but it is retained because it appears in the normal-forms section and helps explain why multivalued dependencies were introduced.
 
@@ -1274,12 +1269,12 @@ This reduces repeated addresses and repeated manufacturer facts. The design must
 
 ### What to Emphasize in an Oral Answer
 
-- Define decomposition as replacing `R` by schemas whose union of attributes is the original schema.
+- Define decomposition as replacing $R$ by schemas whose union of attributes is the original schema.
 - State the three desired properties: lossless join, good normal forms, and dependency preservation.
 - Explain lossless join and the binary FD condition: the common attributes must determine one side, otherwise the join may create spurious tuples; mention chase as the general test.
 - Explain dependency preservation: projected dependencies on the components should imply the original dependencies so constraints can be checked locally.
 - Define BCNF: every nontrivial FD has a superkey on the left; BCNF decomposition is lossless but may not preserve dependencies.
-- Define 3NF: for $X \to A$, allow it when `X` is a superkey or `A` is prime; this supports lossless dependency-preserving synthesis using a minimal cover.
+- Define 3NF: for $X \to A$, allow it when $X$ is a superkey or $A$ is prime; this supports lossless dependency-preserving synthesis using a minimal cover.
 - Include 4NF if MVDs are in scope: every nontrivial MVD must have a superkey on the left, and 4NF can remove redundancy that BCNF misses.
 - Close with anomaly motivation: normalization moves repeated facts into appropriate relations while preserving reconstruction.
 
@@ -1291,9 +1286,9 @@ Lossless join means that if we project a legal relation onto the decomposed sche
 
 Dependency preservation means that every original functional dependency can be derived from the dependencies that hold on the decomposed schemas. This is practical because it lets the DBMS check constraints locally without recomputing joins.
 
-BCNF is a strong normal form. A relation is in BCNF if for every nontrivial functional dependency $X \to Y$, `X` is a superkey. If a dependency violates BCNF, the schema can be decomposed using the determinant and dependent attributes. BCNF decomposition can always be made lossless, but it may lose dependency preservation.
+BCNF is a strong normal form. A relation is in BCNF if for every nontrivial functional dependency $X \to Y$, $X$ is a superkey. If a dependency violates BCNF, the schema can be decomposed using the determinant and dependent attributes. BCNF decomposition can always be made lossless, but it may lose dependency preservation.
 
-3NF relaxes BCNF. For a dependency $X \to A$, 3NF allows it if `X` is a superkey or `A` is prime, meaning `A` belongs to some key. This relaxation is useful because there is always a lossless dependency-preserving 3NF decomposition. A minimal basis, or minimal cover, is used for 3NF synthesis by simplifying dependencies and creating relations from them.
+3NF relaxes BCNF. For a dependency $X \to A$, 3NF allows it if $X$ is a superkey or $A$ is prime, meaning $A$ belongs to some key. This relaxation is useful because there is always a lossless dependency-preserving 3NF decomposition. A minimal basis, or minimal cover, is used for 3NF synthesis by simplifying dependencies and creating relations from them.
 
 Fourth normal form extends the same idea to multivalued dependencies. A relation is in 4NF if every nontrivial multivalued dependency has a superkey on the left. This matters because some redundancies come from independent multivalued facts rather than ordinary functional dependencies, so BCNF alone may not remove them.
 

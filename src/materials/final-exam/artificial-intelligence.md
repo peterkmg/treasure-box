@@ -12,21 +12,21 @@ Many AI tasks can be expressed as **pathfinding problems**. First, model the tas
 
 Describe a representation graph as a triple-like structure containing:
 
-| Part | Meaning |
-| --- | --- |
-| Directed graph | Nodes represent meaningful configurations or subproblems; directed edges represent allowed transitions. |
-| Edge costs | Costs are positive, with a positive lower bound $\delta$ in a $\delta$-graph. This prevents infinitely many ever-cheaper edge steps. |
-| Start node | The node where the search begins. |
-| Goal nodes | Nodes that satisfy the target condition. |
+| Part           | Meaning                                                                                                                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Directed graph | Nodes represent meaningful configurations or subproblems; directed edges represent allowed transitions.                              |
+| Edge costs     | Costs are positive, with a positive lower bound $\delta$ in a $\delta$-graph. This prevents infinitely many ever-cheaper edge steps. |
+| Start node     | The node where the search begins.                                                                                                    |
+| Goal nodes     | Nodes that satisfy the target condition.                                                                                             |
 
 A **state-space representation** is the most direct model for many pathfinding tasks. It specifies:
 
-| Element | Explanation |
-| --- | --- |
-| State space | The set of possible states of the central object or system. It is often described as a broader base set plus an invariant. |
-| Operations | Each operation has a precondition and an effect. If the precondition holds in a state, the operation can produce a successor state. |
-| Initial state or condition | The state, or set of states, where the solution may start. |
-| Goal state or condition | The state, or set of states, that counts as success. |
+| Element                    | Explanation                                                                                                                         |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| State space                | The set of possible states of the central object or system. It is often described as a broader base set plus an invariant.          |
+| Operations                 | Each operation has a precondition and an effect. If the precondition holds in a state, the operation can produce a successor state. |
+| Initial state or condition | The state, or set of states, where the solution may start.                                                                          |
+| Goal state or condition    | The state, or set of states, that counts as success.                                                                                |
 
 The **state graph** has states as nodes and operation applications as directed edges. The state space is not the same as the problem space. The state space contains nodes; the problem space contains paths or operation sequences starting from the initial state. A solution is therefore not merely a goal state, but an operation sequence that reaches a goal state.
 
@@ -41,10 +41,10 @@ flowchart LR
 
 A **search system** has three conceptual parts:
 
-| Part | Role |
-| --- | --- |
-| Global workspace | The memory of the search: current node, path, explored graph, open nodes, or other stored information depending on the algorithm. |
-| Search rules | Rules that modify the workspace, such as moving to a neighbor, expanding a node, or backtracking. |
+| Part             | Role                                                                                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Global workspace | The memory of the search: current node, path, explored graph, open nodes, or other stored information depending on the algorithm.                 |
+| Search rules     | Rules that modify the workspace, such as moving to a neighbor, expanding a node, or backtracking.                                                 |
 | Control strategy | The policy that chooses which rule to apply next. A heuristic is task-specific knowledge added to this strategy to improve success or efficiency. |
 
 ### Decomposition Model
@@ -78,27 +78,31 @@ Local search keeps only a **current node** and usually its immediate neighborhoo
 
 Local search needs a **fitness function** or objective function. The function estimates how good a state is, often by measuring closeness to a goal or value of a solution candidate. These methods are useful when a locally bad move does not destroy the possibility of success, or when the task is optimization rather than exact path reconstruction.
 
-| Algorithm | Main idea | Strength | Main risk |
-| --- | --- | --- | --- |
-| Hill climbing | Move from the current node to the best available child or neighbor, usually avoiding immediate return to the parent. | Simple and memory-light. | Can get stuck in local optima, dead ends, plateaus, or cycles. |
-| Tabu search | Store the current node, the best node found so far, and a short queue-like tabu list of recently visited nodes. Move to the best non-tabu neighbor. | Reduces short cycles and remembers the best state reached. | The tabu list is finite, so longer cycles and poor neighborhoods can still mislead it. |
-| Simulated annealing | Choose a random neighbor. Always accept improvement; sometimes accept a worse move with a probability that decreases as the move gets worse and as the search cools. | Can escape local optima early in the search. | Needs a cooling schedule; too much randomness wastes time, too little becomes hill climbing. |
+| Algorithm           | Main idea                                                                                                                                                            | Strength                                                   | Main risk                                                                                    |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Hill climbing       | Move from the current node to the best available child or neighbor, usually avoiding immediate return to the parent.                                                 | Simple and memory-light.                                   | Can get stuck in local optima, dead ends, plateaus, or cycles.                               |
+| Tabu search         | Store the current node, the best node found so far, and a short queue-like tabu list of recently visited nodes. Move to the best non-tabu neighbor.                  | Reduces short cycles and remembers the best state reached. | The tabu list is finite, so longer cycles and poor neighborhoods can still mislead it.       |
+| Simulated annealing | Choose a random neighbor. Always accept improvement; sometimes accept a worse move with a probability that decreases as the move gets worse and as the search cools. | Can escape local optima early in the search.               | Needs a cooling schedule; too much randomness wastes time, too little becomes hill climbing. |
 
-Compact pseudocode for the shared pattern:
+Compact Python sketch for the shared pattern:
 
-```text
-current := initial state
-best := current
+```python
+def local_search(initial_state, neighbors, choose, accept, fitness, stop):
+    current = initial_state
+    best = current
 
-repeat until stopping condition:
-  candidates := neighbors(current)
-  next := choose candidate using the algorithm's rule
-  if accept(current, next):
-    current := next
-    if fitness(current) is better than fitness(best):
-      best := current
+    while not stop(current, best):
+        candidates = list(neighbors(current))
+        if not candidates:
+            break
 
-return best or current
+        next_state = choose(current, candidates)
+        if accept(current, next_state):
+            current = next_state
+            if fitness(current) > fitness(best):
+                best = current
+
+    return best
 ```
 
 For hill climbing, `choose` selects the best neighbor and `accept` usually requires improvement. For tabu search, `choose` excludes recently visited tabu states and updates the tabu queue. For simulated annealing, `choose` is random and `accept` may allow a worse state with a temperature-dependent probability.
@@ -137,28 +141,28 @@ The two basic rules are:
 
 Backtracking uses a **modifiable control strategy** because earlier decisions can be changed. It tries to move forward first and backtracks only as a last resort. Heuristics can improve it in two local ways:
 
-| Heuristic | Role |
-| --- | --- |
-| Ordering | Try more promising outgoing edges earlier. |
-| Pruning | Reject edges or partial paths that cannot lead to a useful solution. |
+| Heuristic | Role                                                                 |
+| --------- | -------------------------------------------------------------------- |
+| Ordering  | Try more promising outgoing edges earlier.                           |
+| Pruning   | Reject edges or partial paths that cannot lead to a useful solution. |
 
 The list includes typical stopping or backtracking triggers:
 
-| Trigger | Meaning |
-| --- | --- |
-| Dead end | The current node has no usable outgoing edge. |
+| Trigger        | Meaning                                                                       |
+| -------------- | ----------------------------------------------------------------------------- |
+| Dead end       | The current node has no usable outgoing edge.                                 |
 | Dead-end mouth | The search can recognize that the current partial path leads only to failure. |
-| Cycle | The current path would repeat a node and therefore loop. |
-| Depth bound | The current path has reached the permitted search depth. |
+| Cycle          | The current path would repeat a node and therefore loop.                      |
+| Depth bound    | The current path has reached the permitted search depth.                      |
 
 Important properties:
 
-| Variant or condition | Consequence |
-| --- | --- |
-| Finite acyclic directed graph with basic backtracking | Terminates and finds a solution if one exists. |
-| General $\delta$-graph with cycle/depth monitoring | Terminates and finds a solution within the depth bound if one exists. |
-| Memory use | Small, because it stores mainly one path and local choice information. |
-| Optimality | Not guaranteed unless additional cost-aware rules are added. |
+| Variant or condition                                  | Consequence                                                            |
+| ----------------------------------------------------- | ---------------------------------------------------------------------- |
+| Finite acyclic directed graph with basic backtracking | Terminates and finds a solution if one exists.                         |
+| General $\delta$-graph with cycle/depth monitoring    | Terminates and finds a solution within the depth bound if one exists.  |
+| Memory use                                            | Small, because it stores mainly one path and local choice information. |
+| Optimality                                            | Not guaranteed unless additional cost-aware rules are added.           |
 
 ### What to Emphasize in an Oral Answer
 
@@ -187,70 +191,86 @@ Graph search stores a larger global workspace than local search or backtracking.
 
 For each discovered node, graph search stores:
 
-| Stored value | Meaning |
-| --- | --- |
-| $g(n)$ | Cost of the currently stored path from the start node to node $n$. |
-| $\pi(n)$ | Back-pointer to the predecessor of $n$ on that stored path. |
+| Stored value       | Meaning                                                                 |
+| ------------------ | ----------------------------------------------------------------------- |
+| $g(n)$             | Cost of the currently stored path from the start node to node $n$.      |
+| $\pi(n)$           | Back-pointer to the predecessor of $n$ on that stored path.             |
 | open/closed status | Whether the node is waiting for expansion or has already been expanded. |
-| $h(n)$ | Heuristic estimate of the remaining optimal cost from $n$ to a goal. |
-| $f(n)$ | Evaluation value used to choose which open node to expand. |
+| $h(n)$             | Heuristic estimate of the remaining optimal cost from $n$ to a goal.    |
+| $f(n)$             | Evaluation value used to choose which open node to expand.              |
 
 Expansion means generating all successors of the chosen open node. If a newly found path to an already discovered node is cheaper, the stored $g$ and $\pi$ values may be updated and the node can become open again. In general graph search, this can make already discovered descendant information temporarily inconsistent, so some algorithms may expand a node more than once.
 
 Uninformed graph searches are special cases of evaluation-based graph search:
 
-| Search | Evaluation idea |
-| --- | --- |
-| Depth-first graph search | Prefer deeper nodes; in this notation, $f=-g$ when all edge costs are 1. |
-| Breadth-first graph search | Prefer shallower nodes; $f=g$ when all edge costs are 1. |
-| Uniform-cost graph search | Prefer the cheapest known path cost; $f=g$. |
+| Search                     | Evaluation idea                                                          |
+| -------------------------- | ------------------------------------------------------------------------ |
+| Depth-first graph search   | Prefer deeper nodes; in this notation, $f=-g$ when all edge costs are 1. |
+| Breadth-first graph search | Prefer shallower nodes; $f=g$ when all edge costs are 1.                 |
+| Uniform-cost graph search  | Prefer the cheapest known path cost; $f=g$.                              |
 
-Heuristic graph search adds $h(n)$, an estimate of the optimal remaining cost $h^\*(n)$. Important named variants include A, A*, $A^C$, and B.
+Heuristic graph search adds $h(n)$, an estimate of the optimal remaining cost $h^\*(n)$. Important named variants include A, A\*, $A^C$, and B.
 
-| Algorithm | Evaluation or rule | Main guarantee or idea |
-| --- | --- | --- |
-| Look-ahead search | $f=h$ | Greedy: chooses the node estimated closest to a goal, but ignores cost already paid. |
-| A algorithm | $f=g+h$, with $h \geq 0$ | Balances cost already paid and estimated remaining cost. |
-| A* algorithm | $f=g+h$, with $0 \leq h \leq h^\*$ | With an admissible heuristic, finds an optimal solution if one exists. |
-| $A^C$ algorithm | A* plus consistency: for every edge $(n,m)$, $h(n)-h(m) \leq c(n,m)$ | A consistent heuristic prevents the need to re-expand nodes; each node is expanded at most once. |
-| B algorithm | Uses A*-style admissible information, but selects by $g$ among open nodes whose $f$ is below a threshold based on already expanded nodes | Also finds an optimal solution under the A*-like heuristic condition; State it expands the same set of nodes as A* but has quadratic running time. |
+| Algorithm         | Evaluation or rule                                                                                                                        | Main guarantee or idea                                                                                                                             |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Look-ahead search | $f=h$                                                                                                                                     | Greedy: chooses the node estimated closest to a goal, but ignores cost already paid.                                                               |
+| A algorithm       | $f=g+h$, with $h \geq 0$                                                                                                                  | Balances cost already paid and estimated remaining cost.                                                                                           |
+| A\* algorithm     | $f=g+h$, with $0 \leq h \leq h^\*$                                                                                                        | With an admissible heuristic, finds an optimal solution if one exists.                                                                             |
+| $A^C$ algorithm   | A\* plus consistency: for every edge $(n,m)$, $h(n)-h(m) \leq c(n,m)$                                                                     | A consistent heuristic prevents the need to re-expand nodes; each node is expanded at most once.                                                   |
+| B algorithm       | Uses A\*-style admissible information, but selects by $g$ among open nodes whose $f$ is below a threshold based on already expanded nodes | Also finds an optimal solution under the A*-like heuristic condition; State it expands the same set of nodes as A* but has quadratic running time. |
 
 Admissibility and consistency:
 
-| Property | Formula | Meaning |
-| --- | --- | --- |
-| Admissible heuristic | $0 \leq h(n) \leq h^\*(n)$ | The heuristic never overestimates the true cheapest remaining cost. |
+| Property             | Formula                                        | Meaning                                                                                                  |
+| -------------------- | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Admissible heuristic | $0 \leq h(n) \leq h^\*(n)$                     | The heuristic never overestimates the true cheapest remaining cost.                                      |
 | Consistent heuristic | $h(n) \leq c(n,m)+h(m)$ for every edge $(n,m)$ | The estimated cost cannot drop by more than the edge cost; this is a triangle-inequality-like condition. |
 
 General graph-search facts:
 
 - On finite $\delta$-graphs, graph searches terminate and find a solution if one exists.
 - Many important graph searches can find a solution even in infinite graphs if a solution exists, but look-ahead search and unbounded depth-first graph search are exceptions.
-- A* and $A^C$ find optimal solutions under their stated heuristic conditions.
+- A\* and $A^C$ find optimal solutions under their stated heuristic conditions.
 - $A^C$ avoids re-expansion because consistency keeps stored path costs coherent after expansion.
 - Graph search is usually more memory-intensive than backtracking because it stores many discovered nodes and paths.
 
-Compact A* pseudocode:
+Compact Python sketch of A\*:
 
-```text
-open := priority queue ordered by f(n) = g(n) + h(n)
-g(start) := 0
-pi(start) := none
-insert start into open
+```python
+from heapq import heappop, heappush
+from itertools import count
+from math import inf
 
-while open is not empty:
-  n := remove open node with smallest f
-  if n is a goal:
-    return path reconstructed from pi
-  expand n
-  for each edge n -> m with cost c:
-    tentative := g(n) + c
-    if m is new or tentative < g(m):
-      g(m) := tentative
-      pi(m) := n
-      insert or reopen m in open
 
-return failure
+def reconstruct_path(parent, node):
+    path = [node]
+    while parent[node] is not None:
+        node = parent[node]
+        path.append(node)
+    return list(reversed(path))
+
+
+def astar(start, is_goal, neighbors, heuristic):
+    open_heap = []
+    tie = count()
+    g = {start: 0}
+    parent = {start: None}
+    heappush(open_heap, (heuristic(start), next(tie), start))
+
+    while open_heap:
+        _, _, node = heappop(open_heap)
+        if is_goal(node):
+            return reconstruct_path(parent, node)
+
+        for neighbor, cost in neighbors(node):
+            tentative = g[node] + cost
+            if tentative < g.get(neighbor, inf):
+                g[neighbor] = tentative
+                parent[neighbor] = node
+                priority = tentative + heuristic(neighbor)
+                heappush(open_heap, (priority, next(tie), neighbor))
+
+    return None
 ```
 
 ### What to Emphasize in an Oral Answer
@@ -259,8 +279,8 @@ return failure
 - Explain the stored values: $g(n)$ for known start cost, $\pi(n)$ for path reconstruction, $h(n)$ for estimated remaining cost, and $f(n)$ for expansion priority.
 - Describe expansion and reopening: successors are generated, and cheaper paths can update $g$ and $\pi$.
 - Contrast uninformed special cases with heuristic search: depth-first, breadth-first, and uniform-cost are evaluation choices without goal estimates.
-- State the A-family distinctions: A uses $f=g+h$; A* is optimal with an admissible heuristic; $A^C$ adds consistency to avoid re-expansion.
-- Include B algorithm briefly as another optimal variant with A*-style admissible information but different selection behavior.
+- State the A-family distinctions: A uses $f=g+h$; A\* is optimal with an admissible heuristic; $A^C$ adds consistency to avoid re-expansion.
+- Include B algorithm briefly as another optimal variant with A\*-style admissible information but different selection behavior.
 - Finish with the tradeoff: stronger completeness/optimality results than local search, but much higher memory use and dependence on heuristic quality.
 
 ::: details Suggested answer
@@ -271,7 +291,7 @@ The control strategy chooses which open node to expand next. Expansion generates
 
 The A algorithm uses the evaluation function $f=g+h$. The value $g$ is the exact cost already paid from the start to the current node, and $h$ estimates the remaining cost from the current node to a goal. This balances actual progress with goal-directed guidance. A* is the special case where the heuristic is admissible: it never overestimates the true cheapest remaining cost. With nonnegative costs and an admissible heuristic, A* finds an optimal solution if one exists.
 
-The algorithm written as A C is commonly represented here as $A^C$. It is A* with a consistent heuristic. Consistency means that along every edge, the heuristic can decrease by at most the edge cost. This prevents a node that has already been expanded from later needing a cheaper correction, so each node is expanded at most once. That is a strong practical advantage.
+The algorithm written as A C is commonly represented here as $A^C$. It is A\* with a consistent heuristic. Consistency means that along every edge, the heuristic can decrease by at most the edge cost. This prevents a node that has already been expanded from later needing a cheaper correction, so each node is expanded at most once. That is a strong practical advantage.
 
 The B algorithm is another optimal heuristic graph-search variant. Instead of simply choosing the smallest $g+h$ node as A* does, it uses cost $g$ among open nodes whose evaluation value is within a threshold determined by already expanded nodes. Under the same admissible-heuristic style condition, it finds an optimal solution and expands the same set of nodes as A*, though with different running-time behavior.
 
@@ -283,12 +303,12 @@ The main tradeoff is clear: heuristic graph search can be complete and optimal u
 
 For two-player games, focus on complete-information, zero-sum, finite games. These assumptions mean:
 
-| Assumption | Meaning |
-| --- | --- |
-| Two-player | Two opponents alternate or otherwise choose moves. |
+| Assumption           | Meaning                                                                                       |
+| -------------------- | --------------------------------------------------------------------------------------------- |
+| Two-player           | Two opponents alternate or otherwise choose moves.                                            |
 | Complete information | The current state and legal moves are known, unlike games with hidden cards or private state. |
-| Zero-sum | One player's advantage is the other player's disadvantage. |
-| Finite | The game tree has finite depth or can be searched with a finite cutoff. |
+| Zero-sum             | One player's advantage is the other player's disadvantage.                                    |
+| Finite               | The game tree has finite depth or can be searched with a finite cutoff.                       |
 
 Games can be modeled with a state-space representation. The state graph is often treated as a **game tree** rooted at the current position. Edges represent legal moves. Levels alternate between our move and the opponent's move.
 
@@ -296,40 +316,43 @@ A **winning strategy** gives a move for every possible opponent response so that
 
 Minimax:
 
-| Level | Rule |
-| --- | --- |
-| Our move, MAX level | Choose the child with the maximum backed-up value. |
-| Opponent move, MIN level | Assume the opponent chooses the child with the minimum value for us. |
+| Level                     | Rule                                                                           |
+| ------------------------- | ------------------------------------------------------------------------------ |
+| Our move, MAX level       | Choose the child with the maximum backed-up value.                             |
+| Opponent move, MIN level  | Assume the opponent chooses the child with the minimum value for us.           |
 | Leaves or cutoff frontier | Use exact win/loss/draw values if known; otherwise use an evaluation function. |
 
-Compact minimax pseudocode:
+Compact Python sketch of minimax:
 
-```text
-value(position, depth):
-  if position is terminal or depth = 0:
-    return evaluate(position)
+```python
+def minimax(position, depth, maximizing_player):
+    if depth == 0 or is_terminal(position):
+        return evaluate(position)
 
-  if it is our turn:
-    return max(value(child, depth - 1) for each legal child)
-  else:
-    return min(value(child, depth - 1) for each legal child)
+    children = list(successors(position))
+    if not children:
+        return evaluate(position)
+
+    if maximizing_player:
+        return max(minimax(child, depth - 1, False) for child in children)
+    return min(minimax(child, depth - 1, True) for child in children)
 ```
 
 Alpha-beta pruning improves minimax by avoiding branches that cannot affect the final decision:
 
-| Symbol | Meaning |
-| --- | --- |
-| $\alpha$ | Best value MAX can already guarantee on the current path. |
-| $\beta$ | Best value MIN can already guarantee on the current path. |
+| Symbol            | Meaning                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------- |
+| $\alpha$          | Best value MAX can already guarantee on the current path.                                   |
+| $\beta$           | Best value MIN can already guarantee on the current path.                                   |
 | Pruning condition | If $\alpha \geq \beta$, the remaining branch cannot change the decision and can be skipped. |
 
 Other refinements:
 
-| Refinement | Role |
-| --- | --- |
-| Variable-depth minimax and quiescence tests | Avoid evaluating unstable positions too early; search deeper in tactically active branches. |
-| Averaging variants | Combine several high and low child values rather than only strict max/min in some evaluation schemes. |
-| Negamax | Uses the zero-sum symmetry by negating values at the opponent level and always maximizing. |
+| Refinement                                  | Role                                                                                                  |
+| ------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Variable-depth minimax and quiescence tests | Avoid evaluating unstable positions too early; search deeper in tactically active branches.           |
+| Averaging variants                          | Combine several high and low child values rather than only strict max/min in some evaluation schemes. |
+| Negamax                                     | Uses the zero-sum symmetry by negating values at the opponent level and always maximizing.            |
 
 ### What to Emphasize in an Oral Answer
 

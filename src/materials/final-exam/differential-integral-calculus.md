@@ -44,26 +44,26 @@ meaning that the error is negligible compared with $h$. This is the one-variable
 
 Basic differentiation rules:
 
-| Rule | Formula |
-| --- | --- |
-| Constant multiple | $(cf)'=cf'$ |
-| Sum / difference | $(f+g)'=f'+g'$, $(f-g)'=f'-g'$ |
-| Product | $(fg)'=f'g+fg'$ |
-| Reciprocal | $(1/g)'=-g'/g^2$, where $g \ne 0$ |
-| Quotient | $(f/g)'=(f'g-fg')/g^2$, where $g \ne 0$ |
-| Chain rule | $(g\circ f)'(a)=g'(f(a))f'(a)$ |
-| Inverse function | If $f$ is invertible and $f'(a)\ne 0$, then $(f^{-1})'(f(a))=1/f'(a)$ |
+| Rule              | Formula                                                               |
+| ----------------- | --------------------------------------------------------------------- |
+| Constant multiple | $(cf)'=cf'$                                                           |
+| Sum / difference  | $(f+g)'=f'+g'$, $(f-g)'=f'-g'$                                        |
+| Product           | $(fg)'=f'g+fg'$                                                       |
+| Reciprocal        | $(1/g)'=-g'/g^2$, where $g \ne 0$                                     |
+| Quotient          | $(f/g)'=(f'g-fg')/g^2$, where $g \ne 0$                               |
+| Chain rule        | $(g\circ f)'(a)=g'(f(a))f'(a)$                                        |
+| Inverse function  | If $f$ is invertible and $f'(a)\ne 0$, then $(f^{-1})'(f(a))=1/f'(a)$ |
 
 Common elementary derivatives:
 
-| Function | Derivative |
-| --- | --- |
-| $x^n$ | $n x^{n-1}$ |
-| $e^x$ | $e^x$ |
-| $a^x$ | $a^x \ln a$ |
-| $\ln x$ | $1/x$ |
-| $\sin x$ | $\cos x$ |
-| $\cos x$ | $-\sin x$ |
+| Function | Derivative   |
+| -------- | ------------ |
+| $x^n$    | $n x^{n-1}$  |
+| $e^x$    | $e^x$        |
+| $a^x$    | $a^x \ln a$  |
+| $\ln x$  | $1/x$        |
+| $\sin x$ | $\cos x$     |
+| $\cos x$ | $-\sin x$    |
 | $\tan x$ | $1/\cos^2 x$ |
 
 ### What to Emphasize in an Oral Answer
@@ -92,12 +92,12 @@ Function analysis uses local and absolute extrema, first-order necessary conditi
 
 An extremum can be local or absolute:
 
-| Type | Definition |
-| --- | --- |
-| Local maximum at $a$ | $f(x)\le f(a)$ for all $x$ in some neighborhood of $a$. |
-| Local minimum at $a$ | $f(x)\ge f(a)$ for all $x$ in some neighborhood of $a$. |
-| Absolute maximum at $a$ | $f(x)\le f(a)$ for every $x$ in the domain. |
-| Absolute minimum at $a$ | $f(x)\ge f(a)$ for every $x$ in the domain. |
+| Type                    | Definition                                              |
+| ----------------------- | ------------------------------------------------------- |
+| Local maximum at $a$    | $f(x)\le f(a)$ for all $x$ in some neighborhood of $a$. |
+| Local minimum at $a$    | $f(x)\ge f(a)$ for all $x$ in some neighborhood of $a$. |
+| Absolute maximum at $a$ | $f(x)\le f(a)$ for every $x$ in the domain.             |
+| Absolute minimum at $a$ | $f(x)\ge f(a)$ for every $x$ in the domain.             |
 
 If $a$ is an interior point, $f$ is differentiable at $a$, and $f$ has a local extremum at $a$, then
 
@@ -109,31 +109,31 @@ This is necessary, not sufficient. A stationary point may fail to be an extremum
 
 Sufficient tests:
 
-| Test | Conclusion |
-| --- | --- |
-| $f'$ changes from $+$ to $-$ at $a$ | local maximum |
-| $f'$ changes from $-$ to $+$ at $a$ | local minimum |
-| $f'(a)=0$ and $f''(a)<0$ | strict local maximum |
-| $f'(a)=0$ and $f''(a)>0$ | strict local minimum |
-| $f'(a)=0$ and $f''(a)=0$ | inconclusive |
+| Test                                | Conclusion           |
+| ----------------------------------- | -------------------- |
+| $f'$ changes from $+$ to $-$ at $a$ | local maximum        |
+| $f'$ changes from $-$ to $+$ at $a$ | local minimum        |
+| $f'(a)=0$ and $f''(a)<0$            | strict local maximum |
+| $f'(a)=0$ and $f''(a)>0$            | strict local minimum |
+| $f'(a)=0$ and $f''(a)=0$            | inconclusive         |
 
 The mean value theorems support many function-analysis arguments:
 
-| Theorem | Statement |
-| --- | --- |
-| Rolle | If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$, and $f(a)=f(b)$, then some $c$ has $f'(c)=0$. |
+| Theorem                     | Statement                                                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Rolle                       | If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$, and $f(a)=f(b)$, then some $c$ has $f'(c)=0$.   |
 | Lagrange mean value theorem | If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then some $c$ has $f'(c)=(f(b)-f(a))/(b-a)$. |
-| Cauchy mean value theorem | Applies the same idea to two functions and compares their increments through derivatives. |
+| Cauchy mean value theorem   | Applies the same idea to two functions and compares their increments through derivatives.                   |
 
 Monotonicity is characterized by the derivative on intervals:
 
-| Derivative condition on interval $I$ | Function behavior |
-| --- | --- |
-| $f'(x)\ge 0$ for all $x \in I$ | $f$ is increasing on $I$. |
-| $f'(x)\le 0$ for all $x \in I$ | $f$ is decreasing on $I$. |
-| $f'(x)>0$ for all $x \in I$ | $f$ is strictly increasing. |
-| $f'(x)<0$ for all $x \in I$ | $f$ is strictly decreasing. |
-| $f'(x)=0$ for all $x \in I$ | $f$ is constant. |
+| Derivative condition on interval $I$ | Function behavior           |
+| ------------------------------------ | --------------------------- |
+| $f'(x)\ge 0$ for all $x \in I$       | $f$ is increasing on $I$.   |
+| $f'(x)\le 0$ for all $x \in I$       | $f$ is decreasing on $I$.   |
+| $f'(x)>0$ for all $x \in I$          | $f$ is strictly increasing. |
+| $f'(x)<0$ for all $x \in I$          | $f$ is strictly decreasing. |
+| $f'(x)=0$ for all $x \in I$          | $f$ is constant.            |
 
 Convexity and concavity:
 
@@ -144,11 +144,11 @@ $$
 
 means $f$ is convex. The reverse inequality means concave. Geometrically, a convex graph lies below its chords; a concave graph lies above its chords. If $f$ is differentiable on an interval, then:
 
-| Derivative behavior | Shape |
-| --- | --- |
-| $f'$ increasing | $f$ convex |
-| $f'$ decreasing | $f$ concave |
-| $f''\ge 0$ where defined | convex criterion |
+| Derivative behavior      | Shape             |
+| ------------------------ | ----------------- |
+| $f'$ increasing          | $f$ convex        |
+| $f'$ decreasing          | $f$ concave       |
+| $f''\ge 0$ where defined | convex criterion  |
 | $f''\le 0$ where defined | concave criterion |
 
 An inflection point is a point where the graph changes convexity. Through the tangent definition, at $a$, with tangent $e_a(x)=f(a)+f'(a)(x-a)$, an inflection occurs if $f-e_a$ changes sign at $a$. For example, $x^3$ has an inflection at $0$ because the graph crosses its tangent while changing from concave to convex; $\sin x$ has repeated inflection points; $x^2$ does not have an inflection at $0$ because it stays on one side of its tangent and remains convex.
@@ -178,8 +178,7 @@ For shape, convexity means the graph lies below its chords, and concavity means 
 For $f: \mathbb{R}^n \to \mathbb{R}^m$, differentiability at an interior point $a$ means there is a bounded linear map $L$ such that
 
 $$
-f(a+h)-f(a)=L(h)+\eta(h)\|h\|,
-\qquad \eta(h)\to 0 \text{ as } \|h\|\to 0.
+f(a+h)-f(a)=L(h)+\eta(h)\|h\|,\ \eta(h)\to 0 \text{ as } \|h\|\to 0.
 $$
 
 Equivalently,
@@ -279,17 +278,13 @@ $$
 be a partition. On each subinterval define
 
 $$
-m_i=\inf\{f(x):x_i\le x\le x_{i+1}\},
-\qquad
-M_i=\sup\{f(x):x_i\le x\le x_{i+1}\}.
+m_i=\inf\{f(x):x_i\le x\le x_{i+1}\},\ M_i=\sup\{f(x):x_i\le x\le x_{i+1}\}.
 $$
 
 The lower and upper sums are
 
 $$
-s(f,\tau)=\sum_{i=0}^{n-1}m_i(x_{i+1}-x_i),
-\qquad
-S(f,\tau)=\sum_{i=0}^{n-1}M_i(x_{i+1}-x_i).
+s(f,\tau)=\sum_{i=0}^{n-1}m_i(x_{i+1}-x_i),\ S(f,\tau)=\sum_{i=0}^{n-1}M_i(x_{i+1}-x_i).
 $$
 
 The lower Darboux integral is the supremum of lower sums, and the upper Darboux integral is the infimum of upper sums. The function is Riemann integrable if these two values are equal; their common value is
@@ -302,23 +297,23 @@ Continuous functions on $[a,b]$ are Riemann integrable. Piecewise continuous fun
 
 Integrability is stable under common operations. If $f,g$ are Riemann integrable on $[a,b]$, then:
 
-| Operation | Result |
-| --- | --- |
-| $f+g$, $f-g$ | integrable |
-| $cf$ | integrable |
-| $fg$ | integrable |
-| $|f|$ | integrable, and $|\int f| \le \int |f|$ |
-| $f/g$ | integrable if $g$ is integrable and bounded away from $0$ |
+| Operation    | Result                                                    |
+| ------------ | --------------------------------------------------------- |
+| $f+g$, $f-g$ | integrable                                                |
+| $cf$         | integrable                                                |
+| $fg$         | integrable                                                |
+| $\| f\|$     | integrable, and $\| \int f\| \le \int \| f \| $           |
+| $f/g$        | integrable if $g$ is integrable and bounded away from $0$ |
 
 Important properties:
 
-| Property | Formula |
-| --- | --- |
-| Linearity | $\int_a^b (\alpha f+\beta g)=\alpha \int_a^b f+\beta \int_a^b g$ |
-| Monotonicity | If $f\le g$, then $\int_a^b f \le \int_a^b g$. |
-| Interval additivity | If $a<c<b$, then $\int_a^b f=\int_a^c f+\int_c^b f$. |
-| Reversal | $\int_b^a f=-\int_a^b f$. |
-| Zero interval | $\int_a^a f=0$. |
+| Property            | Formula                                                          |
+| ------------------- | ---------------------------------------------------------------- |
+| Linearity           | $\int_a^b (\alpha f+\beta g)=\alpha \int_a^b f+\beta \int_a^b g$ |
+| Monotonicity        | If $f\le g$, then $\int_a^b f \le \int_a^b g$.                   |
+| Interval additivity | If $a<c<b$, then $\int_a^b f=\int_a^c f+\int_c^b f$.             |
+| Reversal            | $\int_b^a f=-\int_a^b f$.                                        |
+| Zero interval       | $\int_a^a f=0$.                                                  |
 
 The integral function generated by an integrable function is
 
@@ -408,10 +403,10 @@ $$
 
 Substitution rules:
 
-| Rule | Formula | Idea |
-| --- | --- | --- |
-| First substitution / chain-rule form | If $F'=f$, then $\int f(g(x))g'(x) dx = F(g(x))+C$. | Recognize a derivative inside a composition. |
-| Definite substitution | $\int_a^b f(x)dx = \int_alpha^\beta f(g(t))g'(t)dt$ when $g(\alpha)=a$, $g(\beta)=b$. | Change variables and transform bounds. |
+| Rule                                       | Formula                                                                                    | Idea                                                                |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| First substitution / chain-rule form       | If $F'=f$, then $\int f(g(x))g'(x) dx = F(g(x))+C$.                                        | Recognize a derivative inside a composition.                        |
+| Definite substitution                      | $\int_a^b f(x)dx = \int_alpha^\beta f(g(t))g'(t)dt$ when $g(\alpha)=a$, $g(\beta)=b$.      | Change variables and transform bounds.                              |
 | Second substitution / inverse substitution | Set $x=g(t)$, integrate in $t$, then return to $x$ when $g$ is invertible on the interval. | Useful for roots, trigonometric substitutions, and rationalization. |
 
 State both indefinite and definite substitution cases and both indefinite and definite integration-by-parts cases.
@@ -456,13 +451,13 @@ $$
 If $h=0$, the equation is homogeneous; otherwise it is inhomogeneous. Homogeneous solutions have the form
 
 $$
-c\,e^{G(x)},\qquad G'=g.
+c\,e^{G(x)},\quad G'=g.
 $$
 
 The method of variation of constants looks for an inhomogeneous solution as $m(x)e^{G(x)}$. Radioactive decay is a standard example:
 
 $$
-m'(t)=-\alpha m(t),\qquad m(0)=m_0,
+m'(t)=-\alpha m(t),\quad m(0)=m_0,
 $$
 
 with solution

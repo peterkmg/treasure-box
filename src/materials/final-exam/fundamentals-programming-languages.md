@@ -10,12 +10,12 @@ This subject covers programming-language rules, expression evaluation, type syst
 
 A programming language is defined by several rule systems.
 
-| Rule class | Meaning | Typical error |
-| --- | --- | --- |
-| Lexical rules | Define valid character sequences: identifiers, literals, keywords, operators, separators. | Illegal character sequence, malformed literal. |
-| Syntactic rules | Define how tokens form phrases, expressions, statements, declarations, and programs. | Missing parenthesis, invalid statement form. |
-| Semantic rules | Define meaning and context-sensitive constraints: type correctness, declarations, visibility, assignability. | Undeclared variable, type mismatch. |
-| Pragmatics | Practical language-use conventions and implementation concerns: readability, style, libraries, idioms, performance expectations. | Code may be legal but inappropriate or non-idiomatic. |
+| Rule class      | Meaning                                                                                                                          | Typical error                                         |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Lexical rules   | Define valid character sequences: identifiers, literals, keywords, operators, separators.                                        | Illegal character sequence, malformed literal.        |
+| Syntactic rules | Define how tokens form phrases, expressions, statements, declarations, and programs.                                             | Missing parenthesis, invalid statement form.          |
+| Semantic rules  | Define meaning and context-sensitive constraints: type correctness, declarations, visibility, assignability.                     | Undeclared variable, type mismatch.                   |
+| Pragmatics      | Practical language-use conventions and implementation concerns: readability, style, libraries, idioms, performance expectations. | Code may be legal but inappropriate or non-idiomatic. |
 
 Compiler construction commonly uses these rules as lexical analysis, syntax analysis, and semantic analysis stages.
 
@@ -56,9 +56,9 @@ A compilation unit is the source unit from which one object file or compiled uni
 
 The linker resolves these references and creates executable code or a loadable unit.
 
-| Linking kind | Meaning |
-| --- | --- |
-| Static linking | Referenced code is copied/resolved into the executable before running. |
+| Linking kind    | Meaning                                                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Static linking  | Referenced code is copied/resolved into the executable before running.                                                    |
 | Dynamic linking | Referenced code is loaded and resolved at load time or run time, often from shared libraries such as DLLs/shared objects. |
 
 Dynamic linking loads missing code at load time or run time, not at compile time.
@@ -84,13 +84,13 @@ flowchart LR
 
 Common lexical elements:
 
-| Element | Examples |
-| --- | --- |
-| Literals | `42`, `3.14`, `'x'`, `"hello"` |
-| Identifiers | `count`, `maxValue` |
-| Operators | `+`, `*`, `&&`, `:=` |
-| Parentheses/separators | `(`, `)`, `{`, `}`, `,`, `;` |
-| Keywords | `if`, `while`, `class`, `return` |
+| Element                | Examples                         |
+| ---------------------- | -------------------------------- |
+| Literals               | `42`, `3.14`, `'x'`, `"hello"`   |
+| Identifiers            | `count`, `maxValue`              |
+| Operators              | `+`, `*`, `&&`, `:=`             |
+| Parentheses/separators | `(`, `)`, `{`, `}`, `,`, `;`     |
+| Keywords               | `if`, `while`, `class`, `return` |
 
 **Syntactic analyzer.** Receives tokens and builds a syntax tree according to a context-free grammar. If no valid tree can be built, it reports a syntactic error. LR(0), LR(1), shift/reduce actions, lookahead, and canonical item sets are compiler-construction details; the core point here is that syntax is checked structurally after lexical analysis.
 
@@ -128,31 +128,31 @@ Separate compilation produces object code from compilation units, and linking re
 
 Expression concepts:
 
-| Concept | Meaning |
-| --- | --- |
-| Operand | Variable, constant, function call, or procedure call participating in an expression. |
-| Operator | Symbol denoting an operation on operands. |
-| Expression | Sequence/tree of operands and operators that denotes a value or computation. |
-| Precedence | Priority among operators, such as multiplication before addition. |
-| Associativity | Direction for grouping operators with the same precedence. |
+| Concept       | Meaning                                                                              |
+| ------------- | ------------------------------------------------------------------------------------ |
+| Operand       | Variable, constant, function call, or procedure call participating in an expression. |
+| Operator      | Symbol denoting an operation on operands.                                            |
+| Expression    | Sequence/tree of operands and operators that denotes a value or computation.         |
+| Precedence    | Priority among operators, such as multiplication before addition.                    |
+| Associativity | Direction for grouping operators with the same precedence.                           |
 
 ### Arity and Fixity
 
 **Arity** is the number of operands an operator takes.
 
-| Arity | Example |
-| --- | --- |
-| Unary | `-x`, `not p` |
-| Binary | `a + b`, `x && y` |
+| Arity   | Example                            |
+| ------- | ---------------------------------- |
+| Unary   | `-x`, `not p`                      |
+| Binary  | `a + b`, `x && y`                  |
 | Ternary | `cond ? a : b` in C-like languages |
 
 **Fixity** is where the operator is written relative to operands.
 
-| Fixity | Meaning | Example |
-| --- | --- | --- |
-| Prefix | Operator before operands. | `-x`, `not p`, `+ A B` in prefix notation |
-| Infix | Operator between operands. | `A + B` |
-| Postfix | Operator after operands. | `i++`, reverse Polish notation `A B +` |
+| Fixity  | Meaning                    | Example                                   |
+| ------- | -------------------------- | ----------------------------------------- |
+| Prefix  | Operator before operands.  | `-x`, `not p`, `+ A B` in prefix notation |
+| Infix   | Operator between operands. | `A + B`                                   |
+| Postfix | Operator after operands.   | `i++`, reverse Polish notation `A B +`    |
 
 Call postfix "Polish form"; more precisely, postfix is reverse Polish notation. Prefix is Polish notation.
 
@@ -168,20 +168,20 @@ Precedence determines which operator binds first. Associativity determines group
 
 Examples:
 
-| Expression | Interpretation |
-| --- | --- |
-| `A + B * C` | `A + (B * C)` because `*` has higher precedence. |
-| `A - B - C` | `(A - B) - C` if `-` is left-associative. |
+| Expression  | Interpretation                                                    |
+| ----------- | ----------------------------------------------------------------- |
+| `A + B * C` | `A + (B * C)` because `*` has higher precedence.                  |
+| `A - B - C` | `(A - B) - C` if `-` is left-associative.                         |
 | `A = B = C` | `A = (B = C)` in languages where assignment is right-associative. |
 
 ### Lazy and Eager Evaluation in Logical Expressions
 
 For logical operators, "lazy" usually means short-circuit evaluation. This is narrower than full general lazy evaluation, but it is the expression-evaluation contrast needed here.
 
-| Evaluation | Meaning |
-| --- | --- |
-| Short-circuit / lazy logical evaluation | The second operand is evaluated only if needed. |
-| Eager logical evaluation | Both operands are evaluated regardless of the first operand. |
+| Evaluation                              | Meaning                                                      |
+| --------------------------------------- | ------------------------------------------------------------ |
+| Short-circuit / lazy logical evaluation | The second operand is evaluated only if needed.              |
+| Eager logical evaluation                | Both operands are evaluated regardless of the first operand. |
 
 Example:
 
@@ -223,17 +223,17 @@ The problem is not arithmetic but ambiguous/unsequenced modification and use of 
 
 Statements and control structures are language fundamentals:
 
-| Construct | Meaning |
-| --- | --- |
-| Assignment | Store the value of an expression in a variable, possibly requiring conversion. |
-| Empty statement | A statement that does nothing, such as Ada `null`. |
-| Subprogram call | Invoke a function/procedure/operation with arguments. |
-| Return | Terminate a subprogram, optionally with a value. |
-| Block | Group declarations and statements and often introduce scope. |
-| Selection | `if`, `case`, `switch`. |
-| Loop | `while`, `do-while`, `for`. |
-| Recursion | A subprogram calls itself instead of using an explicit loop. |
-| Unstructured control | `goto`, `break`, `continue`; useful in limited cases but can harm clarity. |
+| Construct            | Meaning                                                                        |
+| -------------------- | ------------------------------------------------------------------------------ |
+| Assignment           | Store the value of an expression in a variable, possibly requiring conversion. |
+| Empty statement      | A statement that does nothing, such as Ada `null`.                             |
+| Subprogram call      | Invoke a function/procedure/operation with arguments.                          |
+| Return               | Terminate a subprogram, optionally with a value.                               |
+| Block                | Group declarations and statements and often introduce scope.                   |
+| Selection            | `if`, `case`, `switch`.                                                        |
+| Loop                 | `while`, `do-while`, `for`.                                                    |
+| Recursion            | A subprogram calls itself instead of using an explicit loop.                   |
+| Unstructured control | `goto`, `break`, `continue`; useful in limited cases but can harm clarity.     |
 
 ### What to Emphasize in an Oral Answer
 
@@ -263,13 +263,13 @@ The topic includes basic types and their representation, automatic and explicit 
 
 Typical primitive/basic types:
 
-| Type category | Examples | Representation idea |
-| --- | --- | --- |
-| Boolean | `bool`, `Boolean` | Usually one byte or machine word even if logically one bit. |
-| Integer | `int`, `long`, `Integer` | Fixed-width binary two's complement in most modern systems; arbitrary precision in some languages. |
-| Floating point | `float`, `double` | IEEE-754-like sign, exponent, significand. |
-| Character | `char`, `Character` | Numeric code point or code unit, such as ASCII/Unicode encoding. |
-| Enumeration | `enum Color { Red, Green }` | Usually small integers associated with named constants. |
+| Type category  | Examples                    | Representation idea                                                                                |
+| -------------- | --------------------------- | -------------------------------------------------------------------------------------------------- |
+| Boolean        | `bool`, `Boolean`           | Usually one byte or machine word even if logically one bit.                                        |
+| Integer        | `int`, `long`, `Integer`    | Fixed-width binary two's complement in most modern systems; arbitrary precision in some languages. |
+| Floating point | `float`, `double`           | IEEE-754-like sign, exponent, significand.                                                         |
+| Character      | `char`, `Character`         | Numeric code point or code unit, such as ASCII/Unicode encoding.                                   |
+| Enumeration    | `enum Color { Red, Green }` | Usually small integers associated with named constants.                                            |
 
 Representation affects overflow, precision, memory use, and valid operations. Fixed-width integers can overflow; floating-point values can round.
 
@@ -277,12 +277,12 @@ Representation affects overflow, precision, memory use, and valid operations. Fi
 
 Conversions can be implicit or explicit.
 
-| Conversion kind | Meaning | Example |
-| --- | --- | --- |
-| Implicit / automatic | The language inserts conversion when allowed. | `int` to `double` in many languages. |
-| Explicit / cast | The programmer requests conversion. | `(int)x`, `Integer.parseInt(s)`. |
-| Widening | Converts to a type that can represent at least as many values. | `int` to `long`. |
-| Narrowing | May lose information. | `double` to `int`. |
+| Conversion kind      | Meaning                                                        | Example                              |
+| -------------------- | -------------------------------------------------------------- | ------------------------------------ |
+| Implicit / automatic | The language inserts conversion when allowed.                  | `int` to `double` in many languages. |
+| Explicit / cast      | The programmer requests conversion.                            | `(int)x`, `Integer.parseInt(s)`.     |
+| Widening             | Converts to a type that can represent at least as many values. | `int` to `long`.                     |
+| Narrowing            | May lose information.                                          | `double` to `int`.                   |
 
 Also note assignment compatibility: the right-hand expression must have the required type or an allowed implicit conversion.
 
@@ -292,11 +292,11 @@ An array is a named group of elements referenced by ordinal numbers or indexes. 
 
 Properties:
 
-| Property | Meaning |
-| --- | --- |
-| Homogeneous elements | In most languages every element has the same type. |
-| Indexed access | Elements are referenced by index. |
-| Contiguous storage | Common representation, enabling direct address calculation. |
+| Property               | Meaning                                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| Homogeneous elements   | In most languages every element has the same type.                                             |
+| Indexed access         | Elements are referenced by index.                                                              |
+| Contiguous storage     | Common representation, enabling direct address calculation.                                    |
 | Static or dynamic size | Static arrays have declaration-controlled size; dynamic arrays can grow or are heap-allocated. |
 
 Address idea for a one-dimensional array:
@@ -322,10 +322,10 @@ const struct Point ORIGIN = {0, 0};
 
 Operations:
 
-| Operation | Meaning |
-| --- | --- |
-| Field selection | Access a component, often with `.field`. |
-| Construction | Build a record from field values. |
+| Operation               | Meaning                                                                          |
+| ----------------------- | -------------------------------------------------------------------------------- |
+| Field selection         | Access a component, often with `.field`.                                         |
+| Construction            | Build a record from field values.                                                |
 | Whole-record operations | Assignment, comparison, copying, or transformation if the language defines them. |
 
 Record layout may include padding for alignment.
@@ -338,12 +338,12 @@ A pointer is a value that stores the address of another value. A reference is a 
 
 Pointer operations may include:
 
-| Operation | Meaning |
-| --- | --- |
-| Address-of | Obtain the address of an object. |
-| Dereference | Access the object pointed to. |
-| Pointer assignment | Make a pointer refer to another object. |
-| Null value | A pointer/reference that refers to no object. |
+| Operation          | Meaning                                              |
+| ------------------ | ---------------------------------------------------- |
+| Address-of         | Obtain the address of an object.                     |
+| Dereference        | Access the object pointed to.                        |
+| Pointer assignment | Make a pointer refer to another object.              |
+| Null value         | A pointer/reference that refers to no object.        |
 | Dynamic allocation | Obtain heap storage and store its address/reference. |
 
 Risks include dangling pointers, null dereference, memory leaks, and aliasing errors. Garbage-collected languages reduce some manual memory risks but still have references and aliasing.
@@ -380,11 +380,11 @@ Arrays store homogeneous elements indexed by ordinal positions, often contiguous
 
 Definitions:
 
-| Term | Meaning |
-| --- | --- |
-| Scope | Part of the source text where a declaration's name association is in effect. |
-| Visibility | Part of the scope where that name actually refers to the declared entity. |
-| Hiding | A nested declaration with the same name can make an outer declaration not visible by that simple name. |
+| Term       | Meaning                                                                                                |
+| ---------- | ------------------------------------------------------------------------------------------------------ |
+| Scope      | Part of the source text where a declaration's name association is in effect.                           |
+| Visibility | Part of the scope where that name actually refers to the declared entity.                              |
+| Hiding     | A nested declaration with the same name can make an outer declaration not visible by that simple name. |
 
 Qualified names can sometimes access hidden outer or class-level names.
 
@@ -394,11 +394,11 @@ Program structure is built from compilation units, modules/packages/namespaces, 
 
 lifetime is the part of execution during which storage allocated for a variable belongs to that variable.
 
-| Lifetime | Storage area | Meaning |
-| --- | --- | --- |
+| Lifetime  | Storage area                        | Meaning                                                                                   |
+| --------- | ----------------------------------- | ----------------------------------------------------------------------------------------- |
 | Automatic | Execution stack / activation record | Local variables in blocks/subprograms; storage exists during block/subprogram activation. |
-| Static | Static/global storage | Exists for the entire program execution. |
-| Dynamic | Heap | Allocated and released independently of scope. |
+| Static    | Static/global storage               | Exists for the entire program execution.                                                  |
+| Dynamic   | Heap                                | Allocated and released independently of scope.                                            |
 
 An activation record, or stack frame, is created for a subprogram call. It typically contains:
 
@@ -424,12 +424,12 @@ Functions, procedures, and operations are subprograms. Subprograms divide a prog
 
 Subprogram concepts:
 
-| Concept | Meaning |
-| --- | --- |
-| Formal parameter | Parameter name in the subprogram definition. |
+| Concept          | Meaning                                         |
+| ---------------- | ----------------------------------------------- |
+| Formal parameter | Parameter name in the subprogram definition.    |
 | Actual parameter | Argument expression/value supplied at the call. |
-| Return value | Value produced by a function. |
-| Overloading | Same subprogram name with different signatures. |
+| Return value     | Value produced by a function.                   |
+| Overloading      | Same subprogram name with different signatures. |
 
 Overload resolution chooses the matching version from the call's argument types. If none matches or several match equally, this is a compile-time error in many languages.
 
@@ -437,16 +437,16 @@ Overload resolution chooses the matching version from the call's argument types.
 
 Also cover several parameter-passing modes.
 
-| Mode | Meaning | Semantics |
-| --- | --- | --- |
-| Textual parameter passing | Macro-like substitution of actual text. | Text substitution, can be surprising. |
-| Call by name | Actual expression is re-evaluated each time the formal is used. | Delayed expression semantics, Algol-style. |
-| Call by value | Copy actual value into formal parameter. | Input only; changes to formal do not change caller variable. |
-| Call by address / reference | Pass address/alias of actual object. | Input-output; formal and actual refer to same object. |
-| Call by result | Formal local is copied out to actual at return. | Output. |
-| Call by value-result | Copy in at call and copy out at return. | Input-output without alias during call. |
-| Call by sharing | Object reference is passed by value; object mutation is shared, rebinding is local. | Common description for Java/Python-like object passing. |
-| Call by need | Actual expression is evaluated only when first needed, then shared. | Lazy languages such as Haskell/Clean. |
+| Mode                        | Meaning                                                                             | Semantics                                                    |
+| --------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Textual parameter passing   | Macro-like substitution of actual text.                                             | Text substitution, can be surprising.                        |
+| Call by name                | Actual expression is re-evaluated each time the formal is used.                     | Delayed expression semantics, Algol-style.                   |
+| Call by value               | Copy actual value into formal parameter.                                            | Input only; changes to formal do not change caller variable. |
+| Call by address / reference | Pass address/alias of actual object.                                                | Input-output; formal and actual refer to same object.        |
+| Call by result              | Formal local is copied out to actual at return.                                     | Output.                                                      |
+| Call by value-result        | Copy in at call and copy out at return.                                             | Input-output without alias during call.                      |
+| Call by sharing             | Object reference is passed by value; object mutation is shared, rebinding is local. | Common description for Java/Python-like object passing.      |
+| Call by need                | Actual expression is evaluated only when first needed, then shared.                 | Lazy languages such as Haskell/Clean.                        |
 
 Java clarification: Java does not have call by address. It passes values. For object variables, the value is a reference, so object mutation through the reference can be observed by the caller, but reassigning the parameter itself does not change the caller's variable.
 
@@ -479,14 +479,14 @@ try {
 
 Exception kinds:
 
-| Classification | Meaning |
-| --- | --- |
-| Checked exception | Must be declared or handled in languages like Java. |
-| Unchecked/runtime exception | Does not need explicit declaration; often programming errors or common runtime failures. |
-| Error/system-level problem | Serious runtime or VM/system problem; usually not recoverable by ordinary code. |
-| Application exception | Domain-specific problem represented by program-defined exception types. |
-| Synchronous exception | Caused by executing a particular operation, such as division by zero. |
-| Asynchronous exception | Arrives independently of the current operation, such as external interruption; language support varies. |
+| Classification              | Meaning                                                                                                 |
+| --------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Checked exception           | Must be declared or handled in languages like Java.                                                     |
+| Unchecked/runtime exception | Does not need explicit declaration; often programming errors or common runtime failures.                |
+| Error/system-level problem  | Serious runtime or VM/system problem; usually not recoverable by ordinary code.                         |
+| Application exception       | Domain-specific problem represented by program-defined exception types.                                 |
+| Synchronous exception       | Caused by executing a particular operation, such as division by zero.                                   |
+| Asynchronous exception      | Arrives independently of the current operation, such as external interruption; language support varies. |
 
 The statement that Java `Error` represents compile-time and system errors. More precisely, Java `Error` represents serious problems that ordinary application code is not expected to catch; compile-time errors are not Java `Error` objects thrown at run time.
 

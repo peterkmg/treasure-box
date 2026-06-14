@@ -248,7 +248,7 @@ const sidebar: DefaultTheme.Sidebar = {
     },
     {
       text: 'Final Exam [Final]',
-      collapsed: false,
+      collapsed: true,
       items: [
         { text: '[Final] General', link: '/materials/final-exam/' },
         { text: '[Final] 1. Limits and Continuity of Functions', link: '/materials/final-exam/limits-continuity-functions.md' },

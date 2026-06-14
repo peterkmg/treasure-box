@@ -17,34 +17,32 @@ $$
 For a discrete random variable, the range is finite or countably infinite and the distribution is given by point probabilities $p_k=P(X=x_k)$. For an absolutely continuous random variable, there is a density $f$ such that
 
 $$
-F_X(x)=\int_{-\infty}^{x} f(t)\,dt,
-\qquad
-P(a<X<b)=\int_a^b f(t)\,dt.
+F_X(x)=\int_{-\infty}^{x} f(t)\,dt, \quad P(a<X<b)=\int_a^b f(t)\,dt.
 $$
 
 A density is nonnegative and integrates to $1$.
 
 Important discrete distributions:
 
-| Distribution | Meaning | Probability function | Expected value | Variance |
-| --- | --- | --- | --- | --- |
-| Bernoulli / indicator $Ind(p)$ | Whether one event with probability $p$ occurs | $P(X=1)=p$, $P(X=0)=1-p$ | $p$ | $p(1-p)$ |
-| Binomial $Bin(n,p)$ | Number of successes in $n$ independent trials with success probability $p$ | $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$, $k=0,\ldots,n$ | $np$ | $np(1-p)$ |
-| Hypergeometric $Hyp(N,M,n)$ | Number of marked elements in sampling without replacement from $N$ items, $M$ marked | $P(X=k)=\dfrac{\binom{M}{k}\binom{N-M}{n-k}}{\binom{N}{n}}$ | $n\dfrac{M}{N}$ | $n\dfrac{M}{N}\left(1-\dfrac{M}{N}\right)\left(1-\dfrac{n-1}{N-1}\right)$ |
-| Pascal / geometric $Geo(p)$ | Trial number of the first success | $P(X=k)=p(1-p)^{k-1}$, $k=1,2,\ldots$ | $\dfrac{1}{p}$ | $\dfrac{1-p}{p^2}$ |
-| Negative binomial $NegBin(r,p)$ | Trial number of the $r$-th success | $P(X=k)=\binom{k-1}{r-1}p^r(1-p)^{k-r}$, $k=r,r+1,\ldots$ | $\dfrac{r}{p}$ | $\dfrac{r(1-p)}{p^2}$ |
-| Poisson $Poi(\lambda)$ | Count of rare or independently occurring events in a fixed interval | $P(X=k)=\dfrac{\lambda^k}{k!}e^{-\lambda}$, $k=0,1,\ldots$ | $\lambda$ | $\lambda$ |
+| Distribution                    | Meaning                                                                              | Probability function                                        | Expected value  | Variance                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------- | --------------- | ------------------------------------------------------------------------- |
+| Bernoulli / indicator $Ind(p)$  | Whether one event with probability $p$ occurs                                        | $P(X=1)=p$, $P(X=0)=1-p$                                    | $p$             | $p(1-p)$                                                                  |
+| Binomial $Bin(n,p)$             | Number of successes in $n$ independent trials with success probability $p$           | $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$, $k=0,\ldots,n$         | $np$            | $np(1-p)$                                                                 |
+| Hypergeometric $Hyp(N,M,n)$     | Number of marked elements in sampling without replacement from $N$ items, $M$ marked | $P(X=k)=\dfrac{\binom{M}{k}\binom{N-M}{n-k}}{\binom{N}{n}}$ | $n\dfrac{M}{N}$ | $n\dfrac{M}{N}\left(1-\dfrac{M}{N}\right)\left(1-\dfrac{n-1}{N-1}\right)$ |
+| Pascal / geometric $Geo(p)$     | Trial number of the first success                                                    | $P(X=k)=p(1-p)^{k-1}$, $k=1,2,\ldots$                       | $\dfrac{1}{p}$  | $\dfrac{1-p}{p^2}$                                                        |
+| Negative binomial $NegBin(r,p)$ | Trial number of the $r$-th success                                                   | $P(X=k)=\binom{k-1}{r-1}p^r(1-p)^{k-r}$, $k=r,r+1,\ldots$   | $\dfrac{r}{p}$  | $\dfrac{r(1-p)}{p^2}$                                                     |
+| Poisson $Poi(\lambda)$          | Count of rare or independently occurring events in a fixed interval                  | $P(X=k)=\dfrac{\lambda^k}{k!}e^{-\lambda}$, $k=0,1,\ldots$  | $\lambda$       | $\lambda$                                                                 |
 
 The first-success distribution is often called geometric, while the $r$-th-success version is the negative binomial or Pascal distribution. Both conventions are useful because terminology varies.
 
 Important continuous distributions:
 
-| Distribution | Density or distribution function | Expected value | Variance |
-| --- | --- | --- | --- |
-| Uniform $U(a,b)$ | $f(x)=\dfrac{1}{b-a}$ for $a<x<b$, otherwise $0$ | $\dfrac{a+b}{2}$ | $\dfrac{(b-a)^2}{12}$ |
-| Exponential $Exp(\lambda)$ | $f(x)=\lambda e^{-\lambda x}$ for $x\geq 0$, otherwise $0$; $F(x)=1-e^{-\lambda x}$ for $x\geq 0$ | $\dfrac{1}{\lambda}$ | $\dfrac{1}{\lambda^2}$ |
-| Normal $N(m,\sigma^2)$ | $f(x)=\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-m)^2}{2\sigma^2}}$, $x\in\mathbb{R}$ | $m$ | $\sigma^2$ |
-| Standard normal $N(0,1)$ | $\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-x^2/2}$, distribution function $\Phi(x)$ | $0$ | $1$ |
+| Distribution                   | Density or distribution function                                                                     | Expected value            | Variance                    |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------- | ------------------------- | --------------------------- |
+| Uniform $U(a,b)$               | $f(x)=\dfrac{1}{b-a}$ for $a<x<b$, otherwise $0$                                                     | $\dfrac{a+b}{2}$          | $\dfrac{(b-a)^2}{12}$       |
+| Exponential $Exp(\lambda)$     | $f(x)=\lambda e^{-\lambda x}$ for $x\geq 0$, otherwise $0$; $F(x)=1-e^{-\lambda x}$ for $x\geq 0$    | $\dfrac{1}{\lambda}$      | $\dfrac{1}{\lambda^2}$      |
+| Normal $N(m,\sigma^2)$         | $f(x)=\dfrac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-m)^2}{2\sigma^2}}$, $x\in\mathbb{R}$                  | $m$                       | $\sigma^2$                  |
+| Standard normal $N(0,1)$       | $\varphi(x)=\dfrac{1}{\sqrt{2\pi}}e^{-x^2/2}$, distribution function $\Phi(x)$                       | $0$                       | $1$                         |
 | Gamma $\Gamma(\alpha,\lambda)$ | $f(x)=\dfrac{\lambda^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\lambda x}$ for $x\geq 0$, otherwise $0$ | $\dfrac{\alpha}{\lambda}$ | $\dfrac{\alpha}{\lambda^2}$ |
 
 Uniform, exponential, and normal distributions are the central continuous examples. Gamma is also useful because it generalizes waiting-time distributions and includes the exponential distribution as a special case.
@@ -146,7 +144,7 @@ Correlation is the normalized version of covariance. It divides covariance by th
 Let $X_1,X_2,\ldots$ be independent and identically distributed random variables with
 
 $$
-E(X_i)=m,\qquad Var(X_i)=\sigma^2<\infty.
+E(X_i)=m,\quad Var(X_i)=\sigma^2<\infty.
 $$
 
 The sample mean is
@@ -412,11 +410,11 @@ Under the null hypothesis and with sufficiently large expected counts, this has 
 
 Three standard applications:
 
-| Test | Null hypothesis | Data layout | Expected count |
-| --- | --- | --- | --- |
-| Goodness-of-fit | One categorical distribution equals specified probabilities, or data fit a specified distribution after grouping | One sample across $r$ categories | $E_i=np_i$ |
-| Homogeneity | Several populations have the same categorical distribution | Contingency table with groups as rows and categories as columns | $E_{ij}=\dfrac{(\text{row total}_i)(\text{column total}_j)}{\text{grand total}}$ |
-| Independence | Two categorical variables are independent in one population | Contingency table crossing the two variables | $E_{ij}=\dfrac{(\text{row total}_i)(\text{column total}_j)}{\text{grand total}}$ |
+| Test            | Null hypothesis                                                                                                  | Data layout                                                     | Expected count                                                                   |
+| --------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Goodness-of-fit | One categorical distribution equals specified probabilities, or data fit a specified distribution after grouping | One sample across $r$ categories                                | $E_i=np_i$                                                                       |
+| Homogeneity     | Several populations have the same categorical distribution                                                       | Contingency table with groups as rows and categories as columns | $E_{ij}=\dfrac{(\text{row total}_i)(\text{column total}_j)}{\text{grand total}}$ |
+| Independence    | Two categorical variables are independent in one population                                                      | Contingency table crossing the two variables                    | $E_{ij}=\dfrac{(\text{row total}_i)(\text{column total}_j)}{\text{grand total}}$ |
 
 For an $a\times b$ contingency table, the homogeneity and independence test statistic is
 
@@ -488,22 +486,22 @@ $$
 The method-of-moments estimator solves
 
 $$
-M_l(\theta)=\hat M_l,\qquad l=1,\dots,k.
+M_l(\theta)=\hat M_l,\quad l=1,\dots,k.
 $$
 
 This is less central than maximum likelihood in the topic, but it is a standard estimator construction.
 
 #### Additional Classical Tests
 
-| Test | Role | Compact interpretation |
-| --- | --- | --- |
-| F-test | Tests equality of variances in two normal samples. | Compare a variance ratio to an F distribution. |
-| Welch test | Two-sample mean test without assuming equal variances. | A t-like statistic with adjusted degrees of freedom. |
-| Sequential test | Takes observations until likelihood ratio crosses an accept/reject boundary. | Uses $V_n=L_1/L_0$ and thresholds $A<B$. |
-| Quality-control test | Decides accept/reject/continue after staged sampling. | Uses thresholds and expected sample size. |
-| Kolmogorov-Smirnov test | Compares empirical distribution functions or tests fit to a distribution. | Uses a supremum distance between distribution functions. |
-| Sign test | Nonparametric test based on signs. | Counts how many observations or differences are positive. |
-| Wilcoxon test | Rank-based nonparametric test. | Uses ordering/ranks instead of normality assumptions. |
+| Test                    | Role                                                                         | Compact interpretation                                    |
+| ----------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- |
+| F-test                  | Tests equality of variances in two normal samples.                           | Compare a variance ratio to an F distribution.            |
+| Welch test              | Two-sample mean test without assuming equal variances.                       | A t-like statistic with adjusted degrees of freedom.      |
+| Sequential test         | Takes observations until likelihood ratio crosses an accept/reject boundary. | Uses $V_n=L_1/L_0$ and thresholds $A<B$.                  |
+| Quality-control test    | Decides accept/reject/continue after staged sampling.                        | Uses thresholds and expected sample size.                 |
+| Kolmogorov-Smirnov test | Compares empirical distribution functions or tests fit to a distribution.    | Uses a supremum distance between distribution functions.  |
+| Sign test               | Nonparametric test based on signs.                                           | Counts how many observations or differences are positive. |
+| Wilcoxon test           | Rank-based nonparametric test.                                               | Uses ordering/ranks instead of normality assumptions.     |
 
 These tests are not part of the subject-5 wording except insofar as they illustrate the general hypothesis-testing framework.
 

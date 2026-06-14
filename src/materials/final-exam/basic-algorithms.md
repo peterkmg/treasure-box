@@ -10,21 +10,21 @@ Efficiency and growth-rate material is included here directly.
 
 Algorithm efficiency describes how resource use grows with input size. The two most common resources are:
 
-| Resource | Meaning |
-| --- | --- |
-| Time complexity | Number of elementary operations as a function of input size. |
+| Resource         | Meaning                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| Time complexity  | Number of elementary operations as a function of input size.                         |
 | Space complexity | Amount of memory used as a function of input size, often excluding the input itself. |
 
 The input size is usually denoted by $n$, but other parameters can matter. For example, counting sort is $O(n + k)$, where $k$ is the key range. String matching often uses $n$ for text length and $m$ for pattern length.
 
 The lower-bound argument uses operation-count notation:
 
-| Notation | Meaning |
-| --- | --- |
-| $T(n)$ | Operation count as a function of input size. |
-| $mT(n)$ | Minimum operation count. |
-| $MT(n)$ | Maximum operation count. |
-| $AT(n)$ | Average operation count. |
+| Notation | Meaning                                      |
+| -------- | -------------------------------------------- |
+| $T(n)$   | Operation count as a function of input size. |
+| $mT(n)$  | Minimum operation count.                     |
+| $MT(n)$  | Maximum operation count.                     |
+| $AT(n)$  | Average operation count.                     |
 
 When analyzing an algorithm, choose the dominant operation. In sorting, this is often comparison count or movement count. In string matching, it may be character comparisons. In graph algorithms, it may be edge scans.
 
@@ -32,39 +32,39 @@ When analyzing an algorithm, choose the dominant operation. In sorting, this is 
 
 Asymptotic notation ignores constant factors and lower-order terms to compare growth for large inputs.
 
-| Notation | Meaning | Formal intuition |
-| --- | --- | --- |
-| $O(g(n))$ | Asymptotic upper bound | $f(n)$ grows no faster than a constant multiple of $g(n)$. |
+| Notation       | Meaning                | Formal intuition                                                |
+| -------------- | ---------------------- | --------------------------------------------------------------- |
+| $O(g(n))$      | Asymptotic upper bound | $f(n)$ grows no faster than a constant multiple of $g(n)$.      |
 | $\Omega(g(n))$ | Asymptotic lower bound | $f(n)$ grows at least as fast as a constant multiple of $g(n)$. |
-| $\Theta(g(n))$ | Tight bound | Both $O(g(n))$ and $\Omega(g(n))$. |
-| $o(g(n))$ | Strictly smaller order | $f(n) / g(n) \to 0$. |
-| $\omega(g(n))$ | Strictly larger order | $f(n) / g(n) \to \infty$. |
+| $\Theta(g(n))$ | Tight bound            | Both $O(g(n))$ and $\Omega(g(n))$.                              |
+| $o(g(n))$      | Strictly smaller order | $f(n) / g(n) \to 0$.                                            |
+| $\omega(g(n))$ | Strictly larger order  | $f(n) / g(n) \to \infty$.                                       |
 
 Common growth order:
 
-```text
+$$
 1 < log n < n < n log n < n^2 < n^3 < 2^n < n!
-```
+$$
 
 Examples:
 
-| Expression | Simplified growth |
-| --- | --- |
-| $3n + 10$ | $\Theta(n)$ |
-| $5n \log n + 12n$ | $\Theta(n \log n)$ |
-| $7n^2 + 100n \log n$ | $\Theta(n^2)$ |
-| Binary search | $\Theta(\log n)$ |
-| Linear scan | $\Theta(n)$ |
-| Nested loops over all pairs | $\Theta(n^2)$ |
+| Expression                  | Simplified growth  |
+| --------------------------- | ------------------ |
+| $3n + 10$                   | $\Theta(n)$        |
+| $5n \log n + 12n$           | $\Theta(n \log n)$ |
+| $7n^2 + 100n \log n$        | $\Theta(n^2)$      |
+| Binary search               | $\Theta(\log n)$   |
+| Linear scan                 | $\Theta(n)$        |
+| Nested loops over all pairs | $\Theta(n^2)$      |
 
 ### Best, Worst, and Average Cases
 
 For the same input size, different actual inputs can cause different running times.
 
-| Case | Meaning |
-| --- | --- |
-| Best case | Minimum cost among inputs of size `n`. |
-| Worst case | Maximum cost among inputs of size `n`. |
+| Case         | Meaning                                            |
+| ------------ | -------------------------------------------------- |
+| Best case    | Minimum cost among inputs of size $n$.             |
+| Worst case   | Maximum cost among inputs of size $n$.             |
 | Average case | Expected cost under an assumed input distribution. |
 
 Worst-case analysis is useful because it gives a guarantee. Average-case analysis is useful only when the distribution assumption is meaningful.
@@ -73,18 +73,18 @@ Worst-case analysis is useful because it gives a guarantee. Average-case analysi
 
 Sorting algorithms are often compared by more than time complexity.
 
-| Property | Meaning |
-| --- | --- |
-| Stable | Equal keys keep their original relative order. |
+| Property | Meaning                                                              |
+| -------- | -------------------------------------------------------------------- |
+| Stable   | Equal keys keep their original relative order.                       |
 | In-place | Uses only constant or small auxiliary memory beyond the input array. |
-| Adaptive | Runs faster on partially sorted input. |
+| Adaptive | Runs faster on partially sorted input.                               |
 
 These properties matter for choosing algorithms in practice. For example, stable sorting is important when sorting records by multiple keys.
 
 ### What to Emphasize in an Oral Answer
 
 - Define efficiency as growth of resource use with input size, mainly time and space.
-- Mention that input size may involve more than `n`, such as key range `k` or pattern length `m`.
+- Mention that input size may involve more than $n$, such as key range $k$ or pattern length $m$.
 - Explain operation counts and the dominant operation: comparisons, moves, character comparisons, edge scans, and similar units.
 - Distinguish best, worst, and average case; average case requires a meaningful input distribution, while worst case gives a guarantee.
 - Define the main asymptotic notations: $O$, $\Omega$, $\Theta$, and optionally strict $o$ and $\omega$.
@@ -107,23 +107,23 @@ A comparison sort obtains information about the input order only by comparing el
 
 ### Sorting Summary
 
-| Algorithm | Best | Average | Worst | Stable | In-place | Notes |
-| --- | --- | --- | --- | --- | --- | --- |
-| Insertion sort | $O(n)$ | $O(n^2)$ | $O(n^2)$ | Yes | Yes for arrays | Excellent for small or nearly sorted input. |
-| Merge sort | $O(n \log n)$ | $O(n \log n)$ | $O(n \log n)$ | Yes if implemented carefully | No for arrays | Divide and conquer; needs auxiliary space. |
-| Quicksort | $O(n \log n)$ | $O(n \log n)$ | $O(n^2)$ | Usually no | Yes-ish for arrays plus recursion stack | Fast in practice with good pivots. |
-| Heap sort | $O(n \log n)$ | $O(n \log n)$ | $O(n \log n)$ | No | Yes | Uses binary heap; good worst-case bound. |
-| Bubble sort | $O(n)$ optimized | $O(n^2)$ | $O(n^2)$ | Yes | Yes | Secondary example, rarely used in practice. |
-| Tournament sort | $O(n \log n)$ | $O(n \log n)$ | $O(n \log n)$ | Depends | Extra tree space | Secondary example, rarely used in practice. |
+| Algorithm       | Best             | Average       | Worst         | Stable                       | In-place                                | Notes                                       |
+| --------------- | ---------------- | ------------- | ------------- | ---------------------------- | --------------------------------------- | ------------------------------------------- |
+| Insertion sort  | $O(n)$           | $O(n^2)$      | $O(n^2)$      | Yes                          | Yes for arrays                          | Excellent for small or nearly sorted input. |
+| Merge sort      | $O(n \log n)$    | $O(n \log n)$ | $O(n \log n)$ | Yes if implemented carefully | No for arrays                           | Divide and conquer; needs auxiliary space.  |
+| Quicksort       | $O(n \log n)$    | $O(n \log n)$ | $O(n^2)$      | Usually no                   | Yes-ish for arrays plus recursion stack | Fast in practice with good pivots.          |
+| Heap sort       | $O(n \log n)$    | $O(n \log n)$ | $O(n \log n)$ | No                           | Yes                                     | Uses binary heap; good worst-case bound.    |
+| Bubble sort     | $O(n)$ optimized | $O(n^2)$      | $O(n^2)$      | Yes                          | Yes                                     | Secondary example, rarely used in practice. |
+| Tournament sort | $O(n \log n)$    | $O(n \log n)$ | $O(n \log n)$ | Depends                      | Extra tree space                        | Secondary example, rarely used in practice. |
 
 ### Insertion Sort
 
 Important points:
 
-- For small `n` around 30, insertion sort can be very good.
+- For small $n$ around 30, insertion sort can be very good.
 - Moving an element takes one assignment, while a swap in bubble sort takes three assignments.
 - It can be implemented on a linked list by adjusting pointers.
-- At step `j`, prefix `A[1..j]` is sorted.
+- At step $j$, prefix $A[1..j]$ is sorted.
 
 Algorithm:
 
@@ -137,7 +137,7 @@ for j := 2 to n:
     A[i + 1] := key
 ```
 
-Invariant: before each outer-loop iteration, the prefix before `j` is sorted and contains the same elements as before. The algorithm inserts `A[j]` into its correct position in that sorted prefix.
+Invariant: before each outer-loop iteration, the prefix before $j$ is sorted and contains the same elements as before. The algorithm inserts $A[j]$ into its correct position in that sorted prefix.
 
 Insertion sort is stable if equal keys are not moved past each other. It is adaptive because nearly sorted arrays cause few shifts.
 
@@ -156,11 +156,11 @@ mergeSort(A):
     return merge(left, right)
 ```
 
-The merge step scans two sorted sequences and repeatedly copies the smaller current element to the output. Merging costs $\Theta(n)$ for total length `n`. The recurrence is:
+The merge step scans two sorted sequences and repeatedly copies the smaller current element to the output. Merging costs $\Theta(n)$ for total length $n$. The recurrence is:
 
-```text
-T(n) = 2T(n/2) + Theta(n) = Theta(n log n)
-```
+$$
+T(n) = 2T(n/2) + \Theta(n) = \Theta(n \log n)
+$$
 
 Merge sort gives reliable $O(n \log n)$ time and can be stable. Its usual array version needs $O(n)$ auxiliary memory.
 
@@ -210,11 +210,11 @@ The result is sorted in ascending order because the largest remaining active ele
 
 Complexity:
 
-| Step | Cost |
-| --- | --- |
-| Build heap bottom-up | $O(n)$ |
+| Step                   | Cost          |
+| ---------------------- | ------------- |
+| Build heap bottom-up   | $O(n)$        |
 | $n - 1$ removals/sinks | $O(n \log n)$ |
-| Total | $O(n \log n)$ |
+| Total                  | $O(n \log n)$ |
 
 Heap sort is in-place and has good worst-case complexity, but it is not stable and often has worse cache behavior than quicksort.
 
@@ -250,7 +250,7 @@ Operation counts and decision trees give the lower-bound argument. The corrected
 
 ### Maximum Selection Lower Bound
 
-Finding the maximum of `n` elements requires at least $n - 1$ comparisons. If an element is never compared, it could be larger than all others, so it cannot be ruled out. Each comparison can eliminate at most one candidate from being the maximum, and $n - 1$ candidates must be eliminated.
+Finding the maximum of $n$ elements requires at least $n - 1$ comparisons. If an element is never compared, it could be larger than all others, so it cannot be ruled out. Each comparison can eliminate at most one candidate from being the maximum, and $n - 1$ candidates must be eliminated.
 
 ### Decision Tree Model
 
@@ -261,53 +261,59 @@ For comparison sorting, every comparison has one of two outcomes, so any determi
 - leaves are possible final orderings/permutations;
 - the height of the tree corresponds to worst-case comparisons.
 
-To sort `n` distinct elements correctly, the algorithm must distinguish all `n!` possible input permutations. Therefore the decision tree must have at least `n!` leaves.
+To sort $n$ distinct elements correctly, the algorithm must distinguish all $n!$ possible input permutations. Therefore the decision tree must have at least $n!$ leaves.
 
-A binary tree of height `h` has at most $2^h$ leaves, so:
+A binary tree of height $h$ has at most $2^h$ leaves, so:
 
-```text
-2^h >= n!
-h >= log2(n!)
-```
+$$
+\begin{aligned}
+2^h &\ge n! \\
+h &\ge \log_2(n!)
+\end{aligned}
+$$
 
 ### Worst-Case Lower Bound
 
 We need:
 
-```text
-log2(n!) = Omega(n log n)
-```
+$$
+\log_2(n!) = \Omega(n \log n)
+$$
 
 One simple bound:
 
-```text
-n! = 1 * 2 * ... * n
-   >= (n/2)^(n/2)
-```
+$$
+\begin{aligned}
+n! &= 1 * 2 * \ldots * n \\
+&\geq (n/2)^{n/2}
+\end{aligned}
+$$
 
 because the last $n/2$ factors are all at least $n/2$. Therefore:
 
-```text
-log2(n!) >= log2((n/2)^(n/2))
-          = (n/2) log2(n/2)
-          = Omega(n log n)
-```
+$$
+\begin{aligned}
+\log_2(n!) &\geq \log_2((n/2)^{n/2}) \\
+&= (n/2) \log_2(n/2) \\
+&= \Omega(n \log n)
+\end{aligned}
+$$
 
 Thus every comparison sort has worst-case comparison count:
 
-```text
-Omega(n log n)
-```
+$$
+\Omega(n \log n)
+$$
 
 Merge sort and heap sort match this lower bound asymptotically with $O(n \log n)$ worst-case time, so they are asymptotically optimal among comparison sorts.
 
 ### Average-Case Lower Bound
 
-The same decision-tree model also gives an average-case lower bound when every input permutation is equally likely. The idea is that the average number of comparisons is the average depth of leaves in the decision tree. Among binary trees with a fixed number of leaves, an almost complete tree minimizes the leaf-depth sum. Since the tree still needs `n!` leaves, the average depth is also:
+The same decision-tree model also gives an average-case lower bound when every input permutation is equally likely. The idea is that the average number of comparisons is the average depth of leaves in the decision tree. Among binary trees with a fixed number of leaves, an almost complete tree minimizes the leaf-depth sum. Since the tree still needs $n!$ leaves, the average depth is also:
 
-```text
-Omega(log(n!)) = Omega(n log n)
-```
+$$
+\Omega(\log(n!)) = \Omega(n \log n)
+$$
 
 So comparison sorting requires $\Omega(n \log n)$ comparisons not only in the worst case, but also on average under the uniform permutation model.
 
@@ -315,7 +321,7 @@ So comparison sorting requires $\Omega(n \log n)$ comparisons not only in the wo
 
 - Start with the simpler maximum-selection lower bound: finding the maximum needs at least $n-1$ comparisons because each comparison eliminates at most one candidate.
 - Define the decision-tree model for deterministic comparison sorting: internal nodes are comparisons, edges are outcomes, leaves are final permutations.
-- State why at least $n!$ leaves are necessary for `n` distinct inputs.
+- State why at least $n!$ leaves are necessary for $n$ distinct inputs.
 - Use the binary-tree height bound $2^h \ge n!$, so $h \ge \log_2(n!)$.
 - Show the asymptotic step: $n! \ge (n/2)^{n/2}$ implies $\log(n!)=\Omega(n\log n)$.
 - Conclude that every comparison sort needs $\Omega(n\log n)$ comparisons in the worst case, and also on average under the uniform permutation model.
@@ -349,25 +355,25 @@ Algorithm:
 
 Example:
 
-| Input values in `[0, 1)` | Buckets |
-| --- | --- |
+| Input values in `[0, 1)`       | Buckets                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------- |
 | `0.12, 0.78, 0.31, 0.25, 0.94` | `[0.0,0.2): 0.12`, `[0.2,0.4): 0.25,0.31`, `[0.6,0.8): 0.78`, `[0.8,1.0): 0.94` |
 
-If elements are uniformly distributed and the number of buckets is proportional to `n`, bucket sort has expected $O(n)$ time. In the worst case, all elements may land in one bucket and the cost depends on the internal bucket sort, often $O(n^2)$ if insertion sort is used.
+If elements are uniformly distributed and the number of buckets is proportional to $n$, bucket sort has expected $O(n)$ time. In the worst case, all elements may land in one bucket and the cost depends on the internal bucket sort, often $O(n^2)$ if insertion sort is used.
 
 ### Counting Sort
 
 Counting sort is stable and linear when keys are integers in a small range.
 
-Assume keys lie in `[0..k]`.
+Assume keys lie in $\{0,\ldots,k\}$.
 
 Algorithm:
 
-1. Create count array `C[0..k]`, initially zero.
-2. Scan input and increment `C[key]`.
-3. Compute prefix sums in `C`; after this, `C[x]` tells how many elements are $\le x$.
-4. Scan input from right to left and place each element into its final output position using `C[key]`.
-5. Decrement `C[key]` after placing.
+1. Create count array $C[0..k]$, initially zero.
+2. Scan input and increment $C[key]$.
+3. Compute prefix sums in $C$; after this, $C[x]$ tells how many elements are $\le x$.
+4. Scan input from right to left and place each element into its final output position using $C[key]$.
+5. Decrement $C[key]$ after placing.
 
 Worked example:
 
@@ -379,12 +385,12 @@ output: 0 0 2 2 3 3 3 5
 
 Complexity:
 
-| Measure | Cost |
-| --- | --- |
-| Time | $O(n + k)$ |
-| Space | $O(n + k)$ if stable output array is used |
+| Measure | Cost                                      |
+| ------- | ----------------------------------------- |
+| Time    | $O(n + k)$                                |
+| Space   | $O(n + k)$ if stable output array is used |
 
-Counting sort is useful when `k` is not much larger than `n`. It is also commonly used as the stable subroutine in radix sort.
+Counting sort is useful when $k$ is not much larger than $n$. It is also commonly used as the stable subroutine in radix sort.
 
 ### Radix Sort
 
@@ -403,32 +409,30 @@ hundreds digit:329 355 436 457 657 720 839
 
 Complexity:
 
-```text
-O(d(n + k))
-```
+$O(d(n + k))$
 
 where:
 
-- `d` is the number of digits;
-- `k` is the base/range of each digit;
-- `n` is the number of elements.
+- $d$ is the number of digits;
+- $k$ is the base/range of each digit;
+- $n$ is the number of elements.
 
-If `d` and `k` are bounded or small relative to `n`, radix sort is linear in `n`. It is not a comparison sort and therefore does not contradict the comparison-sort lower bound.
+If $d$ and $k$ are bounded or small relative to $n$, radix sort is linear in $n$. It is not a comparison sort and therefore does not contradict the comparison-sort lower bound.
 
 ### Linear-Time Sorting Comparison
 
-| Algorithm | Assumption | Time | Stable | Main limitation |
-| --- | --- | --- | --- | --- |
-| Bucket sort | Roughly uniform distribution | Expected $O(n)$ | Depends on bucket sort | Bad distribution can make it slow |
-| Counting sort | Integer keys in small range | $O(n + k)$ | Yes when implemented with prefix sums | Large key range costs memory/time |
-| Radix sort | Keys split into fixed digits | $O(d(n + k))$ | Yes if digit sort is stable | Needs digit representation and stable sub-sort |
+| Algorithm     | Assumption                   | Time            | Stable                                | Main limitation                                |
+| ------------- | ---------------------------- | --------------- | ------------------------------------- | ---------------------------------------------- |
+| Bucket sort   | Roughly uniform distribution | Expected $O(n)$ | Depends on bucket sort                | Bad distribution can make it slow              |
+| Counting sort | Integer keys in small range  | $O(n + k)$      | Yes when implemented with prefix sums | Large key range costs memory/time              |
+| Radix sort    | Keys split into fixed digits | $O(d(n + k))$   | Yes if digit sort is stable           | Needs digit representation and stable sub-sort |
 
 ### What to Emphasize in an Oral Answer
 
 - Start with why the comparison lower bound does not apply: these algorithms use key structure beyond comparisons.
 - Bucket sort: assumes near-uniform distribution over a range, distributes elements into buckets, sorts buckets, concatenates; expected $O(n)$ but bad distribution can be slow.
-- Counting sort: assumes integer keys in a small range `[0..k]`; count frequencies, compute prefix sums, place into output positions.
-- State counting-sort cost and limitation: $O(n+k)$ time and usually $O(n+k)$ space, useful only when `k` is not too large.
+- Counting sort: assumes integer keys in a small range $\{0,\ldots,k\}$; count frequencies, compute prefix sums, place into output positions.
+- State counting-sort cost and limitation: $O(n+k)$ time and usually $O(n+k)$ space, useful only when $k$ is not too large.
 - Mention stability of counting sort and the usual right-to-left placement for stable output.
 - Radix sort: process digits with a stable sub-sort, commonly least significant to most significant, with cost $O(d(n+k))$.
 - Conclude with assumptions/tradeoffs: bucket depends on distribution, counting on range, radix on digit representation and stable passes.
@@ -451,41 +455,41 @@ Three basic lossless compression methods are naive fixed-length coding, Huffman 
 
 Naive compression encodes every character independently using fixed-length bit strings.
 
-If the alphabet has `d` symbols, each symbol needs:
+If the alphabet has $d$ symbols, each symbol needs:
 
-```text
-ceil(log2 d)
-```
+$$
+\lceil \log_2 d \rceil
+$$
 
-bits, because that many bits can encode at least `d` different codes.
+bits, because that many bits can encode at least $d$ different codes.
 
-For an input of length `n`, the encoded length is:
+For an input of length $n$, the encoded length is:
 
-```text
-n * ceil(log2 d)
-```
+$$
+n \cdot \lceil \log_2 d \rceil
+$$
 
 plus the code table, if the decoder does not already know it.
 
 Example: `ABRAKADABRA`.
 
-| Quantity | Value |
-| --- | --- |
-| Distinct symbols | `A, B, R, K, D` |
-| `d` | 5 |
-| `n` | 11 |
-| Bits per symbol | $\lceil log2 5 \rceil = 3$ |
-| Encoded data length | $11 \cdot 3 = 33$ bits |
+| Quantity            | Value                      |
+| ------------------- | -------------------------- |
+| Distinct symbols    | `A, B, R, K, D`            |
+| $d$                 | 5                          |
+| $n$                 | 11                         |
+| Bits per symbol     | $\lceil log2 5 \rceil = 3$ |
+| Encoded data length | $11 \cdot 3 = 33$ bits     |
 
 One possible fixed-length code table:
 
-| Symbol | Code |
-| --- | --- |
-| A | `000` |
-| B | `001` |
-| R | `010` |
-| K | `011` |
-| D | `100` |
+| Symbol | Code  |
+| ------ | ----- |
+| A      | `000` |
+| B      | `001` |
+| R      | `010` |
+| K      | `011` |
+| D      | `100` |
 
 This is simple but does not exploit different character frequencies.
 
@@ -504,28 +508,28 @@ Algorithm:
 
 Example frequencies:
 
-| Symbol | A | B | C | D | E |
-| --- | --- | --- | --- | --- | --- |
-| Frequency | 5 | 4 | 3 | 2 | 1 |
+| Symbol    | A   | B   | C   | D   | E   |
+| --------- | --- | --- | --- | --- | --- |
+| Frequency | 5   | 4   | 3   | 2   | 1   |
 
 Merge sequence:
 
-| Step | Merge | New frequency | Remaining groups |
-| --- | --- | --- | --- |
-| 1 | `D + E` | 3 | `A:5, B:4, C:3, DE:3` |
-| 2 | `C + DE` | 6 | `CDE:6, A:5, B:4` |
-| 3 | `A + B` | 9 | `AB:9, CDE:6` |
-| 4 | `AB + CDE` | 15 | root |
+| Step | Merge      | New frequency | Remaining groups      |
+| ---- | ---------- | ------------- | --------------------- |
+| 1    | `D + E`    | 3             | `A:5, B:4, C:3, DE:3` |
+| 2    | `C + DE`   | 6             | `CDE:6, A:5, B:4`     |
+| 3    | `A + B`    | 9             | `AB:9, CDE:6`         |
+| 4    | `AB + CDE` | 15            | root                  |
 
 One code table:
 
-| Symbol | Code |
-| --- | --- |
-| A | `00` |
-| B | `01` |
-| C | `10` |
-| D | `110` |
-| E | `111` |
+| Symbol | Code  |
+| ------ | ----- |
+| A      | `00`  |
+| B      | `01`  |
+| C      | `10`  |
+| D      | `110` |
+| E      | `111` |
 
 Tree sketch:
 
@@ -593,11 +597,11 @@ missing entry = previous_string + first(previous_string)
 
 ### Compression Comparison
 
-| Method | Needs prior frequencies? | Main idea | Strength | Weakness |
-| --- | --- | --- | --- | --- |
-| Naive fixed-length | No | Same bit length for every symbol | Very simple | Ignores frequency |
-| Huffman | Yes | Frequent symbols get shorter prefix-free codes | Optimal prefix code for known frequencies | Code table/tree needed |
-| LZW | No | Build dictionary of repeated strings | Adapts to repeated substrings | Dictionary management and edge cases |
+| Method             | Needs prior frequencies? | Main idea                                      | Strength                                  | Weakness                             |
+| ------------------ | ------------------------ | ---------------------------------------------- | ----------------------------------------- | ------------------------------------ |
+| Naive fixed-length | No                       | Same bit length for every symbol               | Very simple                               | Ignores frequency                    |
+| Huffman            | Yes                      | Frequent symbols get shorter prefix-free codes | Optimal prefix code for known frequencies | Code table/tree needed               |
+| LZW                | No                       | Build dictionary of repeated strings           | Adapts to repeated substrings             | Dictionary management and edge cases |
 
 ### What to Emphasize in an Oral Answer
 
@@ -621,7 +625,7 @@ LZW uses a dynamically built dictionary rather than prior frequencies. The encod
 
 ## 14.6 String Matching: Brute Force, Quick Search, and KMP
 
-String matching searches for a pattern `P` of length `m` inside a text `T` of length `n`.
+String matching searches for a pattern $P$ of length $m$ inside a text $T$ of length $n$.
 
 ### Brute-Force Pattern Matching
 
@@ -652,13 +656,13 @@ Core idea:
 Prefix example for pattern `ABABAC`:
 
 | Prefix ending at position | Longest proper prefix also suffix | Length |
-| --- | --- | --- |
-| `A` | empty | 0 |
-| `AB` | empty | 0 |
-| `ABA` | `A` | 1 |
-| `ABAB` | `AB` | 2 |
-| `ABABA` | `ABA` | 3 |
-| `ABABAC` | empty | 0 |
+| ------------------------- | --------------------------------- | ------ |
+| `A`                       | empty                             | 0      |
+| `AB`                      | empty                             | 0      |
+| `ABA`                     | `A`                               | 1      |
+| `ABAB`                    | `AB`                              | 2      |
+| `ABABA`                   | `ABA`                             | 3      |
+| `ABABAC`                  | empty                             | 0      |
 
 KMP search:
 
@@ -684,19 +688,22 @@ The failure function is computed in $O(m)$, and the search is $O(n)$, so total t
 
 Quick Search decides the shift from the character immediately after the current pattern window, not from the mismatch position itself.
 
-Let `Shift[c]` be precomputed from the pattern:
+Let $\mathrm{Shift}[c]$ be precomputed from the pattern:
 
-- if character `c` occurs in the pattern, align the rightmost occurrence of `c` in the pattern with the text character after the current window;
-- if `c` does not occur in the pattern, shift the pattern completely past that character.
+- if character $c$ occurs in the pattern, align the rightmost occurrence of $c$ in the pattern with the text character after the current window;
+- if $c$ does not occur in the pattern, shift the pattern completely past that character.
 
-For pattern length `m`, a common shift definition is:
+For pattern length $m$, a common shift definition is:
 
-```text
-Shift[c] = m + 1              if c does not occur in P
-Shift[c] = m - lastIndex(c)   if c occurs in P
-```
+$$
+\mathrm{Shift}[c] =
+\begin{cases}
+m + 1, & \text{if } c \text{ does not occur in } P,\\
+m - \mathrm{lastIndex}(c), & \text{if } c \text{ occurs in } P.
+\end{cases}
+$$
 
-where `lastIndex(c)` is zero-based.
+where $\mathrm{lastIndex}(c)$ is zero-based.
 
 Search sketch:
 
@@ -718,28 +725,28 @@ Quick Search can skip several positions and is often efficient in practice. Its 
 
 Rabin-Karp is included as secondary string-matching material alongside brute force, Quick Search, and KMP.
 
-Rabin-Karp treats the pattern and each text window as numbers computed with a rolling hash. For pattern length `m`, alphabet base `d`, and text-window hash $s_i$, the next hash can be computed in constant time:
+Rabin-Karp treats the pattern and each text window as numbers computed with a rolling hash. For pattern length $m$, alphabet base $d$, and text-window hash $s_i$, the next hash can be computed in constant time:
 
-```text
-s_{i+1} = (s_i - ord(T[i]) * d^(m-1)) * d + ord(T[i+m])
-```
+$$
+s_{i+1} = (s_i - \operatorname{ord}(T[i]) \cdot d^{m-1}) \cdot d + \operatorname{ord}(T[i+m])
+$$
 
-To avoid huge numbers, computation is done modulo a large prime `p`. Hash equality is only a candidate match, because different strings may have the same hash modulo `p`; candidate matches must be verified character by character. If the hashes differ, the strings definitely do not match.
+To avoid huge numbers, computation is done modulo a large prime $p$. Hash equality is only a candidate match, because different strings may have the same hash modulo $p$; candidate matches must be verified character by character. If the hashes differ, the strings definitely do not match.
 
 Rabin-Karp is useful when searching for many patterns or when rolling hashes are otherwise helpful.
 
 ### String-Matching Comparison
 
-| Algorithm | Preprocessing | Search time | Main idea |
-| --- | --- | --- | --- |
-| Brute force | None | Worst $O(nm)$ | Try every alignment. |
-| KMP | $O(m)$ failure function | $O(n)$ | Reuse matched prefix/suffix information. |
-| Quick Search | Shift table over alphabet | Often fast, worst $O(nm)$ | Shift based on character after current window. |
-| Rabin-Karp | Pattern hash | Expected good, worst with collisions/checks | Compare rolling hashes, verify candidates. |
+| Algorithm    | Preprocessing             | Search time                                 | Main idea                                      |
+| ------------ | ------------------------- | ------------------------------------------- | ---------------------------------------------- |
+| Brute force  | None                      | Worst $O(nm)$                               | Try every alignment.                           |
+| KMP          | $O(m)$ failure function   | $O(n)$                                      | Reuse matched prefix/suffix information.       |
+| Quick Search | Shift table over alphabet | Often fast, worst $O(nm)$                   | Shift based on character after current window. |
+| Rabin-Karp   | Pattern hash              | Expected good, worst with collisions/checks | Compare rolling hashes, verify candidates.     |
 
 ### What to Emphasize in an Oral Answer
 
-- Define the problem and notation: find occurrences of pattern `P` of length `m` in text `T` of length `n`.
+- Define the problem and notation: find occurrences of pattern $P$ of length $m$ in text $T$ of length $n$.
 - Brute force: try every shift and compare left to right; $O(nm)$ worst-case time and $O(1)$ extra space.
 - KMP: preprocess the pattern into a failure/prefix table based on longest proper prefix that is also a suffix.
 - Explain KMP's mechanism: after mismatch, shift according to prefix-suffix information so text characters are not rechecked unnecessarily.
@@ -749,7 +756,7 @@ Rabin-Karp is useful when searching for many patterns or when rolling hashes are
 
 ::: details Suggested answer
 
-In string matching we search for occurrences of a pattern `P` of length `m` in a text `T` of length `n`. The brute-force method tries every possible alignment. At each shift it compares the pattern with the text window from left to right. Its worst-case time is $O(nm)$, because many alignments may match almost all characters before failing, and it uses only constant extra space.
+In string matching we search for occurrences of a pattern $P$ of length $m$ in a text $T$ of length $n$. The brute-force method tries every possible alignment. At each shift it compares the pattern with the text window from left to right. Its worst-case time is $O(nm)$, because many alignments may match almost all characters before failing, and it uses only constant extra space.
 
 KMP improves this by preprocessing the pattern. It builds a next array or failure function that records, for each matched prefix, the longest proper prefix that is also a suffix. When a mismatch occurs, KMP shifts the pattern according to this information instead of restarting from scratch, so text characters are not rechecked unnecessarily. The pattern preprocessing is $O(m)$, the search is $O(n)$, so the total time is $O(n+m)$.
 
