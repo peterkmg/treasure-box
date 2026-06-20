@@ -297,7 +297,8 @@ inheritance is creating a new class from an existing class.
 | Inherited member           | Non-private member taken over by the subclass according to language rules. |
 | Abstract class             | Class that cannot be instantiated and may contain abstract operations.     |
 | Concrete class             | Class that can be instantiated.                                            |
-| Final/sealed class         | Class that cannot be further derived.                                      |
+| Final class                | Class that cannot be further derived.                                      |
+| Sealed class               | Class that restricts which other classes are allowed to inherit from it.   |
 
 Inheritance supports code reuse and specialization. A subclass can add data and operations and can override inherited behavior.
 
